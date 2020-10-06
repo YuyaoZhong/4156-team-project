@@ -1,0 +1,17 @@
+Part 1
+Weihan Chen wc2681
+Zeyu Zhu zz2676
+Xiaobin Lin xl2894
+Yuyao Zhong yz3618
+
+Part 2
+
+Part 3
+
+Front end: JavaScript
+Back end: Python
+
+Platform: Windows
+
+Part 4
+https://github.com/YuyaoZhong/4156-team-project
