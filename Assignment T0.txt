@@ -5,12 +5,11 @@ Xiaobin Lin xl2894
 Yuyao Zhong yz3618
 
 Part 2
+Falcon
 
 Part 3
-
 Front end: JavaScript
 Back end: Python
-
 Platform: Windows
 
 Part 4
