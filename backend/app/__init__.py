@@ -1,7 +1,12 @@
-from flask import Flask, json
+#!/user/bin/python3
+# -*- coding: utf-8 -*-
+"""
+Initialization app module
+"""
 import decimal
-from flask_cors import CORS
 from datetime import timedelta
+from flask import Flask, json
+from flask_cors import CORS
 from app.ext import db
 from app.config import SQLALCHEMY_DATABASE_URI
 from app.models import *
@@ -15,7 +20,7 @@ class MyJSONEncoder(json.JSONEncoder):
         return super(MyJSONEncoder, self).default(obj)
 
 
-def create_app():
+def createApp():
     app = Flask(__name__)
     CORS(app, resources={r"/*": {"origins": "*"}})
     # for update
@@ -26,7 +31,7 @@ def create_app():
 
 
 
-def create_mysql_ORM(app):
+def createMysqlOrm(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
     app.config["SQLALCHEMY_ECHO"] = False
     app.config["SQLALCHEMY_POOL_SIZE"] = 5
@@ -41,6 +46,6 @@ def create_mysql_ORM(app):
 
 
 
-app  = create_app()
-create_mysql_ORM(app)
-db.app = app
+application  = createApp()
+createMysqlOrm(application)
+db.app = application
