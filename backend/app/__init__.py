@@ -4,7 +4,8 @@ from flask_cors import CORS
 from datetime import timedelta
 from app.ext import db
 from app.config import SQLALCHEMY_DATABASE_URI
-from app.models import Task
+from app.models import *
+
 
 class MyJSONEncoder(json.JSONEncoder):
     def default(self, obj):
