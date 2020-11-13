@@ -5,12 +5,14 @@ Initialization app module
 """
 import decimal
 from datetime import timedelta
-from flask import Flask, json
+from flask import Flask, json, Blueprint
 from flask_cors import CORS
 from app.ext import db
 from app.config import SQLALCHEMY_DATABASE_URI
 from app.models import *
-
+from app.routes import routes
+from app.routes.tasks import *
+from app.routes.timers import *
 
 class MyJSONEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -41,11 +43,12 @@ def createMysqlOrm(app):
 
     with app.app_context():
         db.init_app(app)
+        app.register_blueprint(routes)
         # db.create_all()
         # db.session.commit()
 
 
+app  = createApp()
+createMysqlOrm(app)
+db.app = app
 
-application  = createApp()
-createMysqlOrm(application)
-db.app = application

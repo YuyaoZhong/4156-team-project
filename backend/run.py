@@ -1,12 +1,15 @@
-from app import application
-from app.routes import routes
+from app import app
+# from app.routes.tasks import *
 
-application.register_blueprint(routes)
 
-@application.route('/')
+
+@app.route('/')
 def index():
     return 'API backend test'
 
+@app.route('/v1')
+def index1():
+    return 'API backend test'
 
 if __name__ == '__main__':
-    application.run(debug=True, port=5000)
+    app.run(debug=True, port=5050)
