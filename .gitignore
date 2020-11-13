@@ -1,7 +1,10 @@
 .idea
 venv
+backend/.env
 backend/.idea
 backend/venv
 backend/__pycache__
 backend/app/__pycache__
 backend/app/routes/__pycache__
+backend/app/utls/__pycache__
+backend/tests/__pycache__

@@ -1,8 +1,6 @@
 from app import app
 # from app.routes.tasks import *
 
-
-
 @app.route('/')
 def index():
     return 'API backend test'

@@ -28,4 +28,12 @@ class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
     taskId = db.Column(db.Integer, nullable=False)
     timerId = db.Column(db.Integer, nullable=False)
 
+    def toDict(self):
+        taskToTimer = {
+            "id": self.id,
+            "taskId": self.taskId,
+            "timerId": self.timerId
+        }
+        return taskToTimer
+
 
