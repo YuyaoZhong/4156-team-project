@@ -8,3 +8,10 @@ def judgeKeysExist(data, attrs):
         if attr not in data:
             return False
     return True
+
+def judgeKeysCorrect(data, attrs):
+    for key, value in data.items():
+        if key not in attrs:
+            return False
+    return True
+
