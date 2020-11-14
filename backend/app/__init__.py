@@ -13,8 +13,10 @@ from app.config import DevConfig
 from app.models import *
 from app.routes import routes
 from app.routes.tasks import *
+from app.routes.tasklists import *
 from app.routes.timers import *
 from app.routes.tasksToTimers import *
+
 
 class MyJSONEncoder(json.JSONEncoder):
     def default(self, obj):
