@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from app.ext import db
 from app.routes import routes
-from app.models import Task, TaskToTimer, Timer
+from app.models import Timer
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
 from app.utls.utilities import judgeKeysCorrect

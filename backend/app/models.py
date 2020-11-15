@@ -13,6 +13,8 @@ class TaskList(db.Model):  # pylint: disable=too-few-public-methods
     name = db.Column(db.String(256), nullable=False)
 
 class Timer(db.Model):  # pylint: disable=too-few-public-methods
+    # pylint: disable=too-many-instance-attributes
+    # Eight is reasonable in this case.
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     userId = db.Column(db.String(256), nullable=False)
     title = db.Column(db.String(256), nullable=False)
@@ -54,7 +56,6 @@ class Timer(db.Model):  # pylint: disable=too-few-public-methods
                 self.breakTime = value
             elif key == "round":
                 self.round = value
-        return
 
 
 class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
