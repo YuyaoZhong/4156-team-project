@@ -7,11 +7,17 @@ import unittest
 
 class TestTasksToTimers(TestCase):
     def testCreateTasksToTimers(self):
-        self.testApp.post('/task_timers/', json={
-            "taskId": 1,
-            "timerId": 1,
-            "userId": 0
-        })
+        # # create a timer
+        #
+        # response = self.testApp.post('/task_timers/', json={
+        #     "taskId": 1,
+        #     "timerId": 1,
+        #     "userId": 0
+        # })
+        #
+        # # responseBody =
+        pass
+
 
 
 if __name__ == "__main__":
