@@ -26,7 +26,39 @@ from app.utls.utilities import judgeKeysExist
 
 @routes.route('/task_timers/<id>', methods=['GET', 'DELETE'])
 def handleTaskTimer(id):
-    return id
+    getCode, getMsg, targetTaskTimer = getTaskTimer(id)
+    result = {"code": getCode, "message": getMsg, "data": None}
+    if request.method == "GET":
+        if targetTaskTimer:
+            result["data"] = targetTaskTimer.toDict()
+    elif request.method == "DELETE":
+        if not targetTaskTimer:
+            return jsonify(result)
+        try:
+            db.session.delete(targetTaskTimer)
+            db.session.commit()
+            code, msg = 200, apiStatus.getResponseMsg(200)
+        except:
+            code, msg = 500, apiStatus.getResponseMsg(500)
+        result["code"] = code
+        result["message"] = msg
+    return jsonify(result)
+
+def getTaskTimer(id):
+    try:
+        targetTaskTimer = TaskToTimer.query.get(id)
+    except:
+        code, msg = 500, apiStatus.getResponseMsg(500)
+        return code, msg, None
+    # code, msg = 0, ""
+    if not targetTaskTimer:
+        code, msg = 404, apiStatus.getResponseMsg(404)
+    else:
+        code, msg = 200, apiStatus.getResponseMsg(200)
+
+    return code, msg, targetTaskTimer
+
+
 
 @routes.route('/task_timers/', methods=['POST'])
 def createTaskTimer():
