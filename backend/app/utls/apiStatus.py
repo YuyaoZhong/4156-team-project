@@ -8,6 +8,7 @@ class APIStatus:
             201: "Successfully create",
             400: "Missing required attributes",
             401: "Unauthorized with wrong user id",
+            403: "Forbidden",
             404: "Requested data not found",
             500: "Internal server error"
 
