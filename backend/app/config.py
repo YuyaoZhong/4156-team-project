@@ -25,10 +25,15 @@ print(PASSWORD)
 class DevConfig(object):
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
     SQLALCHEMY_ECHO = False
-    SQLALCHEMY_POOL_SIZE = 5
-    SQLALCHEMY_POOL_TIMEOUT = 10
-    SQLALCHEMY_POOL_RECYCLE = 60  # auto recycle idle connection
+    # SQLALCHEMY_POOL_SIZE = 5
+    # SQLALCHEMY_POOL_TIMEOUT = 10
+    # SQLALCHEMY_POOL_RECYCLE = 60  # auto recycle idle connection
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_timeout': 10,
+        'pool_size': 5,
+        'pool_recycle': 60
+    }
     SEND_FILE_MAX_AGE_DEFAULT = timedelta(seconds=1)
 
 class TestConfig(DevConfig):
