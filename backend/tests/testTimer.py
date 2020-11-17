@@ -40,14 +40,14 @@ class TestTimers(TestCase):
 
 
     def testGetTimers(self):
-        rv = self.testApp.get('/timers/?id=1')
+        rv = self.testApp.get('/timers/?timerId=1')
         json_data = rv.get_json()
         self.assertEqual(json_data['code'], 200)
 
 
 
     def testGetTimers2(self):
-        rv = self.testApp.get('/timers/?id=1000')
+        rv = self.testApp.get('/timers/?timerId=1000')
         json_data = rv.get_json()
         self.assertEqual(json_data['code'], 404)
 

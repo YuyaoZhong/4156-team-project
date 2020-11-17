@@ -13,8 +13,7 @@ class TaskList(db.Model):  # pylint: disable=too-few-public-methods
     name = db.Column(db.String(256), nullable=False)
 
 class Timer(db.Model):  # pylint: disable=too-few-public-methods
-    # pylint: disable=too-many-instance-attributes
-    # Eight is reasonable in this case.
+    """this class is for the server to handle with the Timer table in database"""
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     userId = db.Column(db.String(256), nullable=False)
     title = db.Column(db.String(256), nullable=False)
@@ -26,6 +25,7 @@ class Timer(db.Model):  # pylint: disable=too-few-public-methods
     round = db.Column(db.Integer, nullable=False, default=1)
 
     def toDict(self):
+        """this function is for the server to turn Timer class into dic in python"""
         timer = {
             "id": self.id,
             "userId": self.userId,
@@ -39,6 +39,7 @@ class Timer(db.Model):  # pylint: disable=too-few-public-methods
         }
         return timer
     def update(self,data):
+        """this function is for the server to update the Timer class"""
         for key, value in data.items():
             if key == "userId":
                 self.userId = value
