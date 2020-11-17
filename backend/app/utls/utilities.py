@@ -4,6 +4,7 @@
 """
 
 def judgeKeysExist(data, attrs):
+    """check if all the required keys existed"""
     if not data:
         return False
     for attr in attrs:
@@ -12,6 +13,7 @@ def judgeKeysExist(data, attrs):
     return True
 
 def judgeKeysCorrect(data, attrs):
+    """check if all the keys valid"""
     if not data:
         return False
     for key, value in data.items():
