@@ -1,6 +1,8 @@
+"""Models for the application"""
 from app.ext import db
 
 class Task(db.Model):  # pylint: disable=too-few-public-methods
+    """Task models"""
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     userId = db.Column(db.String(256), nullable=False)
     taskListId = db.Column(db.Integer)
@@ -8,6 +10,7 @@ class Task(db.Model):  # pylint: disable=too-few-public-methods
     status = db.Column(db.Integer) # null = incomplete (0, 1)
 
     def toDict(self):
+        """Transfer the model to dictionary"""
         task = {
             "id": self.id,
             "userId": self.userId,
@@ -18,6 +21,7 @@ class Task(db.Model):  # pylint: disable=too-few-public-methods
         return task
 
     def update(self, data):
+        """Update tasks"""
         for key, value in data.items():
             if key == "userId":
                 self.userId = value
@@ -27,14 +31,15 @@ class Task(db.Model):  # pylint: disable=too-few-public-methods
                 self.name = value
             elif key == "status":
                 self.status = value
-        return
 
 class TaskList(db.Model):  # pylint: disable=too-few-public-methods
+    """Task list model"""
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     userId = db.Column(db.String(256), nullable=False)
     name = db.Column(db.String(256), nullable=False)
 
     def toDict(self):
+        """Transfer the model to dictionary"""
         taskList = {
             "id": self.id,
             "userId": self.userId,
@@ -43,14 +48,14 @@ class TaskList(db.Model):  # pylint: disable=too-few-public-methods
         return taskList
 
     def update(self, data):
+        """Update the model """
         for key, value in data.items():
             if key == "userId":
                 self.userId = value
             elif key == "name":
                 self.name = value
-        return
 
-class Timer(db.Model):  # pylint: disable=too-few-public-methods
+class Timer(db.Model):  #pylint: disable=too-few-public-methods
     # pylint: disable=too-many-instance-attributes
     # Eight is reasonable in this case.
     """this class is for the server to handle with the Timer table in database"""
@@ -100,16 +105,26 @@ class Timer(db.Model):  # pylint: disable=too-few-public-methods
 
 
 class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
+    """This model manages relations between tasks and timers"""
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     taskId = db.Column(db.Integer, nullable=False)
     timerId = db.Column(db.Integer, nullable=False)
 
+    def update(self, data):
+        """this function is for the server to update the relation class"""
+        for key, value in data.items():
+            if key == "id":
+                self.id = value
+            elif key == "taskId":
+                self.taskId = value
+            elif key == "timerId":
+                self.timerId = value
+
     def toDict(self):
+        """Change the object to dictionary"""
         taskToTimer = {
             "id": self.id,
             "taskId": self.taskId,
             "timerId": self.timerId
         }
         return taskToTimer
-
-

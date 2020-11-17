@@ -1,9 +1,7 @@
 #!/user/bin/python3
 # -*- coding: utf-8 -*-
 """Initialization app module
-
 routes - RESTful APIs for data manipulation
-
 """
 import decimal
 from flask import Flask, json, Blueprint

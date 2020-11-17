@@ -1,3 +1,4 @@
+"""Extension modules for app, db"""
 from flask_sqlalchemy import SQLAlchemy
 
 # in case of repeated import

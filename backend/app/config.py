@@ -2,7 +2,7 @@
 
 DIALECT  -  type of database.
 DRIVER  - sql driver for python.
-
+PASSWORD - should be set in .env
 """
 import os
 from datetime import timedelta
@@ -18,11 +18,10 @@ DATABASE = 'timerdb' # not create
 SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
     DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
 )
-# SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-# SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 print(PASSWORD)
-class DevConfig(object):
+class DevConfig():  # pylint: disable=too-few-public-methods
+    """Configuration for DEV environment"""
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
     SQLALCHEMY_ECHO = False
     # SQLALCHEMY_POOL_SIZE = 5
@@ -36,7 +35,8 @@ class DevConfig(object):
     }
     SEND_FILE_MAX_AGE_DEFAULT = timedelta(seconds=1)
 
-class TestConfig(DevConfig):
+class TestConfig(DevConfig):  # pylint: disable=too-few-public-methods
+    """Configuration for unit tests"""
     DEBUG = True
     TESTING = True
     ENV = 'test'

@@ -11,16 +11,12 @@ from app.models import Timer
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
 from app.utls.utilities import judgeKeysCorrect
-import datetime
-
-
 
 
 @routes.route('/timers')
 def testTimers():
     """this is for test"""
     return "timers url"
-
 
 @routes.route('/timers/', methods=['GET'])
 def getTimers():
@@ -49,14 +45,12 @@ def getTimers():
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
-      
         return jsonify(result)
-      
     code, msg = 400, apiStatus.getResponseMsg(400)
     result["code"] = code
     result["message"] = msg
-    return jsonify(result)
 
+    return jsonify(result)
 
 @routes.route('/timers/<timerId>', methods=['DELETE'])
 def deleteTimers(timerId):
@@ -182,7 +176,8 @@ def putTimers(timerId):
 #             newEndTime = startTime + newDuration
 #             print(startTime)
 #             print(newEndTime)
-#             if oldTimer.startTime <= startTime < endTime or oldTimer.startTime < newEndTime <= endTime:
+#             if oldTimer.startTime <= startTime < endTime \
+#                   or oldTimer.startTime < newEndTime <= endTime:
 #                 return "error1"
 #             elif startTime < oldTimer.startTime and newEndTime > endTime:
 #                 return "error2"
