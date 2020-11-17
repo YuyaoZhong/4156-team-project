@@ -109,3 +109,42 @@ def getTaskListsByUserId(userId):
     result['code'] = code
     result['message'] = msg
     return jsonify(result)
+
+# For debug usage
+@routes.route('/tasklists/debug', methods = ['GET'])
+def getAll():
+    code, msg, result = 0, '', {'data': None}
+    taskLists = TaskList.query.all()
+    if not taskLists:
+        code, msg = 404, apiStatus.getResponseMsg(404)
+    else:
+        result['data'] = []
+        for taskList in taskLists:
+            result['data'].append(taskList.toDict())
+        code, msg = 200, apiStatus.getResponseMsg(200)
+
+    result['code'] = code
+    result['message'] = msg
+    return jsonify(result)
+
+@routes.route('/tasklists/debug', methods = ['DELETE'])
+def deleteAll():
+    code, msg, result = 0, '', {'data': None}
+    taskLists = TaskList.query.all()
+    if not taskLists:
+        code, msg = 404, apiStatus.getResponseMsg(404)
+    else:
+        result['data'] = []
+        for taskList in taskLists:
+            id = taskList.id
+            targetTaskList = TaskList.query.get(id)
+            try:
+                db.session.delete(targetTaskList)
+                db.session.commit()
+                code, msg = 201, apiStatus.getResponseMsg(201)
+            except :
+                code, msg = 500, apiStatus.getResponseMsg(500)
+
+    result['code'] = code
+    result['message'] = msg
+    return jsonify(result)
