@@ -18,6 +18,17 @@ class TestTaskLists(TestCase):
         self.assertEqual(data['name'], 'Dummy task list')
         self.assertEqual(data['userId'], '0')
 
+        response = self.testApp.post('/tasklists', json={
+            "name": "Dummy task list",
+            "notAUserId": '0'
+        })
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 400)
+
+        response = self.testApp.post('/tasklists', json={})
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 400)
+
     def testGetTaskLists(self):
         response = self.testApp.post('/tasklists', json={
             "name": "Get task list",
@@ -26,12 +37,18 @@ class TestTaskLists(TestCase):
         resp = json.loads(response.data)
         data = resp['data']
         taskListId = data['id']
+
         response = self.testApp.get('/tasklists/'+str(taskListId))
         resp = json.loads(response.data)
         data = resp['data']
         self.assertEqual(resp['code'], 200)
         self.assertEqual(data['name'], 'Get task list')
         self.assertEqual(data['userId'], '1')
+
+        response = self.testApp.get('/tasklists/'+'0')
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 404)
+
 
     def testPutTaskLists(self):
         response = self.testApp.post('/tasklists', json={
@@ -58,6 +75,11 @@ class TestTaskLists(TestCase):
         self.assertEqual(data['name'], 'Put task list')
         self.assertEqual(data['userId'], '2')
 
+        response = self.testApp.put('/tasklists/' + '0', json={})
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 400)
+
+
     def testDeleteTaskLists(self):
         response = self.testApp.post('/tasklists', json={
             "name": "Default task list",
@@ -70,14 +92,53 @@ class TestTaskLists(TestCase):
 
         response = self.testApp.delete('/tasklists/' + str(taskListId))
         resp = json.loads(response.data)
-        data = resp['data']
         self.assertEqual(resp['code'], 201)
 
         response = self.testApp.get('/tasklists/' + str(taskListId))
         resp = json.loads(response.data)
-        data = resp['data']
         self.assertEqual(resp['code'], 404)
 
+        response = self.testApp.delete('/tasklists/' + '0')
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 404)
+
+
+    def testGetTaskListsByUserId(self):
+
+        response = self.testApp.get('/tasklists/user/'+'test1')
+        resp = json.loads(response.data)
+        data = resp['data']
+        oldLen = 0
+        if data: oldLen = len(data)
+
+        self.testApp.post('/tasklists', json={
+            "name": "Default task list 1",
+            "userId": 'test1'
+        })
+
+        self.testApp.post('/tasklists', json={
+            "name": "Default task list 2",
+            "userId": 'test1'
+        })
+
+        self.testApp.post('/tasklists', json={
+            "name": "Default task list 3",
+            "userId": 'test2'
+        })
+
+        response = self.testApp.get('/tasklists/user/'+'test1')
+        resp = json.loads(response.data)
+        data = resp['data']
+
+        self.assertEqual(resp['code'], 200)
+        self.assertEqual(len(data) - oldLen, 2)
+        self.assertTrue('Default task list 1' in (taskList['name'] for taskList in data))
+        self.assertTrue('Default task list 2' in (taskList['name'] for taskList in data))
+
+        response = self.testApp.get('/tasklists/user/'+'test3')
+        resp = json.loads(response.data)
+
+        self.assertEqual(resp['code'], 404)
 
 if __name__ == "__main__":
     unittest.main()

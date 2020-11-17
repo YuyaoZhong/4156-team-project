@@ -56,7 +56,7 @@ def createMysqlOrm(app):
         # db.session.commit()
 
 
-app  = createApp(DevConfig)
+app = createApp(DevConfig)
 # createMysqlOrm(app)
 db.app = app
 

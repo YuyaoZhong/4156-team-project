@@ -1,15 +1,19 @@
+"""
+RestFUL API for task list
+"""
+from flask import (
+    request, jsonify
+)
 from app.ext import db
 from app.routes import routes
 from app.models import TaskList
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysCorrect
-from flask import (
-    request, jsonify
-)
 
 
 @routes.route('/tasklists/<taskListId>', methods=['GET'])
 def getTaskList(taskListId):
+    """API for getting all tasklists with task list id as taskListId"""
     code, msg, result = 0, '', {'data': None}
     targetTaskList = TaskList.query.get(taskListId)
     if not targetTaskList:
@@ -23,8 +27,12 @@ def getTaskList(taskListId):
     return jsonify(result)
 
 
+"""
+
+"""
 @routes.route('/tasklists/<taskListId>', methods=['DELETE'])
 def deleteTaskList(taskListId):
+    """API for delete a task list with id"""
     code, msg, result = 0, '', {'data': None}
     targetTaskList = TaskList.query.get(taskListId)
     if not targetTaskList:
@@ -44,6 +52,7 @@ def deleteTaskList(taskListId):
 
 @routes.route('/tasklists/<taskListId>', methods=['PUT'])
 def putTaskList(taskListId):
+    """API for updating a task list with id as taskListId from request body"""
     data = request.get_json(force=True)
     postAttrs = ['userId', 'name']
     code, msg, result = 0, '', {'data': None}
@@ -70,6 +79,7 @@ def putTaskList(taskListId):
 
 @routes.route('/tasklists', methods=['POST'])
 def createTaskList():
+    """API for creating a new task list from request body"""
     data = request.get_json(force=True)
     postAttrs = ['userId', 'name']
     code, msg, result = 0, '', {'data': None}
@@ -93,9 +103,9 @@ def createTaskList():
     result['message'] = msg
     return jsonify(result)
 
-
 @routes.route('/tasklists/user/<userId>', methods=['GET'])
 def getTaskListsByUserId(userId):
+    """API for getting all tasklists with user id as userId"""
     code, msg, result = 0, '', {'data': None}
     taskLists = TaskList.query.filter_by(userId=userId).all()
     if not taskLists:
@@ -105,6 +115,49 @@ def getTaskListsByUserId(userId):
         for taskList in taskLists:
             result['data'].append(taskList.toDict())
         code, msg = 200, apiStatus.getResponseMsg(200)
+
+    result['code'] = code
+    result['message'] = msg
+    return jsonify(result)
+
+
+# For debug usage
+@routes.route('/tasklists/debug', methods = ['GET'])
+def getAll():
+    """API for debug usage: Get ALL task lists currently in the database"""
+    code, msg, result = 0, '', {'data': None}
+    taskLists = TaskList.query.all()
+    if not taskLists:
+        code, msg = 404, apiStatus.getResponseMsg(404)
+    else:
+        result['data'] = []
+        for taskList in taskLists:
+            result['data'].append(taskList.toDict())
+        code, msg = 200, apiStatus.getResponseMsg(200)
+
+    result['code'] = code
+    result['message'] = msg
+    return jsonify(result)
+
+
+@routes.route('/tasklists/debug', methods = ['DELETE'])
+def deleteAll():
+    """API for debug usage: DELETE ALL task lists currently in the database"""
+    code, msg, result = 0, '', {'data': None}
+    taskLists = TaskList.query.all()
+    if not taskLists:
+        code, msg = 404, apiStatus.getResponseMsg(404)
+    else:
+        result['data'] = []
+        for taskList in taskLists:
+            taskListId = taskList.id
+            targetTaskList = TaskList.query.get(taskListId)
+            try:
+                db.session.delete(targetTaskList)
+                db.session.commit()
+                code, msg = 201, apiStatus.getResponseMsg(201)
+            except :
+                code, msg = 500, apiStatus.getResponseMsg(500)
 
     result['code'] = code
     result['message'] = msg
