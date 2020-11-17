@@ -19,14 +19,16 @@ from app.routes.tasksToTimers import *
 
 
 class MyJSONEncoder(json.JSONEncoder):
+    """ JSON Encoder for possible decimal data"""
     def default(self, obj):
         if isinstance(obj, decimal.Decimal):
             # Convert decimal instances to strings.
             return str(obj)
-        return super(MyJSONEncoder, self).default(obj)
-
+        # return super(MyJSONEncoder, self).default(obj)
+        return super().__init__()
 
 def createApp(configObject):
+    """ Create a flask application"""
     app = Flask(__name__)
     app.config.from_object(configObject)
     CORS(app, resources={r"/*": {"origins": "*"}})
@@ -41,13 +43,7 @@ def createApp(configObject):
 
 
 def createMysqlOrm(app):
-    # app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
-    # app.config["SQLALCHEMY_ECHO"] = False
-    # app.config["SQLALCHEMY_POOL_SIZE"] = 5
-    # app.config["SQLALCHEMY_POOL_TIMEOUT"] = 10
-    # app.config["SQLALCHEMY_POOL_RECYCLE"] = 60 # auto recycle idle connection
-    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    """ Init the application with database setting"""
     with app.app_context():
         db.init_app(app)
         app.register_blueprint(routes)
@@ -58,4 +54,3 @@ def createMysqlOrm(app):
 app  = createApp(DevConfig)
 # createMysqlOrm(app)
 db.app = app
-

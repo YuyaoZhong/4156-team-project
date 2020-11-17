@@ -69,7 +69,7 @@ def createTasks():
     result['message'] = msg
     return jsonify(result)
 
-@routes.route('/tasks/<taskId>', method=['PUT'])
+@routes.route('/tasks/<taskId>', methods =['PUT'])
 def putTask(taskId):
     data = request.get_json()
     postAttrs = ['userId', 'taskListId', 'name', 'status' ]

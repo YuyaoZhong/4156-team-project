@@ -9,14 +9,14 @@ from app.routes import routes
 from app.models import Task, TaskToTimer, Timer
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
-
+from datetime import datetime
 # @routes.route('/task_timers')
 # def test():
 #     # for test, to delete
 #     print('test for task2timer')
 #
-#     task = Task(id=0, taskListId=0, userId=0, name='test_task', status=0)
-#     timer = Timer(id=0, userId=0, title="test timer", description="this is a test timer", zoomLink="",
+#     task = Task(id=-200, taskListId=0, userId=0, name='test_task', status=0)
+#     timer = Timer(id=-200, userId=0, title="test timer", description="this is a test timer", zoomLink="",
 #                   startTime=datetime.now().isoformat(), duration=25, breakTime=5, round=1)
 #
 #     db.session.add(task)
@@ -26,7 +26,10 @@ from app.utls.utilities import judgeKeysExist
 
 @routes.route('/task_timers/<id>', methods=['GET', 'DELETE'])
 def handleTaskTimer(id):
+    """This function is used to handle GET / DELETE requests for handle task timer"""
     getCode, getMsg, targetTaskTimer = getTaskTimer(id)
+    if targetTaskTimer:
+        print(targetTaskTimer.toDict)
     result = {"code": getCode, "message": getMsg, "data": None}
     if request.method == "GET":
         if targetTaskTimer:
