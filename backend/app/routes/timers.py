@@ -1,3 +1,9 @@
+#!/user/bin/python3
+# -*- coding: utf-8 -*-
+""" Create Api for Timer
+"""
+
+import datetime
 from flask import request, jsonify
 from app.ext import db
 from app.routes import routes
@@ -12,16 +18,18 @@ import datetime
 
 @routes.route('/timers')
 def testTimers():
+    """this is for test"""
     return "timers url"
 
 
 @routes.route('/timers/', methods=['GET'])
 def getTimers():
+    """This function is for the server to get timers from the database"""
     code, msg, result = 0, "", {"data": None}
-    id = request.args.get('id', None)
+    timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None)
-    if id is not None :
-        targetTimer = Timer.query.get(id)  # query by primary key
+    if timerId is not None :
+        targetTimer = Timer.query.get(timerId)  # query by primary key
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
@@ -30,7 +38,7 @@ def getTimers():
         result["code"] = code
         result["message"] = msg
         return jsonify(result)
-    elif userId is not None:
+    if userId is not None:
         targetTimer = Timer.query.filter_by(userId=userId).all()
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
@@ -41,19 +49,20 @@ def getTimers():
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
-
+      
         return jsonify(result)
-    else:
-        code, msg = 400, apiStatus.getResponseMsg(400)
-        result["code"] = code
-        result["message"] = msg
-        return jsonify(result)
+      
+    code, msg = 400, apiStatus.getResponseMsg(400)
+    result["code"] = code
+    result["message"] = msg
+    return jsonify(result)
 
 
-@routes.route('/timers/<id>', methods=['DELETE'])
-def deleteTimers(id):
+@routes.route('/timers/<timerId>', methods=['DELETE'])
+def deleteTimers(timerId):
+    """This function is for the server to delete timers"""
     code, msg, result = 0, "", {"data": None}
-    targetTimer = Timer.query.get(id)  # query by primary key
+    targetTimer = Timer.query.get(timerId)  # query by primary key
     if not targetTimer:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
@@ -70,9 +79,9 @@ def deleteTimers(id):
 
 @routes.route('/timers/', methods=['POST'])
 def createTimers():
+    """This function is for the server to create new timers"""
     data =  request.get_json()
     postAttrs = ['userId', 'title', 'startTime', 'duration', 'breakTime', 'round']
-    # optionalAttrs = ['description', 'zoomLink', 'duration', 'breakTime', 'round']
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysExist(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
@@ -91,23 +100,25 @@ def createTimers():
                 totalDuration = (oldTimer.duration + oldTimer.breakTime) * oldTimer.round
                 totalDuration = datetime.timedelta(minutes=totalDuration)
                 endTime = oldTimer.startTime + totalDuration
-                newStartTime = datetime.datetime.strptime(startTime, "%Y-%m-%d %H:%M:%S")
+                sTime = datetime.datetime.strptime(startTime, "%Y-%m-%d %H:%M:%S")
                 newDuration = (duration + breakTime) * round
                 newDuration = datetime.timedelta(minutes=newDuration)
-                newEndTime = newStartTime + newDuration
-                if oldTimer.startTime <= newStartTime < endTime or oldTimer.startTime < newEndTime <= endTime:
+                eTime = sTime + newDuration
+                if oldTimer.startTime <= sTime < endTime or oldTimer.startTime < eTime <= endTime:
                     code, msg = 403, apiStatus.getResponseMsg(403)
                     result["code"] = code
                     result["message"] = msg
                     return jsonify(result)
-                elif newStartTime < oldTimer.startTime and newEndTime > endTime:
+                if sTime < oldTimer.startTime and eTime > endTime:
                     code, msg = 403, apiStatus.getResponseMsg(403)
                     result["code"] = code
                     result["message"] = msg
                     return jsonify(result)
         try:
-            newTimer = Timer(userId=str(userId), title=str(title), description=str(description), zoomLink=str(zoomLink), startTime=str(startTime),
-                             duration=str(duration), breakTime=str(breakTime), round=str(round))
+            newTimer = Timer(userId=str(userId), title=str(title),
+                             description=str(description), zoomLink=str(zoomLink),
+                             startTime=str(startTime), duration=str(duration),
+                             breakTime=str(breakTime), round=str(round))
             db.session.add(newTimer)
             db.session.commit()
             result["data"] = newTimer.toDict()
@@ -119,15 +130,17 @@ def createTimers():
     return jsonify(result)
 
 
-@routes.route('/timers/<id>', methods=['PUT'])
-def putTimers(id):
+@routes.route('/timers/<timerId>', methods=['PUT'])
+def putTimers(timerId):
+    """This function is for the server to update timers"""
     data =  request.get_json()
-    postAttrs = ['userId', 'title', 'startTime', 'duration', 'breakTime', 'round', 'description', 'zoomLink']
+    postAttrs = ['userId', 'title', 'startTime', 'duration',
+                 'breakTime', 'round', 'description', 'zoomLink']
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysCorrect(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
     else:
-        targetTimer = Timer.query.get(id)
+        targetTimer = Timer.query.get(timerId)
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
