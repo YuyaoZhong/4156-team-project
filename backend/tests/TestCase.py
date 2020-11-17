@@ -1,7 +1,7 @@
 #!/user/bin/python3
 # -*- coding: utf-8 -*-
 
-from app import createApp, db
+from app import createApp
 from app.config import TestConfig
 from contextlib import contextmanager
 import unittest

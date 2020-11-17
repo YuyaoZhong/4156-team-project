@@ -79,7 +79,7 @@ class TestTimers(TestCase):
     def testUpdateTimers3(self):
         rv = self.testApp.put('/timers/1')
         json_data = rv.get_json()
-        print(json_data)
+        # print(json_data)
         self.assertEqual(json_data['code'], 400)
 
     def testDeleteTimers(self):

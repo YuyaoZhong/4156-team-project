@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """Unit tests for relations between tasks and timers
 """
+import os
 import unittest
 from datetime import datetime
 from tests.TestCase import TestCase
@@ -132,7 +133,7 @@ class TestTasksToTimers(TestCase):
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 200)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
 
 
