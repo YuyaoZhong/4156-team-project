@@ -11,6 +11,7 @@ from app.models import Timer
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
 from app.utls.utilities import judgeKeysCorrect
+import datetime
 
 
 
@@ -48,9 +49,9 @@ def getTimers():
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
-
+      
         return jsonify(result)
-
+      
     code, msg = 400, apiStatus.getResponseMsg(400)
     result["code"] = code
     result["message"] = msg
@@ -153,3 +154,38 @@ def putTimers(timerId):
     result["code"] = code
     result["message"] = msg
     return jsonify(result)
+
+
+# @routes.route('/timers/test', methods=['POST'])
+# def tTimers():
+#     data =  request.get_json()
+#     postAttrs = ['userId', 'title', 'startTime', 'duration', 'breakTime', 'round']
+#     code, msg, result = 0, "", {"data": None}
+#     if not judgeKeysExist(data, postAttrs):
+#         code, msg = 400, apiStatus.getResponseMsg(400)
+#     else:
+#         userId = data['userId']
+#         oldTimers = Timer.query.filter_by(userId=userId).all()
+#         for oldTimer in oldTimers:
+#             print(oldTimer.startTime)
+#             print(type(oldTimer.startTime))
+#             totalDuration = (oldTimer.duration + oldTimer.breakTime)*oldTimer.round
+#             totalDuration = datetime.timedelta(minutes=totalDuration)
+#             endTime = oldTimer.startTime + totalDuration
+#             startTime = data['startTime']
+#             startTime = datetime.datetime.strptime(startTime, "%Y-%m-%d %H:%M:%S")
+#             duration = data['duration']
+#             breakTime = data['breakTime']
+#             round = data['round']
+#             newDuration = (duration + breakTime)*round
+#             newDuration = datetime.timedelta(minutes=newDuration)
+#             newEndTime = startTime + newDuration
+#             print(startTime)
+#             print(newEndTime)
+#             if oldTimer.startTime <= startTime < endTime or oldTimer.startTime < newEndTime <= endTime:
+#                 return "error1"
+#             elif startTime < oldTimer.startTime and newEndTime > endTime:
+#                 return "error2"
+#
+#             print(endTime)
+#     return "test"

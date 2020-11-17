@@ -34,7 +34,25 @@ class TaskList(db.Model):  # pylint: disable=too-few-public-methods
     userId = db.Column(db.String(256), nullable=False)
     name = db.Column(db.String(256), nullable=False)
 
+    def toDict(self):
+        taskList = {
+            "id": self.id,
+            "userId": self.userId,
+            "name": self.name
+        }
+        return taskList
+
+    def update(self, data):
+        for key, value in data.items():
+            if key == "userId":
+                self.userId = value
+            elif key == "name":
+                self.name = value
+        return
+
 class Timer(db.Model):  # pylint: disable=too-few-public-methods
+    # pylint: disable=too-many-instance-attributes
+    # Eight is reasonable in this case.
     """this class is for the server to handle with the Timer table in database"""
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     userId = db.Column(db.String(256), nullable=False)
