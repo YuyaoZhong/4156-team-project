@@ -15,6 +15,7 @@ from app.routes import routes
 from app.routes.tasks import *
 from app.routes.tasklists import *
 from app.routes.timers import *
+from app.routes.tasklists import *
 from app.routes.tasksToTimers import *
 
 
@@ -51,6 +52,6 @@ def createMysqlOrm(app):
         # db.session.commit()
 
 
-app  = createApp(DevConfig)
+app = createApp(DevConfig)
 # createMysqlOrm(app)
 db.app = app
