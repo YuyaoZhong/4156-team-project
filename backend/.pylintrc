@@ -138,7 +138,8 @@ disable=print-statement,
         xreadlines-attribute,
         deprecated-sys-function,
         exception-escape,
-        comprehension-escape
+        comprehension-escape,
+        W
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -224,7 +225,7 @@ class-naming-style=PascalCase
 
 # Regular expression matching correct class names. Overrides class-naming-
 # style.
-#class-rgx=
+class-rgx=[A-Z_][a-zA-Z0-9]+$
 
 # Naming style matching correct constant names.
 const-naming-style=UPPER_CASE
@@ -250,6 +251,7 @@ good-names=i,
            k,
            ex,
            Run,
+           id,
            _
 
 # Good variable names regexes, separated by a comma. If names match any regex,
@@ -294,7 +296,7 @@ no-docstring-rgx=^_
 property-classes=abc.abstractproperty
 
 # Naming style matching correct variable names.
-variable-naming-style=snake_case
+variable-naming-style=camelCase
 
 # Regular expression matching correct variable names. Overrides variable-
 # naming-style.
@@ -365,7 +367,7 @@ ignore-docstrings=yes
 ignore-imports=no
 
 # Minimum lines number of a similarity.
-min-similarity-lines=4
+min-similarity-lines=20
 
 
 [SPELLING]
@@ -507,13 +509,15 @@ valid-classmethod-first-arg=cls
 valid-metaclass-classmethod-first-arg=cls
 
 
+
+
 [DESIGN]
 
 # Maximum number of arguments for function / method.
 max-args=5
 
 # Maximum number of attributes for a class (see R0902).
-max-attributes=7
+max-attributes=10
 
 # Maximum number of boolean expressions in an if statement (see R0916).
 max-bool-expr=5
@@ -522,7 +526,7 @@ max-bool-expr=5
 max-branches=12
 
 # Maximum number of locals for function / method body.
-max-locals=15
+max-locals=25
 
 # Maximum number of parents for a class (see R0901).
 max-parents=7

@@ -1,32 +1,40 @@
 #!/user/bin/python3
 # -*- coding: utf-8 -*-
-"""
-Initialization app module
+"""Initialization app module
+routes - RESTful APIs for data manipulation
 """
 import decimal
-from datetime import timedelta
 from flask import Flask, json, Blueprint
 from flask_cors import CORS
 from app.ext import db
-from app.config import SQLALCHEMY_DATABASE_URI
+from app.config import DevConfig
 from app.models import *
 from app.routes import routes
 from app.routes.tasks import *
+from app.routes.tasklists import *
 from app.routes.timers import *
+from app.routes.tasklists import *
+from app.routes.tasksToTimers import *
+
 
 class MyJSONEncoder(json.JSONEncoder):
+    """ JSON Encoder for possible decimal data"""
     def default(self, obj):
         if isinstance(obj, decimal.Decimal):
             # Convert decimal instances to strings.
             return str(obj)
-        return super(MyJSONEncoder, self).default(obj)
+        # return super(MyJSONEncoder, self).default(obj)
+        return super().__init__()
 
-
-def createApp():
+def createApp(configObject):
+    """ Create a flask application"""
     app = Flask(__name__)
+    app.config.from_object(configObject)
     CORS(app, resources={r"/*": {"origins": "*"}})
+    db.init_app(app)
+    app.db = db
+    app.register_blueprint(routes)
     # for update
-    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=1)
     app.app_context().push()
     app.json_encoder = MyJSONEncoder
     return app
@@ -34,13 +42,7 @@ def createApp():
 
 
 def createMysqlOrm(app):
-    app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
-    app.config["SQLALCHEMY_ECHO"] = False
-    app.config["SQLALCHEMY_POOL_SIZE"] = 5
-    app.config["SQLALCHEMY_POOL_TIMEOUT"] = 10
-    app.config["SQLALCHEMY_POOL_RECYCLE"] = 60 # auto recycle idle connection
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    """ Init the application with database setting"""
     with app.app_context():
         db.init_app(app)
         app.register_blueprint(routes)
@@ -48,7 +50,6 @@ def createMysqlOrm(app):
         # db.session.commit()
 
 
-app  = createApp()
-createMysqlOrm(app)
+app = createApp(DevConfig)
+# createMysqlOrm(app)
 db.app = app
-
