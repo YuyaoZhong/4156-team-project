@@ -7,19 +7,19 @@ from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysCorrect
 
 
-@routes.route('/tasks')
-def testTask():
-    return "tasks url"
+#@routes.route('/tasks')
+#def testTask():
+#    return "tasks url"
 
 @routes.route('/tasks/<taskId>', methods=["GET"])
 def getTask(taskId):
     code, msg, result = 0, '', {'data': None}
-    targetTask = Task.query.get(id)
+    targetTask = Task.query.get(taskId)
     if not targetTask:
-        code, msg = 404, apiStatus.getReponseMsg(404)
+        code, msg = 404, apiStatus.getResponseMsg(404)
     else:
         result["data"] = targetTask.toDict()
-        code, msg = 200, apiStatus.getReponseMsg(200)
+        code, msg = 200, apiStatus.getResponseMsg(200)
     result["code"] = code
     result["message"] = msg
     
@@ -30,14 +30,14 @@ def deleteTask(taskId):
     code, msg, result = 0, '', {'data': None}
     targetTask = Task.query.get(taskId)
     if not targetTask:
-        code, msg = 404, apiStatus.getReponseMsg(404)
+        code, msg = 404, apiStatus.getResponseMsg(404)
     else:
         try:
             db.session.delete(targetTask)
             db.session.commit()
-            code, msg = 200, apiStatus.getReponseMsg(200)
+            code, msg = 201, apiStatus.getResponseMsg(201)
         except:
-            code, msg = 500, apiStatus.getReponseMsg(500)
+            code, msg = 500, apiStatus.getResponseMsg(500)
     result["code"] = code
     result['message'] = msg
 
@@ -49,9 +49,9 @@ def createTasks():
     postAttrs = ['userId', 'taskListId', 'name', 'status' ]
     code, msg, result = 0, '', {'data': None}
     if not data:
-        code, msg = 400, apiStatus.getReponseMsg(400)
+        code, msg = 400, apiStatus.getResponseMsg(400)
     elif not judgeKeysCorrect(data, postAttrs):
-        code, msg = 400, apiStatus.getReponseMsg(400)
+        code, msg = 400, apiStatus.getResponseMsg(400)
     else:
         try:
             userId = data['userId']
@@ -62,9 +62,9 @@ def createTasks():
             db.session.add(newTask)
             db.session.commit()
             result['data'] = newTask.toDict()
-            code, msg = 201, apiStatus.getReponseMsg(201)
+            code, msg = 201, apiStatus.getResponseMsg(201)
         except:
-            code, msg = 500, apiStatus.getReponseMsg(500)
+            code, msg = 500, apiStatus.getResponseMsg(500)
     result['code'] = code
     result['message'] = msg
     return jsonify(result)
@@ -76,21 +76,21 @@ def putTask(taskId):
     postAttrs = ['userId', 'taskListId', 'name', 'status' ]
     code, msg, result = 0, "", {'data': None}
     if not data:
-        code, msg = 400, apiStatus.getReponseMsg(400)
+        code, msg = 400, apiStatus.getResponseMsg(400)
     elif not judgeKeysCorrect(data, postAttrs):
-        code, msg = 400, apiStatus.getReponseMsg(400)
+        code, msg = 400, apiStatus.getResponseMsg(400)
     else:
         targetTask = Task.query.get(taskId)
         if not targetTask:
-            code, msg = 404, apiStatus.getReponseMsg(404)
+            code, msg = 404, apiStatus.getResponseMsg(404)
         else:
             try:
                 targetTask.update(data)
                 db.session.commit()
                 result['data'] = targetTask.toDict()
-                code, msg = 201, apiStatus.getReponseMsg(201)
+                code, msg = 201, apiStatus.getResponseMsg(201)
             except:
-                code, msg = 500, apiStatus.getReponseMsg(500)
+                code, msg = 500, apiStatus.getResponseMsg(500)
     result['code'] = code
     result['message'] = msg
     return jsonify(result)
