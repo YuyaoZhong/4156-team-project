@@ -19,5 +19,5 @@ pip freeze > requirements.txt 
 Use the following command to generate .html reports
 
 ```
-pylint --rcfile=.pylintrc app  run | pylint-json2html -o app_pylint.html
+pylint --rcfile=.pylintrc app tests  run runTests | pylint-json2html -o pylint_report_1.html
 ```

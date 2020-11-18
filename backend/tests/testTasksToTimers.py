@@ -5,12 +5,12 @@
 import os
 import unittest
 from datetime import datetime
-from tests.TestCase import TestCase
+from tests.testCase import TestCase
 from app.models import Task, Timer, TaskToTimer
 from app.ext import db
 
 class TestTasksToTimers(TestCase):
-
+    """Class to test API of relations between tasks and timers """
     def testCreateTasksToTimers(self):
         """Test create a relation between task and timers"""
         testTimerId = -100
@@ -135,5 +135,3 @@ class TestTasksToTimers(TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-

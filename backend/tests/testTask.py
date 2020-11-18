@@ -2,12 +2,14 @@
 # -*- coding: utf-8 -*-
 """Unit tests for task lists
 """
-from flask import json
-from tests.TestCase import TestCase
 import unittest
+from flask import json
+from tests.testCase import TestCase
 
 class TestTask(TestCase):
+    """Create a class to test task APIs"""
     def testCreateTasks(self):
+        """test to create a task"""
         response = self.testApp.post('/tasks', json={
             "userId": '0',
             "taskListId": '-1',
@@ -24,6 +26,7 @@ class TestTask(TestCase):
         self.assertEqual(data['status'], False)
 
     def testCreateTasksFail(self):
+        """test to create a repeated task"""
         response = self.testApp.post('/tasks', json={
             "userId": '0',
             "taskListId": '-1',
@@ -38,6 +41,7 @@ class TestTask(TestCase):
         self.assertEqual(resp['code'], 400)
 
     def testGetTasks(self):
+        """tset to retrieve a task"""
         response = self.testApp.post('/tasks', json={
             "userId": '0',
             "taskListId": '-1',
@@ -59,11 +63,13 @@ class TestTask(TestCase):
         self.assertEqual(data['status'], False)
 
     def testGetTasksFail(self):
+        """test to get a task that does not exist"""
         response = self.testApp.get('/tasks/'+'200')
         resp = json.loads(response.data)
         self.assertEqual(resp['code'], 404)
 
     def testPutTasks(self):
+        """test to edit a task"""
         response = self.testApp.post('/tasks', json={
             "userId": '0',
             "taskListId": '-1',
@@ -102,11 +108,13 @@ class TestTask(TestCase):
         self.assertEqual(data['status'], True)
 
     def testPutTasksFail(self):
+        """test to edit a non-existing task"""
         response = self.testApp.put('/tasks/' + '200', json={})
         resp = json.loads(response.data)
         self.assertEqual(resp['code'], 400)
 
     def testDeleteTasks(self):
+        """test to delete a task"""
         response = self.testApp.post('/tasks', json={
             "userId": '0',
             "taskListId": '-1',
@@ -128,11 +136,10 @@ class TestTask(TestCase):
         self.assertEqual(resp['code'], 404)
 
     def testDeleteTasksFail(self):
+        """test to delete a non-existing task"""
         response = self.testApp.delete('/tasks/' + '200')
         resp = json.loads(response.data)
         self.assertEqual(resp['code'], 404)
-
-
 
 if __name__ == '__main__':
     unittest.main()

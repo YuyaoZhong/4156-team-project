@@ -6,7 +6,9 @@ PASSWORD - should be set in .env
 """
 import os
 from datetime import timedelta
+from dotenv import load_dotenv
 
+load_dotenv()
 DIALECT = 'mysql'
 DRIVER = 'pymysql'
 USERNAME = 'admin'
@@ -19,7 +21,7 @@ SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
     DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
 )
 
-print(PASSWORD)
+# print(PASSWORD)
 class DevConfig():  # pylint: disable=too-few-public-methods
     """Configuration for DEV environment"""
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI

@@ -2,12 +2,14 @@
 # -*- coding: utf-8 -*-
 """Unit tests for task lists
 """
-from flask import json
-from tests.TestCase import TestCase
 import unittest
+from flask import json
+from tests.testCase import TestCase
 
 class TestTaskLists(TestCase):
+    """Class to test task list API"""
     def testCreateTaskLists(self):
+        """test to create a task list"""
         response = self.testApp.post('/tasklists', json={
             "name": "Dummy task list",
             "userId": '0'
@@ -30,6 +32,7 @@ class TestTaskLists(TestCase):
         self.assertEqual(resp['code'], 400)
 
     def testGetTaskLists(self):
+        """test to retrieve a task list"""
         response = self.testApp.post('/tasklists', json={
             "name": "Get task list",
             "userId": '1'
@@ -51,6 +54,7 @@ class TestTaskLists(TestCase):
 
 
     def testPutTaskLists(self):
+        """test to edit task list"""
         response = self.testApp.post('/tasklists', json={
             "name": "Default task list",
             "userId": '1'
@@ -81,6 +85,7 @@ class TestTaskLists(TestCase):
 
 
     def testDeleteTaskLists(self):
+        """test to delete a task list"""
         response = self.testApp.post('/tasklists', json={
             "name": "Default task list",
             "userId": '1'
@@ -104,12 +109,13 @@ class TestTaskLists(TestCase):
 
 
     def testGetTaskListsByUserId(self):
-
+        """test to retrieve all the tasklists given an user id"""
         response = self.testApp.get('/tasklists/user/'+'test1')
         resp = json.loads(response.data)
         data = resp['data']
         oldLen = 0
-        if data: oldLen = len(data)
+        if data:
+            oldLen = len(data)
 
         self.testApp.post('/tasklists', json={
             "name": "Default task list 1",

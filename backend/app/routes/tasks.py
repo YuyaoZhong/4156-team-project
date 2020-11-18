@@ -1,8 +1,9 @@
+"""Create and manage tasks"""
+
 from flask import request, jsonify
 from app.routes import routes
 from app.ext import db
 from app.models import Task
-from app.models import TaskList
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysCorrect
 
@@ -13,6 +14,7 @@ from app.utls.utilities import judgeKeysCorrect
 
 @routes.route('/tasks/<taskId>', methods=["GET"])
 def getTask(taskId):
+    """get task from the database"""
     code, msg, result = 0, '', {'data': None}
     targetTask = Task.query.get(taskId)
     if not targetTask:
@@ -22,11 +24,11 @@ def getTask(taskId):
         code, msg = 200, apiStatus.getResponseMsg(200)
     result["code"] = code
     result["message"] = msg
-    
     return jsonify(result)
 
 @routes.route('/tasks/<taskId>', methods=['DELETE'])
 def deleteTask(taskId):
+    """delete task from database"""
     code, msg, result = 0, '', {'data': None}
     targetTask = Task.query.get(taskId)
     if not targetTask:
@@ -45,6 +47,7 @@ def deleteTask(taskId):
 
 @routes.route('/tasks', methods=['POST'])
 def createTasks():
+    """create a task and save to database"""
     data = request.get_json()
     postAttrs = ['userId', 'taskListId', 'name', 'status' ]
     code, msg, result = 0, '', {'data': None}
@@ -72,6 +75,7 @@ def createTasks():
 
 @routes.route('/tasks/<taskId>', methods=['PUT'])
 def putTask(taskId):
+    """edit attributes of a task"""
     data = request.get_json()
     postAttrs = ['userId', 'taskListId', 'name', 'status' ]
     code, msg, result = 0, "", {'data': None}
@@ -94,4 +98,3 @@ def putTask(taskId):
     result['code'] = code
     result['message'] = msg
     return jsonify(result)
-
