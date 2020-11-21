@@ -111,7 +111,7 @@ def createTasks():
 def putTask(taskId):
     """edit attributes of a task"""
     data = request.get_json()
-    postAttrs = ['userId', 'taskListId', 'name', 'status' ]
+    postAttrs = ['id', 'userId', 'taskListId', 'name', 'status' ]
     code, msg, result = 0, "", {'data': None}
     if not data:
         code, msg = 400, apiStatus.getResponseMsg(400)

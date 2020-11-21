@@ -5,18 +5,19 @@ import { useGoogleAuth } from './google-login-context';
 export const DataContext = React.createContext()
 
 // todo: write unified post methods;
-// todo: move to sepearte components;
-// const defaultTaskList = {"taskListId": 0, "taskListName": "Default"};
-// const matchedTasks = tasks.reduce((res, item)=>{
-//     if (!item.taskListId || String(item.taskListId) < 0){
-//         return {...item, ...defaultTaskList}
-//     }
-//     let curTaskList = tasklists.find(tasklist=>(String(item.taskListId) === String(tasklist.id)))
-//     if(!curTaskList){
-//         curTaskList = {...defaultTaskList};
-//     }
-//     return {...item, ...defaultTaskList};
-//  }, [])
+
+const upsertData = (route, data, method) => {
+    return fetch(route, {
+        method: method,
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(r=>r.json())
+};
+
+
 
 export const DataContextProvider = props => {
     const [timerList, setTimerList] = React.useState([]);
@@ -30,6 +31,7 @@ export const DataContextProvider = props => {
     const userId = isSignedIn ? googleUser.googleId : ""
 
     React.useEffect(()=>{
+    setLoading(true);
        async function fetchData () {
             const getAllTimerRoute = `${SERVER_URL}/timers/?userId=${userId}`;
             const getAllTaskRoute = `${SERVER_URL}/tasks?userId=${userId}`;
@@ -37,11 +39,12 @@ export const DataContextProvider = props => {
             const urls = [getAllTimerRoute, getAllTaskRoute, getAllTasklistRoute];
             const promises = urls.map(url=>fetch(url).then(r=>r.json()))
             await Promise.all(promises).then(res=>{
-    
+                // console.log(res);
                 setTimerList(res[0]["data"]);
                 setTasks(res[1]["data"]);
                 setTasklists(res[2]["data"]);
             })
+            setLoading(false);
        }
 
        fetchData();
@@ -99,25 +102,43 @@ export const DataContextProvider = props => {
         // });
     }
 
-    const handleCreateTimer = (timerData) => {
+    const handleCreateTimer = (timerData, edit) => {
         console.log(timerData);
         timerData.userId = userId;
 
-        let route = `${SERVER_URL}/timers/`;
-        // console.log(route);
-        fetch(route, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(timerData)
-        }).then(r=>r.json())
-        .then(res=>{
-            console.log(res);
+        const route = `${SERVER_URL}/timers/`;
+        upsertData(route, timerData, 'POST').then(res=>{
+            // console.log(res);
             if(res.code === 201 && res.data){
                 addTimer(res.data);
             }
+        })
+    }
+
+    const handleUpsertTask = async (taskData, edit) => {
+        taskData.userId = userId;
+        const route = edit? `${SERVER_URL}/tasks/${taskData.id}`:`${SERVER_URL}/tasks`;
+        const method = edit ? 'PUT' : 'POST';
+        console.log(taskData, route)
+        await upsertData(route, taskData, method).then(res=>{
+            console.log('in upsert task', res)
+         if(res.code === 201 && res.data){
+             setTasks(state=>{
+                 // todo: sort default by incomplete / compete
+                 const newState = state.splice(0);
+                 let idx = -1;
+                 if(edit){
+                   idx = newState.findIndex(item=>(String(item.id) === String(taskData.id)));
+                 }
+                 if (idx === -1){
+                    newState.push(res.data);
+                 } else {
+                     newState[idx] = res.data;
+                 }
+                 
+                 return newState;
+             });
+         }
         })
     }
 
@@ -125,8 +146,9 @@ export const DataContextProvider = props => {
         tasks,
         tasklists,
         timerList,
+        loading,
         handleCreateTimer,
-
+        handleUpsertTask,
     }}>
         {props.children}
     </DataContext.Provider>)

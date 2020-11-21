@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Card, Form, Header, Icon } from 'semantic-ui-react';
+import { Button, Container, Card, Form, Header, Icon, Checkbox, List } from 'semantic-ui-react';
 // import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { useDataContext } from '../../context/data-context';
 // import { constructDate, formatDate, formatTime } from '../../utilities/utilities';
@@ -9,9 +9,9 @@ const matchedTaskLists = (tasks, tasklists) => {
     const newTaskLists = tasklists.splice(0);
     newTaskLists.unshift(defaultTaskList);
     const matchedTaskLists = newTaskLists.reduce((res, item)=>{
-        if (String(item.id) === 0) {
+        if (String(item.id) === '0') {
             const relatedTasks = tasks && tasks.length > 0 ? 
-            tasks.filter(task=>(!task.taskListId || parseInt(String(task.taskListId)) <= 0)) 
+            tasks.filter(task=>(!task.taskListId || task.taskListId === 0 || parseInt(String(task.taskListId)) <= 0)) 
             : [];
             res.push({...item, "tasks": relatedTasks});
         } else {
@@ -25,26 +25,113 @@ const matchedTaskLists = (tasks, tasklists) => {
   return matchedTaskLists;
 }
 
-const EditTaskDiv = () => {
-
+const EditTaskDiv = props => {
+ const {taskListId, closeAddTaskMode} = props;
+ const {
+    handleUpsertTask,
+ } = useDataContext();
+ const [taskName, setTaskName] = React.useState('New Task');
+ const handleChange = (e) => setTaskName(e.target.value);
+ const handleSubmit = () => {
+     const newTask = {
+         'taskListId': taskListId,
+         'status': 0,
+         'name': taskName
+     };
+     handleUpsertTask(newTask, false);
+     closeAddTaskMode();
+ }
+  return ( <Form size = 'large'>
+                <Form.Field 
+                name = 'task name' label = 'name' control = 'input' type = 'text'
+                value = {taskName}
+                // defaultValue = {taskName}
+                onChange = {handleChange}        
+            />
+            <Button primary type="button" onClick={handleSubmit}>Save </Button> 
+            <Button secondary type="button" onClick={closeAddTaskMode}>Cancel</Button>   
+    </Form>)
 }
+
+const TaskDiv = props => {
+    const {task} = props;
+    const {
+        handleUpsertTask,
+     } = useDataContext();
+    const [checked, setChecked] = React.useState(task.status);
+    const toggleChecked = () =>{
+        const newTask = Object.assign({}, task);
+        const nextStatus = 1 - checked;
+        newTask.status = nextStatus;
+        handleUpsertTask(newTask, true);
+        setChecked(nextStatus);
+    }
+
+    const iconClass = checked ? 'check square outline': 'square outline';
+    return (<List.Item>
+        <List.Icon name = {iconClass} size = "large" verticalAlign='middle' onClick = {toggleChecked} />
+        <List.Content>
+            <List.Header><Header as="h4">{task.name}</Header></List.Header>
+        </List.Content>
+        
+    </List.Item>)
+}
+
+const TasklistCard  = props => {
+    const {tasklist } = props;
+    const [addTaskMode, setAddTaskMode] = React.useState(false);
+    const handleAddTaskMode = (status) => setAddTaskMode(status);
+    const closeAddTaskMode = () => setAddTaskMode(false);
+    return(<Card>
+        <Card.Content>
+            <Card.Header>{tasklist.name}</Card.Header>
+          
+        </Card.Content>
+        <Card.Content>
+        <List divided relaxed>
+            {tasklist.tasks && tasklist.tasks.length > 0 ? 
+              tasklist.tasks.map((task, i) => {
+                  return(<TaskDiv task = {task}/>)
+              })
+            :""}
+        </List>
+            {addTaskMode? <EditTaskDiv
+              taskListId = {tasklist.id}
+              closeAddTaskMode = {closeAddTaskMode}
+            />: <Button color='grey' fluid onClick={()=>handleAddTaskMode(true)}><Icon name="plus"/></Button>}
+        </Card.Content>
+      
+    </Card>)
+}
+
+
 
 const AllTaskLists = () =>{
     const {
         tasks,
         tasklists,
     } = useDataContext();
-   
+     console.log('in all task lists', tasks, tasklists)
     const [curTaskLists, setCurTaskLists] = React.useState(matchedTaskLists(tasks || [], tasklists || []));
 
+    console.log(tasks, tasklists)
+    React.useEffect(()=>{
+        setCurTaskLists(matchedTaskLists(tasks || [], tasklists || []));
+    }, [tasks, tasklists]);
+
     return (<Container>
-    <Card.Group itemsPerRow = {3}>
-    {curTaskLists.map((item, i)=>{
-          return(<Card key = {i}>
-                    <Card.Content header = {item.name}/>
-                 </Card>)
-       })}
-    </Card.Group>
+         <Header as='h2' textAlign='center'>
+            <Icon name='tasks'/>
+            <Header.Content>
+                Tasks
+            <Header.Subheader>Manage your tasks</Header.Subheader>
+            </Header.Content>
+        </Header>
+        <Card.Group itemsPerRow = {3}>
+        {curTaskLists.map((item, i)=>{
+            return(<TasklistCard key = {i} tasklist = {item}/>)
+        })}
+        </Card.Group>
     </Container>)
 }
 
