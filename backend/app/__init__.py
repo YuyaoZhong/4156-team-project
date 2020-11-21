@@ -15,6 +15,7 @@ from app.routes.tasklists import *
 from app.routes.timers import *
 from app.routes.tasklists import *
 from app.routes.tasksToTimers import *
+from app.routes.zoom import *
 
 
 class MyJSONEncoder(json.JSONEncoder):
