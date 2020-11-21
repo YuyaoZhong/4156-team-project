@@ -7,9 +7,10 @@ from app.models import Timer
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysCorrect
 import requests
+import os
 from base64 import b64encode
 
-ZOOM_CREDENTIALS = "Sq_MIXQcTGencegqaHAxtA:3qKbxOwn0rj3bE5w0OTwFZFmdt5390kp"
+ZOOM_CREDENTIALS = os.environ.get('ZOOM_APP_CREDENTIALS')
 
 @routes.route('/zoom/', methods=['GET'])
 def zoomIntegreation():
