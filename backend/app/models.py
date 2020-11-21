@@ -1,5 +1,7 @@
 """Models for the application"""
+from datetime import datetime
 from app.ext import db
+
 
 class Task(db.Model):  # pylint: disable=too-few-public-methods
     """Task models"""
@@ -69,7 +71,7 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
     breakTime = db.Column(db.Integer, nullable=False, default=5)
     round = db.Column(db.Integer, nullable=False, default=1)
 
-    def toDict(self):
+    def toDict(self, dateToIsoStr = False):
         """this function is for the server to turn Timer class into dic in python"""
         timer = {
             "id": self.id,
@@ -82,6 +84,10 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
             "breakTime": self.breakTime,
             "round": self.round
         }
+        if dateToIsoStr:
+            # if isinstance(startTime, str):
+            #     startTime = datetime.strftime(startTime, SQL_DATE_FORMAT)
+            timer["startTime"] = self.startTime.isoformat()
         return timer
     def update(self,data):
         """this function is for the server to update the Timer class"""

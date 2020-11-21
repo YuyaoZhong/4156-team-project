@@ -14,10 +14,10 @@ from app.utls.utilities import judgeKeysExist
 from app.utls.utilities import judgeKeysCorrect
 
 
-@routes.route('/timers')
-def testTimers():
-    """this is for test"""
-    return "timers url"
+# @routes.route('/timers')
+# def testTimers():
+#     """this is for test"""
+#     return "timers url"
 
 @routes.route('/timers/', methods=['GET'])
 def getTimers():
@@ -30,19 +30,20 @@ def getTimers():
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
-            result["data"] = targetTimer.toDict()
+            result["data"] = targetTimer.toDict(True)
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
         return jsonify(result)
     if userId is not None:
+        result['data'] = [] # should also return an empty list
         targetTimer = Timer.query.filter_by(userId=userId).all()
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
-            result['data'] = []
+            # result['data'] = []
             for timer in targetTimer :
-                result['data'].append(timer.toDict())
+                result['data'].append(timer.toDict(True)) # to iso format
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
@@ -87,6 +88,8 @@ def createTimers():
         zoomLink = data['zoomLink'] if 'zoomLink' in data else None
         startTime = data['startTime']
         formatStartTime = parser.parse(startTime)
+        # testFormStartTime = datetime.datetime.fromisoformat(startTime)
+        # print(formatStartTime, testFormStartTime)
         duration = int(data['duration'])
         breakTime = int(data['breakTime'])
         round = int(data['round'])

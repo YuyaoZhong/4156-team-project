@@ -12,6 +12,40 @@ from app.utls.utilities import judgeKeysCorrect
 #def testTask():
 #    return "tasks url"
 
+@routes.route('/tasks', methods=['GET'])
+def getTasks():
+    """This function is for the server to get timers from the database"""
+    code, msg, result = 0, "", {"data": None}
+    taskId = request.args.get('taskId', None)
+    userId = request.args.get('userId', None)
+    if taskId is not None :
+        targetTask= Task.query.get(taskId)  # query by primary key
+        if not targetTask:
+            code, msg = 404, apiStatus.getResponseMsg(404)
+        else:
+            result["data"] = targetTask.toDict()
+            code, msg = 200, apiStatus.getResponseMsg(200)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+    if userId is not None:
+        result['data'] = []
+        targetTasks = Task.query.filter_by(userId=userId).all()
+        if not targetTasks:
+            code, msg = 404, apiStatus.getResponseMsg(404)
+        else:
+            for task in targetTasks :
+                result['data'].append(task.toDict())
+            code, msg = 200, apiStatus.getResponseMsg(200)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+    code, msg = 400, apiStatus.getResponseMsg(400)
+    result["code"] = code
+    result["message"] = msg
+
+    return jsonify(result)
+
 @routes.route('/tasks/<taskId>', methods=["GET"])
 def getTask(taskId):
     """get task from the database"""
