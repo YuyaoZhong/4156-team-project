@@ -3,7 +3,7 @@
 from flask import request, json, jsonify
 from app.routes import routes
 from app.ext import db
-from app.models import Task
+from app.models import Timer
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysCorrect
 import requests

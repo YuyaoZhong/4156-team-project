@@ -37,3 +37,5 @@ typed-ast==1.4.1
 Werkzeug==1.0.1
 wrapt==1.12.1
 zipp==3.4.0
+
+requests~=2.25.0
