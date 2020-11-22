@@ -26,6 +26,7 @@ export const DataContextProvider = props => {
     const [running, setRunning]  = React.useState(false); // may not need, just keep
     const [timerRun, setTimerRun] = React.useState({});
     const [loading, setLoading] = React.useState(false);
+    const [curTime, setCurTime] =  React.useState(new Date().getTime());
 
     const {isSignedIn, googleUser} = useGoogleAuth();
     const userId = isSignedIn ? googleUser.googleId : ""
@@ -56,18 +57,6 @@ export const DataContextProvider = props => {
         console.log('timer run', timerRun);
         console.log('running', running);
         const curTime = new Date();
-        if (timerList.length > 0 && Object.keys(timerRun) === 0){
-  
-            const firstTimer = Object.assign({}, timerList[0]);
-            const nextStartTime = new Date(firstTimer.startTime);
-            const differTime = nextStartTime - curTime; // millseconds
-            console.log('in checcking time diff', differTime);
-            if (differTime < 0.5 * 60000){ // less than one minutes
-                setTimerRun(firstTimer);
-                setRunning(true);
-            }
-        }
-
         if (Object.keys(timerRun) !== 0) {
             const lastMins = timerRun.round * (timerRun.duration + timerRun.breakTime);
             const endTime = new Date(new Date(timerRun.startTime).getTime() + lastMins * 60000);
@@ -76,17 +65,37 @@ export const DataContextProvider = props => {
                 setRunning(false);
             }
         }
+
+        if (timerList.length > 0 && Object.keys(timerRun).length === 0){
+  
+            const firstTimer = Object.assign({}, timerList[0]);
+            const nextStartTime = new Date(firstTimer.startTime);
+            const differTime = nextStartTime.getTime() - curTime.getTime(); // millseconds
+            console.log('in checcking time diff', differTime);
+            if (differTime < 0.5 * 60000){ // less than one minutes
+                setTimerRun(firstTimer);
+                setRunning(true);
+            }
+        }
+
+     
     }
 
+    // set interval for updating running timer
     React.useEffect(()=>{
-        const intervalTime = 100;
-        // run every second
-        console.log('in checking')
-        const checkTimer = setInterval(()=>{
-            
-        }, intervalTime);
-        return ()=> clearInterval(checkTimer)
-    }, [timerList])
+        const intervalTime = 10000;
+        const interval = setInterval(()=>{
+          setCurTime(prev=>prev + intervalTime)
+        }, intervalTime)
+        return ()=>clearInterval(interval);
+    }, []);
+
+
+    React.useEffect(()=>{
+    //    console.log('TO RUN CHECK')
+      checkTImerRunning();
+    }, [curTime, timerList])
+
 
     const addTimer = (newTime) => {
         const newTimerList = timerList.splice(0);

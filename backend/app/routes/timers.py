@@ -119,7 +119,7 @@ def createTimers():
         try:
             newTimer = Timer(userId=str(userId), title=str(title),
                              description=str(description), zoomLink=str(zoomLink),
-                             startTime=formatStartTime, duration=str(duration),
+                             startTime=startTime, duration=str(duration),
                              breakTime=str(breakTime), round=str(round))
             db.session.add(newTimer)
             db.session.commit()
