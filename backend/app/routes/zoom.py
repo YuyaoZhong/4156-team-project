@@ -46,8 +46,8 @@ def zoomIntegreation():
     response = json.loads(r.text)
 
     data = {
-        "start_url: ": response['start_url'],
-        "join_url: ": response['join_url']
+        "start_url:": response['start_url'],
+        "join_url:": response['join_url']
     }
 
     code, msg, result = 200, apiStatus.getResponseMsg(200), {'data': data}
