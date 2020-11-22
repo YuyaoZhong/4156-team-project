@@ -79,9 +79,12 @@ export const DataContextProvider = props => {
     }
 
     React.useEffect(()=>{
-        const intervalTime = 10000;
+        const intervalTime = 100;
         // run every second
-        const checkTimer = setInterval(checkTImerRunning(), intervalTime);
+        console.log('in checking')
+        const checkTimer = setInterval(()=>{
+            
+        }, intervalTime);
         return ()=> clearInterval(checkTimer)
     }, [timerList])
 
@@ -99,17 +102,21 @@ export const DataContextProvider = props => {
         // });
     }
 
-    const handleCreateTimer = (timerData, edit) => {
+    const handleCreateTimer = async (timerData, edit) => {
         console.log(timerData);
         timerData.userId = userId;
 
         const route = `${SERVER_URL}/timers/`;
-        upsertData(route, timerData, 'POST').then(res=>{
-            // console.log(res);
+        let timerId = timerData.id;
+        await upsertData(route, timerData, 'POST').then(res=>{
+            console.log('timer', res);
             if(res.code === 201 && res.data){
                 addTimer(res.data);
+                timerId = res.data.id;
             }
         })
+
+        return timerId; // for redirect
     }
 
     const handleUpsertTask = async (taskData, edit) => {

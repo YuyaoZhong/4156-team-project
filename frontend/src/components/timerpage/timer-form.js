@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom'
 import { Button, Container, Form, Header, Icon } from 'semantic-ui-react';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { useDataContext } from '../../context/data-context';
@@ -29,12 +30,11 @@ const TimerForm = (props) => {
     };
     
     const [timerData, setTimerData] = React.useState(defaultTimerData);
-      
+    const [redirect, setRedirect] = React.useState(null);
     const handleChange = e => setTimerData({...timerData, [e.target.name]: e.target.value})
     const handleStartTimeChange = (e, {name, value}) => setTimerData({...timerData, [name]: value});
 
-    const handleSubmit = () =>{
-        
+    const handleSubmit = async () =>{
         const newTimerData = Object.assign({}, timerData);
         const startTime = `${newTimerData.date} ${newTimerData.time}`;
         const startTimeUtc = constructDate(startTime).toISOString();
@@ -42,76 +42,80 @@ const TimerForm = (props) => {
         delete newTimerData.date;
         delete newTimerData.time;
 
-        handleCreateTimer(newTimerData);
+        const timerId = await handleCreateTimer(newTimerData);
+        console.log(timerId)
+        if (timerId) {
+            setRedirect(`/timer/${timerId}`);
+        }
 
     };
 
-    return(<Container>
-           <Header as='h2' textAlign='center' icon>
-                <Icon name='clock outline'/>
-                Create A New Pomodoro
-           </Header>
-            <Form size = 'big'>
-            <Form.Field 
-               name = 'title' label = 'Title' control = 'input' type = 'text'
-              defaultValue = {timerData.title}
-              onChange = {handleChange}     
-            />
+    return redirect && redirect.length > 0 ? <Redirect push to = {redirect} />:(<Container>
+        <Header as='h2' textAlign='center' icon>
+             <Icon name='clock outline'/>
+             Create A New Pomodoro
+        </Header>
+         <Form size = 'big'>
+         <Form.Field 
+            name = 'title' label = 'Title' control = 'input' type = 'text'
+           defaultValue = {timerData.title}
+           onChange = {handleChange}     
+         />
 
-            <Form.Field 
-               name = 'description' label = 'Description' control = 'input' type = 'text'
-              defaultValue = {timerData.description}
-              onChange = {handleChange}     
-            />
-                
-                <Form.Group widths='equal'>
-                    {/* <Form.label>Date</Form.label> */}
-                    <DateInput
-                            name="date"
-                            placeholder="Date"
-                            value={timerData.date}
-                            iconPosition='left'
-                            popupPosition='bottom right'
-                            startMode = 'year'
-                            dateFormat= 'YYYY-MM-DD'
-                            minDate = {minDate}
-                            onChange={handleStartTimeChange}
-                        />
-                        <TimeInput
-                            name="time"
-                            placeholder="Time"
-                            value = {timerData.time}
-                            iconPosition="left"
-                            popupPosition='bottom right'
-                            onChange={handleStartTimeChange}
-                            // minTime = {startTime.Date === minDate? formatTime(new Date()):""}
-                        />
-                </Form.Group>
-                <Form.Group widths='equal'>
-                    <Form.Field 
-                        name = 'duration'
-                        label = 'Duration' 
-                        control = 'input' 
-                        type = 'number'  min = {1}
-                        defaultValue = {timerData.duration}
-                        onChange = {handleChange}
-                    />
-                    <Form.Field 
-                       name = 'breakTime' label = 'Break' 
-                       control = 'input' type = 'number' min = {1} 
-                       defaultValue= {timerData.breakTime} 
-                       onChange = {handleChange}
+         <Form.Field 
+            name = 'description' label = 'Description' control = 'input' type = 'text'
+           defaultValue = {timerData.description}
+           onChange = {handleChange}     
+         />
+             
+             <Form.Group widths='equal'>
+                 {/* <Form.label>Date</Form.label> */}
+                 <DateInput
+                         name="date"
+                         placeholder="Date"
+                         value={timerData.date}
+                         iconPosition='left'
+                         popupPosition='bottom right'
+                         startMode = 'year'
+                         dateFormat= 'YYYY-MM-DD'
+                         minDate = {minDate}
+                         onChange={handleStartTimeChange}
                      />
-                     <Form.Field 
-                       name = 'round' label = 'Round' 
-                       control = 'input' type = 'number' min = {1} 
-                       defaultValue= {timerData.round} 
-                       onChange = {handleChange}
+                     <TimeInput
+                         name="time"
+                         placeholder="Time"
+                         value = {timerData.time}
+                         iconPosition="left"
+                         popupPosition='bottom right'
+                         onChange={handleStartTimeChange}
+                         // minTime = {startTime.Date === minDate? formatTime(new Date()):""}
                      />
-                </Form.Group>
-                <Button primary type="button" onClick={handleSubmit}>Save </Button>  
-            </Form>
-        </Container>)
+             </Form.Group>
+             <Form.Group widths='equal'>
+                 <Form.Field 
+                     name = 'duration'
+                     label = 'Duration' 
+                     control = 'input' 
+                     type = 'number'  min = {1}
+                     defaultValue = {timerData.duration}
+                     onChange = {handleChange}
+                 />
+                 <Form.Field 
+                    name = 'breakTime' label = 'Break' 
+                    control = 'input' type = 'number' min = {1} 
+                    defaultValue= {timerData.breakTime} 
+                    onChange = {handleChange}
+                  />
+                  <Form.Field 
+                    name = 'round' label = 'Round' 
+                    control = 'input' type = 'number' min = {1} 
+                    defaultValue= {timerData.round} 
+                    onChange = {handleChange}
+                  />
+             </Form.Group>
+             <Button primary type="button" onClick={handleSubmit}>Save </Button>  
+         </Form>
+     </Container>)
 
 } 
 

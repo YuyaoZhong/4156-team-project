@@ -1,10 +1,12 @@
 import React from 'react';
-import { Grid, Card, Label, Icon, Divider,} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Grid, Card, Label, Icon, Divider, Button,} from 'semantic-ui-react';
 import './timer-board-style.css';
 
 const Timeline = props => {
     const {
-        direction, icon, title, time, description, tags, labelColor, lineHeight = 4, lineColor = 'grey', color = 'grey'
+        direction, icon, title, time, description, linkRoute="/",
+       tags, labelColor, lineHeight = 4, lineColor = 'grey', color = 'grey'
       } = props;
       const textAlign = direction === 'left' ? 'right' : 'left';
       const card = (
@@ -20,13 +22,17 @@ const Timeline = props => {
                 {description}
               </Card.Description>
               <Divider />
-              <Label.Group color={color}>
+              <Link to = {linkRoute}>
+                  <Button inverted color = {color} floated='right'>Details</Button>
+              </Link>
+              {/* <Label.Group color={color}>
+             
                 {tags.map((tag, i) => (
                   <Label key={i.toString()}>
                     {tag}
                   </Label>
                 ))}
-              </Label.Group>
+              </Label.Group> */}
             </Card.Content>
           </Card>
       );

@@ -34,6 +34,7 @@ const TimelineBoard = () => {
                   description = {new Date(timer.startTime).toString()}
                 //   time = {new Date(timer.startTime).toString()}
                 //   description = {timer.title}
+                  linkRoute = {`/timer/${timer.id}`}
                   tags = {[]}
                   lineHeight = {4}
                 />

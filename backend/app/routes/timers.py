@@ -25,6 +25,7 @@ def getTimers():
     code, msg, result = 0, "", {"data": None}
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None)
+    getLatest = request.args.get('latest', None)
     if timerId is not None :
         targetTimer = Timer.query.get(timerId)  # query by primary key
         if not targetTimer:
