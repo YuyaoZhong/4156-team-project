@@ -49,10 +49,7 @@ export const DataContextProvider = props => {
 
        fetchData();
     },[isSignedIn, userId])
-    // test ouput
-    // console.log('timer run', timerRun);
-    // console.log('running', running);
-    // interval check timer running -- not sure about the implementation, should check
+
     const checkTImerRunning = () => {
         // may need to change fetching first
         console.log('in checking', timerList);
@@ -119,7 +116,6 @@ export const DataContextProvider = props => {
         taskData.userId = userId;
         const route = edit? `${SERVER_URL}/tasks/${taskData.id}`:`${SERVER_URL}/tasks`;
         const method = edit ? 'PUT' : 'POST';
-        console.log(taskData, route)
         await upsertData(route, taskData, method).then(res=>{
             console.log('in upsert task', res)
          if(res.code === 201 && res.data){
@@ -135,11 +131,15 @@ export const DataContextProvider = props => {
                  } else {
                      newState[idx] = res.data;
                  }
-                 
                  return newState;
              });
          }
         })
+    }
+
+    const getTimerById = (timerId) => {
+        const targetTimer = timerList.find(timer=>String(timer.id) === String(timerId));
+        return targetTimer;
     }
 
     return (<DataContext.Provider value = {{
@@ -147,6 +147,7 @@ export const DataContextProvider = props => {
         tasklists,
         timerList,
         loading,
+        getTimerById,
         handleCreateTimer,
         handleUpsertTask,
     }}>

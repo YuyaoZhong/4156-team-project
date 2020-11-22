@@ -5,6 +5,8 @@ import { GoogleAuthProvider } from '../src/context/google-login-context';
 import { DataContextProvider } from '../src/context/data-context';
 import TimerForm from '../src/components/timerpage/timer-form';
 import AllTaskLists from '../src/components/taskList/task-list';
+import SingleTimer from '../src/components/timers/timer-info';
+import TimelineBoard from '../src/components/timerpage/timer-board';
 import './App.css';
 
 
@@ -26,8 +28,16 @@ function App() {
                 component={TimerForm}
               />
               <Route
+                path = "/dashboard"
+                component={TimelineBoard}
+              />
+              <Route
                 path="/tasks"
                 component={AllTaskLists}
+              />
+              <Route
+                path = "/timer/:timerid"
+                component = {SingleTimer}
               />
           
           </Switch>

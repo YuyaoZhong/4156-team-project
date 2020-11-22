@@ -27,6 +27,13 @@ const NavBar = () => {
    return (
     <Segment inverted>
          <Menu inverted secondary size='massive'>
+              <Menu.Item
+              name = 'Dashboard'
+              active = {activeItem === 'Dashboard'}
+              as = {NavLink}
+              to = '/dashboard'
+              onClick = {handleItemClick}
+          />
           <Menu.Item
               name = 'Timers'
               active = {activeItem === 'Timers'}
@@ -41,13 +48,6 @@ const NavBar = () => {
               to = '/tasks'
               onClick = {handleItemClick}
           />
-           {/* <Menu.Item
-              name = 'Timers'
-              active = {activeItem === 'Timers'}
-              as = {NavLink}
-              to = '/timers'
-              onClick = {handleItemClick}
-          /> */}
           <Menu.Item
                 name = 'Running Timer'
                 active = {activeItem === 'Running Timer'}

@@ -1,8 +1,6 @@
 import React from 'react';
-import { Button, Container, Card, Form, Header, Icon, Checkbox, List } from 'semantic-ui-react';
-// import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
+import { Button, Container, Card, Form, Header, Icon, List } from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
-// import { constructDate, formatDate, formatTime } from '../../utilities/utilities';
 
 const defaultTaskList = {"id": 0, "name": "Default"};
 const matchedTaskLists = (tasks, tasklists) => {
@@ -112,7 +110,7 @@ const AllTaskLists = () =>{
         tasklists,
         loading,
     } = useDataContext();
-     console.log('in all task lists', tasks, tasklists)
+    //  console.log('in all task lists', tasks, tasklists)
     const [curTaskLists, setCurTaskLists] = React.useState(matchedTaskLists(tasks || [], tasklists || []));
 
 
