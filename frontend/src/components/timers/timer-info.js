@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 import { useParams} from 'react-router-dom'
+import TimerDetailInfo from './timer-detail-info';
 
 // this.props.match.params.number
 
@@ -12,8 +13,19 @@ const NotFoundTimer = () => {
             Not Found the Requested Timer
         </Header>
     </Container>)
-}
+};
 
+export const DisplayTimer = props => {
+    const {timer} = props;
+   
+    return (<Container>
+        <Header as='h2' textAlign='center' icon>
+        <Icon name='clock outline'/>
+           {timer.title}
+       </Header>
+        <TimerDetailInfo timer = {timer} />
+   </Container>)
+};
 
 const SingleTimer = () => {
     const {
@@ -28,13 +40,8 @@ const SingleTimer = () => {
     return !targetTimer || Object.keys(targetTimer) === 0 ? (
         <NotFoundTimer/>
     ):(
-        <Container>
-             <Header as='h2' textAlign='center' icon>
-             <Icon name='clock outline'/>
-                {targetTimer.title}
-            </Header>
-        </Container>
+        <DisplayTimer timer = {targetTimer} />
     )
-}
+};
 
 export default SingleTimer;
