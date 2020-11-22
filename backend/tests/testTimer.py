@@ -14,21 +14,21 @@ class TestTimers(TestCase):
         appResponse = self.testApp.post('/timers/', json={"breakTime": 5,
                                            "description": "this is a test timer",
                                            "duration": 25, "id": 1, "round": 1,
-                                           "startTime": "2020-11-12 21:05:19",
+                                           "startTime": "2020-11-22T04:01:00.000Z",
                                            "title": "test timer", "userId": "10000", "zoomLink": ""
         })
         jsonData = appResponse.get_json()
         appResponse2 = self.testApp.post('/timers/', json={"breakTime": 5,
                                            "description": "this is a test timer",
                                            "duration": 25, "id": 1, "round": 1,
-                                           "startTime": "2020-11-12 21:05:19",
+                                           "startTime": "2020-11-22T04:01:00.000Z",
                                            "title": "test timer", "userId": "10000", "zoomLink": ""
         })
         jsonData2 = appResponse2.get_json()
         appResponse3 = self.testApp.post('/timers/', json={"breakTime": 5,
                                            "description": "this is a test timer",
                                            "duration": 25, "id": 1, "round": 2,
-                                           "startTime": "2020-11-12 21:04:19",
+                                           "startTime": "2020-11-22T04:00:00.000Z",
                                            "title": "test timer", "userId": "10000", "zoomLink": ""
         })
         jsonData3 = appResponse3.get_json()
@@ -45,7 +45,7 @@ class TestTimers(TestCase):
 
     def testGetTimers(self):
         """test to get a timer by id"""
-        appResponse = self.testApp.get('/timers/?timerId=1')
+        appResponse = self.testApp.get('/timers/?timerId=9')
         jsonData = appResponse.get_json()
         self.assertEqual(jsonData['code'], 200)
 
@@ -59,7 +59,7 @@ class TestTimers(TestCase):
 
     def testGetTimers3(self):
         """test to retrieve a timer by a user id """
-        appResponse = self.testApp.get('/timers/?userId=0')
+        appResponse = self.testApp.get('/timers/?userId=117310065298163219549')
         jsonData = appResponse.get_json()
         self.assertEqual(jsonData['code'], 200)
 
@@ -77,7 +77,7 @@ class TestTimers(TestCase):
 
     def testUpdateTimers(self):
         """test to update a timer"""
-        appResponse = self.testApp.put('/timers/1', json={"breakTime": 15})
+        appResponse = self.testApp.put('/timers/9', json={"breakTime": 15})
         jsonData = appResponse.get_json()
         self.assertEqual(jsonData['code'], 200)
 
@@ -89,7 +89,7 @@ class TestTimers(TestCase):
 
     def testUpdateTimers3(self):
         """test to update a timer without required parameters"""
-        appResponse = self.testApp.put('/timers/1')
+        appResponse = self.testApp.put('/timers/9')
         jsonData = appResponse.get_json()
         # print(jsonData)
         self.assertEqual(jsonData['code'], 400)
@@ -99,7 +99,7 @@ class TestTimers(TestCase):
         appResponse1 = self.testApp.post('/timers/', json={"breakTime": 5,
                                            "description": "this is a test timer",
                                            "duration": 25, "round": 1,
-                                           "startTime": "Thu, 12 Nov 2020 21:05:19 GMT",
+                                           "startTime": "2020-11-22T04:01:00.000Z",
                                            "title": "test timer", "userId": "99", "zoomLink": ""
         })
         jsonData = appResponse1.get_json()
