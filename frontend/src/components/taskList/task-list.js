@@ -110,29 +110,31 @@ const AllTaskLists = () =>{
     const {
         tasks,
         tasklists,
+        loading,
     } = useDataContext();
      console.log('in all task lists', tasks, tasklists)
     const [curTaskLists, setCurTaskLists] = React.useState(matchedTaskLists(tasks || [], tasklists || []));
 
-    console.log(tasks, tasklists)
-    React.useEffect(()=>{
-        setCurTaskLists(matchedTaskLists(tasks || [], tasklists || []));
-    }, [tasks, tasklists]);
 
-    return (<Container>
-         <Header as='h2' textAlign='center'>
-            <Icon name='tasks'/>
-            <Header.Content>
-                Tasks
-            <Header.Subheader>Manage your tasks</Header.Subheader>
-            </Header.Content>
-        </Header>
-        <Card.Group itemsPerRow = {3}>
-        {curTaskLists.map((item, i)=>{
-            return(<TasklistCard key = {i} tasklist = {item}/>)
-        })}
-        </Card.Group>
-    </Container>)
+    React.useEffect(()=>{
+        console.log(tasks, tasklists)
+        setCurTaskLists(matchedTaskLists(tasks || [], tasklists || []));
+    }, [tasks, tasklists, loading]);
+
+    return loading? "":(<Container>
+        <Header as='h2' textAlign='center'>
+           <Icon name='tasks'/>
+           <Header.Content>
+               Tasks
+           <Header.Subheader>Manage your tasks</Header.Subheader>
+           </Header.Content>
+       </Header>
+       <Card.Group itemsPerRow = {3}>
+       {curTaskLists.map((item, i)=>{
+           return(<TasklistCard key = {i} tasklist = {item}/>)
+       })}
+       </Card.Group>
+   </Container>)
 }
 
 export default AllTaskLists;

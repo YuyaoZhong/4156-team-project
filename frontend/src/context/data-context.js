@@ -48,7 +48,7 @@ export const DataContextProvider = props => {
        }
 
        fetchData();
-    },[])
+    },[isSignedIn, userId])
     // test ouput
     // console.log('timer run', timerRun);
     // console.log('running', running);
