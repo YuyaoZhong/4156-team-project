@@ -66,7 +66,7 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
     title = db.Column(db.String(256), nullable=False)
     description = db.Column(db.String(512))
     zoomLink = db.Column(db.String(512))
-    startTime = db.Column(db.DateTime, nullable=False)
+    startTime = db.Column(db.String(512), nullable=False)
     duration = db.Column(db.Integer, nullable=False, default=25)
     breakTime = db.Column(db.Integer, nullable=False, default=5)
     round = db.Column(db.Integer, nullable=False, default=1)
@@ -84,10 +84,6 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
             "breakTime": self.breakTime,
             "round": self.round
         }
-        if dateToIsoStr:
-            # if isinstance(startTime, str):
-            #     startTime = datetime.strftime(startTime, SQL_DATE_FORMAT)
-            timer["startTime"] = self.startTime.isoformat()
         return timer
     def update(self,data):
         """this function is for the server to update the Timer class"""
