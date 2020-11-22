@@ -13,7 +13,7 @@ from base64 import b64encode
 ZOOM_CREDENTIALS = os.environ.get('ZOOM_APP_CREDENTIALS')
 
 @routes.route('/zoom/', methods=['GET'])
-def zoomIntegreation():
+def zoomIntegration():
     code = request.args.get('code')
     print("code: ", code)
     params = {
