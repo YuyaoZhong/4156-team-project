@@ -88,7 +88,7 @@ def createTimers():
         description = data['description'] if 'description' in data else None
         zoomLink = data['zoomLink'] if 'zoomLink' in data else None
         startTime = data['startTime']
-        formatStartTime = parser.parse(startTime)
+        # formatStartTime = parser.parse(startTime)
         # testFormStartTime = datetime.datetime.fromisoformat(startTime)
         # print(formatStartTime, testFormStartTime)
         duration = int(data['duration'])
@@ -100,18 +100,18 @@ def createTimers():
             for oldTimer in oldTimers:
                 totalDuration = (oldTimer.duration + oldTimer.breakTime) * oldTimer.round
                 totalDuration = datetime.timedelta(minutes=totalDuration)
-                endTime = oldTimer.startTime + totalDuration
+                endTime =  parser.parse(oldTimer.startTime) + totalDuration
                 # sTime = datetime.datetime.strptime(startTime, "%Y-%m-%d %H:%M:%S")
-                sTime = parser.parse(startTime).replace(tzinfo=None)
+                sTime = parser.parse(startTime)
                 newDuration = (duration + breakTime) * round
                 newDuration = datetime.timedelta(minutes=newDuration)
                 eTime = sTime + newDuration
-                if oldTimer.startTime <= sTime < endTime or oldTimer.startTime < eTime <= endTime:
+                if parser.parse(oldTimer.startTime) <= sTime < endTime or parser.parse(oldTimer.startTime) < eTime <= endTime:
                     code, msg = 403, apiStatus.getResponseMsg(403)
                     result["code"] = code
                     result["message"] = msg
                     return jsonify(result)
-                if sTime < oldTimer.startTime and eTime > endTime:
+                if sTime < parser.parse(oldTimer.startTime) and eTime > endTime:
                     code, msg = 403, apiStatus.getResponseMsg(403)
                     result["code"] = code
                     result["message"] = msg
