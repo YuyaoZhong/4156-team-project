@@ -1,9 +1,9 @@
+#!/user/bin/python3
+# -*- coding: utf-8 -*-
 """
 RestFUL API for task list
 """
-from flask import (
-    request, jsonify
-)
+from flask import request, jsonify
 from app.ext import db
 from app.routes import routes
 from app.models import TaskList
@@ -15,6 +15,7 @@ from app.utls.utilities import judgeKeysCorrect
 def getTaskList(taskListId):
     """API for getting all tasklists with task list id as taskListId"""
     code, msg, result = 0, '', {'data': None}
+    result["data"] = []
     targetTaskList = TaskList.query.get(taskListId)
     if not targetTaskList:
         code, msg = 404, apiStatus.getResponseMsg(404)
@@ -106,18 +107,18 @@ def createTaskList():
 @routes.route('/tasklists/user/<userId>', methods=['GET'])
 def getTaskListsByUserId(userId):
     """API for getting all tasklists with user id as userId"""
-    code, msg, result = 0, '', {'data': None}
+    code, msg, result = 0, '', {"data": None}
+    result["data"] = []
     taskLists = TaskList.query.filter_by(userId=userId).all()
     if not taskLists:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
-        result['data'] = []
         for taskList in taskLists:
-            result['data'].append(taskList.toDict())
+            result["data"].append(taskList.toDict())
         code, msg = 200, apiStatus.getResponseMsg(200)
 
-    result['code'] = code
-    result['message'] = msg
+    result["code"] = code
+    result["message"] = msg
     return jsonify(result)
 
 

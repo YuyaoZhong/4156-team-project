@@ -7,6 +7,7 @@ import TimerForm from '../src/components/timerpage/timer-form';
 import AllTaskLists from '../src/components/taskList/task-list';
 import SingleTimer from '../src/components/timers/timer-info';
 import TimelineBoard from '../src/components/timerpage/timer-board';
+import RunningTimerContainer from '../src/components/timers/timer-running';
 import './App.css';
 
 
@@ -38,6 +39,10 @@ function App() {
               <Route
                 path = "/timer/:timerid"
                 component = {SingleTimer}
+              />
+              <Route
+                path = "/running_timer"
+                component = {RunningTimerContainer}
               />
           
           </Switch>
