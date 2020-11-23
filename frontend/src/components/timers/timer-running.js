@@ -30,15 +30,13 @@ const getcurRound = (timer) =>{
 
 };
 
-// starttime1 - end - breaktime 
+
 const inBreak = (timer, curRound) => {
-    // const curRound = getcurRound(timer);
     if (curRound < 0){
         return false;
     }
     const timePast =  (curRound - 1)*(timer.duration + timer.breakTime) + timer.duration
     const shouldEnd = new Date(new Date(timer.startTime).getTime() + timePast * 60000);
-    // console.log('in is break', shouldEnd)
     return new Date().getTime() > shouldEnd.getTime();
 }
 
