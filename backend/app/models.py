@@ -84,10 +84,6 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
             "breakTime": self.breakTime,
             "round": self.round
         }
-        # if dateToIsoStr:
-        #     # if isinstance(startTime, str):
-        #     #     startTime = datetime.strftime(startTime, SQL_DATE_FORMAT)
-        #     timer["startTime"] = self.startTime.isoformat()
         return timer
     def update(self,data):
         """this function is for the server to update the Timer class"""

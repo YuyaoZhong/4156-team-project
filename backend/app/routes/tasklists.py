@@ -1,9 +1,9 @@
+#!/user/bin/python3
+# -*- coding: utf-8 -*-
 """
 RestFUL API for task list
 """
-from flask import (
-    request, jsonify
-)
+from flask import request, jsonify
 from app.ext import db
 from app.routes import routes
 from app.models import TaskList
@@ -15,6 +15,7 @@ from app.utls.utilities import judgeKeysCorrect
 def getTaskList(taskListId):
     """API for getting all tasklists with task list id as taskListId"""
     code, msg, result = 0, '', {'data': None}
+    result["data"] = []
     targetTaskList = TaskList.query.get(taskListId)
     if not targetTaskList:
         code, msg = 404, apiStatus.getResponseMsg(404)
@@ -103,45 +104,12 @@ def createTaskList():
     result['message'] = msg
     return jsonify(result)
 
-@routes.route('/tasklists', methods=['GET'])
-# def getTaskLists():
-#     """This function is for the server to get timers from the database"""
-#     code, msg, result = 0, "", {"data": None}
-#     taskListId = request.args.get('taskListId', None)
-#     userId = request.args.get('userId', None)
-#     if taskListId is not None :
-#         targetTask= TaskList.query.get(taskListId)  # query by primary key
-#         if not targetTask:
-#             code, msg = 404, apiStatus.getResponseMsg(404)
-#         else:
-#             result["data"] = targetTask.toDict()
-#             code, msg = 200, apiStatus.getResponseMsg(200)
-#         result["code"] = code
-#         result["message"] = msg
-#         return jsonify(result)
-#     if userId is not None:
-#         result["data"] = []
-#         targetTaskList = TaskList.query.filter_by(userId=userId).all()
-#         if not targetTaskList:
-#             code, msg = 404, apiStatus.getResponseMsg(404)
-#         else:
-#             for task in targetTaskList :
-#                 result['data'].append(task.toDict())
-#             code, msg = 200, apiStatus.getResponseMsg(200)
-#         result["code"] = code
-#         result["message"] = msg
-#         return jsonify(result)
-#     code, msg = 400, apiStatus.getResponseMsg(400)
-#     result["code"] = code
-#     result["message"] = msg
-#
-#     return jsonify(result)
-def getTaskListsByUserId():
+@routes.route('/tasklists/user/<userId>', methods=['GET'])
+def getTaskListsByUserId(userId):
     """API for getting all tasklists with user id as userId"""
-    userId = request.args.get('userId', None)
     code, msg, result = 0, '', {"data": None}
-    taskLists = TaskList.query.filter_by(userId=userId).all()
     result["data"] = []
+    taskLists = TaskList.query.filter_by(userId=userId).all()
     if not taskLists:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:

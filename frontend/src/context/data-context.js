@@ -29,7 +29,8 @@ export const DataContextProvider = props => {
        async function fetchData () {
             const getAllTimerRoute = `${SERVER_URL}/timers/?userId=${userId}`;
             const getAllTaskRoute = `${SERVER_URL}/tasks?userId=${userId}`;
-            const getAllTasklistRoute = `${SERVER_URL}/tasklists?userId=${userId}`;
+            // const getAllTasklistRoute = `${SERVER_URL}/tasklists?userId=${userId}`;
+            const getAllTasklistRoute =  `${SERVER_URL}/tasklists/user/${userId}`;
             // const getAllTaskandTimerRoute = `${SERVER_URL}/task_timers?userId=${userId}`;
             const urls = [getAllTimerRoute, getAllTaskRoute, getAllTasklistRoute];
             const promises = urls.map(url=>fetch(url).then(r=>r.json())) //.then(r=>JSON.parse(r)));
@@ -53,7 +54,7 @@ export const DataContextProvider = props => {
 
     const checkTImerRunning = () => {
         // may need to change fetching first
-    
+
         const curTime = new Date();
         const incomingTimerList = getIncomingTimer(timerList);
 
@@ -201,6 +202,70 @@ export const DataContextProvider = props => {
             })
         return relatedTasks;
     }
+    
+    const handleDeleteTask = async (taskData) => {
+        taskData.userId = userId;
+        const route = `${SERVER_URL}/tasks/${taskData.id}`;
+        const method = 'DELETE';
+        await upsertData(route, taskData, method).then(res=>{
+            console.log('in upsert task', res)
+         if(res.code === 201){
+             setTasks(state=>{
+                 // todo: sort default by incomplete / compete
+                 let idx = -1;
+                 idx = state.findIndex(item=>(String(item.id) === String(taskData.id)));
+                 state.splice(idx,1)
+                 const newState = state.splice(0)
+                 return newState;
+             });
+         }
+        })
+    }
+
+    const handleDeleteTaskList = async (taskListData) => {
+        taskListData.userId = userId;
+        const route = `${SERVER_URL}/tasklists/${taskListData.id}`;
+        const method = 'DELETE';
+        await upsertData(route, taskListData, method).then(res=>{
+            console.log('in upsert task', res)
+         if(res.code === 201){
+             setTasklists(state=>{
+                 // todo: sort default by incomplete / compete
+                 let idx = -1;
+                 idx = state.findIndex(item=>(String(item.id) === String(taskListData.id)));
+                 state.splice(idx,1)
+                 const newState = state.splice(0)
+                 return newState;
+             });
+         }
+        })
+    }
+
+    const handleUpsertTaskList = async (taskListData, edit) => {
+    taskListData.userId = userId;
+    const route = edit? `${SERVER_URL}/tasklists/${taskListData.id}`:`${SERVER_URL}/tasklists`;
+    const method = edit ? 'PUT' : 'POST';
+    await upsertData(route, taskListData, method).then(res=>{
+        console.log('in upsert taskList', res)
+     if(res.code === 201 && res.data){
+         setTasklists(state=>{
+             // todo: sort default by incomplete / compete
+             const newState = state.splice(0);
+             let idx = -1;
+             if(edit){
+               idx = newState.findIndex(item=>(String(item.id) === String(taskListData.id)));
+             }
+             if (idx === -1){
+                newState.push(res.data);
+             } else {
+                 newState[idx] = res.data;
+             }
+             return newState;
+            });
+        }
+        })
+    }
+   
 
     const getTimerById = (timerId) => {
         const targetTimer = timerList.find(timer=>String(timer.id) === String(timerId));
@@ -219,6 +284,9 @@ export const DataContextProvider = props => {
         handleUpsertTask,
         getRelatedTasksOfTimers,
         handleDeleteTimer,
+        handleUpsertTaskList,
+        handleDeleteTask,
+        handleDeleteTaskList,
     }}>
         {props.children}
     </DataContext.Provider>)

@@ -63,7 +63,7 @@ def getTask(taskId):
 @routes.route('/tasks/<taskId>', methods=['DELETE'])
 def deleteTask(taskId):
     """delete task from database"""
-    code, msg, result = 0, '', {'data': None}
+    code, msg, result = 0, '', {"data": None}
     targetTask = Task.query.get(taskId)
     if not targetTask:
         code, msg = 404, apiStatus.getResponseMsg(404)
