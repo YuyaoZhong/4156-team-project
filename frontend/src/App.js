@@ -4,6 +4,7 @@ import NavBar from '../src/components/navbar/navbar';
 import { GoogleAuthProvider } from '../src/context/google-login-context';
 import { DataContextProvider } from '../src/context/data-context';
 import TimerForm from '../src/components/timerpage/timer-form';
+import TimerTable from '../src/components/timerpage/timers-table';
 import AllTaskLists from '../src/components/taskList/task-list';
 import SingleTimer from '../src/components/timers/timer-info';
 import TimelineBoard from '../src/components/timerpage/timer-board';
@@ -26,7 +27,7 @@ function App() {
               />
               <Route
                 path="/timers"
-                component={TimerForm}
+                component={TimerTable}
               />
               <Route
                 path = "/dashboard"
