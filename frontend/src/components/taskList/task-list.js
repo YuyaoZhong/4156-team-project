@@ -4,7 +4,7 @@ import { useDataContext } from '../../context/data-context';
 
 const defaultTaskList = {"id": 0, "name": "Default"};
 const matchedTaskLists = (tasks, tasklists) => {
-    const newTaskLists = tasklists.splice(0);
+    const newTaskLists = tasklists.slice(0);
     newTaskLists.unshift(defaultTaskList);
     const matchedTaskLists = newTaskLists.reduce((res, item)=>{
         if (String(item.id) === '0') {
@@ -20,6 +20,7 @@ const matchedTaskLists = (tasks, tasklists) => {
         }
         return res;
     }, [])    
+
   return matchedTaskLists;
 }
 
@@ -51,7 +52,7 @@ const EditTaskDiv = props => {
     </Form>)
 }
 
-const TaskDiv = props => {
+export const TaskDiv = props => {
     const {task} = props;
     const {
         handleUpsertTask,
@@ -76,7 +77,8 @@ const TaskDiv = props => {
 }
 
 const TasklistCard  = props => {
-    const {tasklist } = props;
+    const {tasklist, hideAddTask} = props;
+
     const [addTaskMode, setAddTaskMode] = React.useState(false);
     const handleAddTaskMode = (status) => setAddTaskMode(status);
     const closeAddTaskMode = () => setAddTaskMode(false);
@@ -93,16 +95,29 @@ const TasklistCard  = props => {
               })
             :""}
         </List>
-            {addTaskMode? <EditTaskDiv
+           
+        </Card.Content>
+
+      {hideAddTask? "":
+        <Card.Content extra>
+        {addTaskMode? <EditTaskDiv
               taskListId = {tasklist.id}
               closeAddTaskMode = {closeAddTaskMode}
             />: <Button color='grey' fluid onClick={()=>handleAddTaskMode(true)}><Icon name="plus"/></Button>}
         </Card.Content>
-      
+      }
     </Card>)
 }
 
 
+export const TaskListArea = props => {
+    const {curTaskLists, hideAddTask} = props;
+    return ( <Card.Group itemsPerRow = {3}>
+        {curTaskLists.map((item, i)=>{
+            return(<TasklistCard key = {i} tasklist = {item} hideAddTask = {hideAddTask}/>)
+        })}
+        </Card.Group>)
+}
 
 const AllTaskLists = () =>{
     const {
@@ -110,12 +125,13 @@ const AllTaskLists = () =>{
         tasklists,
         loading,
     } = useDataContext();
+        // console.log('task lists', tasklists)
     //  console.log('in all task lists', tasks, tasklists)
     const [curTaskLists, setCurTaskLists] = React.useState(matchedTaskLists(tasks || [], tasklists || []));
 
 
     React.useEffect(()=>{
-        console.log(tasks, tasklists)
+        console.log(tasklists)
         setCurTaskLists(matchedTaskLists(tasks || [], tasklists || []));
     }, [tasks, tasklists, loading]);
 

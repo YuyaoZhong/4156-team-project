@@ -1,8 +1,9 @@
 import React from "react";
-import { useTable, useSortBy, useFlexLayout, useResizeColumns, usePagination, useExpanded} from "react-table";
+import { useTable, useSortBy, useFlexLayout, useMountedLayoutEffect, useResizeColumns, usePagination, useExpanded, useRowSelect} from "react-table";
 import { Table, Button, Dropdown,  Grid, Label} from "semantic-ui-react";
 
-const ReactSemanticTable = ({columns,  data})=>{
+
+const ReactSemanticTable = ({columns,  data, selectedRows, onSelectedRowsChange})=>{
     const defaultColumn = React.useMemo(
         () => ({
           minWidth: 45,
@@ -25,39 +26,49 @@ const ReactSemanticTable = ({columns,  data})=>{
         canPreviousPage,
         canNextPage,
         pageOptions,
+        selectedFlatRows,
         pageCount,
         gotoPage,
         nextPage,
         previousPage,
         setPageSize,
-        state: { pageIndex, pageSize }
+        // selectedFlatRows,
+        state: { selectedRowIds, pageIndex, pageSize }
     } = useTable(
         {
             columns, 
             data,
             defaultColumn,
-            initialState: { pageIndex: 0, pageSize: 10 }
+            initialState: { selectedRowIds: selectedRows, pageIndex: 0, pageSize: 10 }
         },
         useSortBy,
         useFlexLayout,
         useResizeColumns,
         useExpanded,
-        usePagination
+        usePagination,
+        useRowSelect,
+
         )
 
+
+        useMountedLayoutEffect(() => {
+          // console.log("SELECTED ROWS CHANGED", selectedFlatRows);
+          const selectedTimerIds = selectedFlatRows.map(d=>d.values.id);
+          onSelectedRowsChange && onSelectedRowsChange(selectedTimerIds);
+        }, [onSelectedRowsChange, selectedRowIds]);
 
         const onChangeInSelect = (e, {value}) => {
             setPageSize(Number(value))
             }
         
-        const onChangeInInput = pageSize => {
-            const page =pageSize? Number(pageSize) - 1 : 0
-            gotoPage(page)
-        }
+        // const onChangeInInput = pageSize => {
+        //     const page =pageSize? Number(pageSize) - 1 : 0
+        //     gotoPage(page)
+        // }
 
     return( 
     <>
-    <Table {...getTableProps()}>
+    <Table size = 'large' {...getTableProps()}>
         <thead>
          {headerGroups.map(headerGroup => (
            <tr {...headerGroup.getHeaderGroupProps()}>

@@ -6,13 +6,16 @@ import TimerDetailInfo from './timer-detail-info';
 import './timer-running.css';
 
 const formatTime = (timeLeftInSecond) => {
-  let minute = Math.floor(timeLeftInSecond / 60);
+  let hour = Math.floor(timeLeftInSecond / (60 * 60));
+  let hourDisplay = hour < 10 ? '0' + hour : hour;
+  let minutesLeftInSecond = timeLeftInSecond - hour * 60 * 60;
+  let minute = Math.floor(minutesLeftInSecond / 60);
   if (minute < 10) minute = '0' + minute;
 
-  let second = timeLeftInSecond - 60 * minute;
+  let second = minutesLeftInSecond- 60 * minute;
   if (second < 10) second = '0' + second;
 
-  return `${minute}:${second}`;
+  return hour > 0? `${hourDisplay}:${minute}:${second}`:`${minute}:${second}`;
 }
 
 const getcurRound = (timer) =>{
@@ -58,13 +61,13 @@ const getTimeLeft = (timer, curRound, isBreak) => {
 const NoTimer = () => {
     return (<div>There is no timer, to create one</div>)
 }
-const IncomingTimer = () => {
- const { timerList } = useDataContext();
+// const IncomingTimer = () => {
+//  const { timerList } = useDataContext();
 
-  return timerList && timerList.length > 0 ? (
-      <DisplayTimer timer = {timerList[0]} />
-  ): (<NoTimer/>);
-}
+//   return timerList && timerList.length > 0 ? (
+//       <DisplayTimer timer = {timerList[0]} />
+//   ): (<NoTimer/>);
+// }
 
 const getTimerState = (timer) => {
     const curRound = getcurRound(timer);
@@ -82,8 +85,8 @@ const TimerLabel = props => {
     if(!timerStatus.isStart && timerStatus.curRound === 0){
         return (<Container>
             <Header textAlign='center'>
-                <Label color='teal' pointing size ='huge'>
-                Incoming
+                <Label color='teal' pointing= 'below' size ='huge'>
+                Incoming 
                 </Label>
             </Header>
             {children}
@@ -172,7 +175,7 @@ const RunningTimer = () => {
 const RunningTimerContainer = () => {
     const { timerRun } = useDataContext();
     return !timerRun || Object.keys(timerRun).length === 0 ?
-      (<IncomingTimer/>): (<RunningTimer/>)
+      (<NoTimer/>): (<RunningTimer/>)
     
 }
 

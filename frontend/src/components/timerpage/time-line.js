@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Card, Label, Icon, Divider, Button,} from 'semantic-ui-react';
+import { Grid, Card, Label, Icon, Divider, Button, CardContent,} from 'semantic-ui-react';
 import './timer-board-style.css';
 
 const Timeline = props => {
@@ -12,27 +12,25 @@ const Timeline = props => {
       const card = (
           <Card fluid raised color={color}>
             <Card.Content>
-              <Label pointing={textAlign} color={labelColor} attached="top" style={{ marginLeft: '0' }}>
+             <Card.Header>
+             <Label pointing={textAlign} color={color} attached="top" style={{ marginLeft: '0', fontSize: '14px'}}>
                 {time}
               </Label>
-              <Card.Header>
+             </Card.Header>
+           </Card.Content>
+           <Card.Content style = {{marginTop: "10px"}}>
+             {description}
+              {/* <Card.Header>
                 {title}
-              </Card.Header>
-              <Card.Description>
+              </Card.Header> */}
+              {/* <Card.Description>
                 {description}
-              </Card.Description>
+              </Card.Description> */}
               <Divider />
               <Link to = {linkRoute}>
                   <Button inverted color = {color} floated='right'>Details</Button>
               </Link>
-              {/* <Label.Group color={color}>
-             
-                {tags.map((tag, i) => (
-                  <Label key={i.toString()}>
-                    {tag}
-                  </Label>
-                ))}
-              </Label.Group> */}
+          
             </Card.Content>
           </Card>
       );

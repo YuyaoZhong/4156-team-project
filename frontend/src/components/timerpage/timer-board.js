@@ -1,42 +1,43 @@
 import React, { Component } from 'react';
 import { useDataContext } from '../../context/data-context';
-import { Container, Icon, Header } from 'semantic-ui-react';
+import { Container, Icon, Header, Label} from 'semantic-ui-react';
+import { formatDateAndTime } from '../../utilities/utilities';
+import TimerDetailInfo  from '../timers/timer-detail-info';
 import Timeline from './time-line';
 import './timer-board-style.css';
 
 const colors = ['red', 'orange', 'yellow',
 'olive', 'green', 'teal', 'blue', 'violet',
-'purple', 'pink', 'browm', 'grey', 'black'
+'purple', 'pink', 'brown', 
 ]
 
 const directions = ['left', 'right']
 
-// todo: change the NotFoundTimer
-const NotFoundTimer = () => {
-    return(<Container>
-        <Header as='h2' textAlign='center' icon>
-             <Icon name='clock outline'/>
-            Not Found the Requested Timer
-        </Header>
-    </Container>)
-}
-
 const TimelineBoard = () => {
-    const { timerList } = useDataContext();
-    return (<Container>
-        {
-            timerList.map((timer, i) => {
+    const { incomingTimers } = useDataContext();
+    const MAX_DISPLAY_CNT = 5;
+    const displayTimerList = incomingTimers && incomingTimers.length > MAX_DISPLAY_CNT?
+       incomingTimers.slice(0, MAX_DISPLAY_CNT) : incomingTimers.slice(0)
+    return (<Container className='Timeline-container'>
+            <div className='Timeline-title'>
+                    <Label size ='massive' color = 'grey' pointing= 'below'>Incoming Timers </Label>
+            </div>
+       {
+            displayTimerList.map((timer, i) => {
+                // attrNameSize, contentSize, hideTasks
+                const color = colors[i % colors.length];
+                const detail = <TimerDetailInfo attrNameSize='medium' contentSize='medium' timer = {timer} color = {color} />
                 return(<Timeline
+                key = {i}
                   icon = "clock"
                   direction = {directions[i % directions.length]}
-                  color = {colors[i % colors.length]}
+                  color = {color}
                   time = {timer.title}
-                  description = {new Date(timer.startTime).toString()}
-                //   time = {new Date(timer.startTime).toString()}
-                //   description = {timer.title}
+                //   description = {formatDateAndTime(new Date(timer.startTime))}
+                  description = {detail}
                   linkRoute = {`/timer/${timer.id}`}
                   tags = {[]}
-                  lineHeight = {4}
+                  lineHeight = {2}
                 />
                 )
             })

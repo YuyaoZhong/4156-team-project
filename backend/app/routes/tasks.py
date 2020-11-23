@@ -29,13 +29,13 @@ def getTasks():
         result["message"] = msg
         return jsonify(result)
     if userId is not None:
-        result['data'] = []
+        result["data"] = []
         targetTasks = Task.query.filter_by(userId=userId).all()
         if not targetTasks:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
             for task in targetTasks :
-                result['data'].append(task.toDict())
+                result["data"].append(task.toDict())
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg

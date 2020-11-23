@@ -19,7 +19,7 @@ def getTaskList(taskListId):
     if not targetTaskList:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
-        result["data"] = targetTaskList.toDict()
+        result['data'] = targetTaskList.toDict()
         code, msg = 200, apiStatus.getResponseMsg(200)
     result["code"] = code
     result["message"] = msg
@@ -103,21 +103,54 @@ def createTaskList():
     result['message'] = msg
     return jsonify(result)
 
-@routes.route('/tasklists/user/<userId>', methods=['GET'])
-def getTaskListsByUserId(userId):
+@routes.route('/tasklists', methods=['GET'])
+# def getTaskLists():
+#     """This function is for the server to get timers from the database"""
+#     code, msg, result = 0, "", {"data": None}
+#     taskListId = request.args.get('taskListId', None)
+#     userId = request.args.get('userId', None)
+#     if taskListId is not None :
+#         targetTask= TaskList.query.get(taskListId)  # query by primary key
+#         if not targetTask:
+#             code, msg = 404, apiStatus.getResponseMsg(404)
+#         else:
+#             result["data"] = targetTask.toDict()
+#             code, msg = 200, apiStatus.getResponseMsg(200)
+#         result["code"] = code
+#         result["message"] = msg
+#         return jsonify(result)
+#     if userId is not None:
+#         result["data"] = []
+#         targetTaskList = TaskList.query.filter_by(userId=userId).all()
+#         if not targetTaskList:
+#             code, msg = 404, apiStatus.getResponseMsg(404)
+#         else:
+#             for task in targetTaskList :
+#                 result['data'].append(task.toDict())
+#             code, msg = 200, apiStatus.getResponseMsg(200)
+#         result["code"] = code
+#         result["message"] = msg
+#         return jsonify(result)
+#     code, msg = 400, apiStatus.getResponseMsg(400)
+#     result["code"] = code
+#     result["message"] = msg
+#
+#     return jsonify(result)
+def getTaskListsByUserId():
     """API for getting all tasklists with user id as userId"""
-    code, msg, result = 0, '', {'data': None}
+    userId = request.args.get('userId', None)
+    code, msg, result = 0, '', {"data": None}
     taskLists = TaskList.query.filter_by(userId=userId).all()
+    result["data"] = []
     if not taskLists:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
-        result['data'] = []
         for taskList in taskLists:
-            result['data'].append(taskList.toDict())
+            result["data"].append(taskList.toDict())
         code, msg = 200, apiStatus.getResponseMsg(200)
 
-    result['code'] = code
-    result['message'] = msg
+    result["code"] = code
+    result["message"] = msg
     return jsonify(result)
 
 

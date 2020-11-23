@@ -25,7 +25,6 @@ def getTimers():
     code, msg, result = 0, "", {"data": None}
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None)
-    getLatest = request.args.get('latest', None)
     if timerId is not None :
         targetTimer = Timer.query.get(timerId)  # query by primary key
         if not targetTimer:
@@ -63,9 +62,11 @@ def deleteTimers(timerId):
     if not targetTimer:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
+
         try:
             db.session.delete(targetTimer)
             db.session.commit()
+            result["data"] = {"id": timerId}
             code, msg = 200, apiStatus.getResponseMsg(200)
         except:
             code, msg = 500, apiStatus.getResponseMsg(500)
@@ -137,7 +138,7 @@ def createTimers():
 def putTimers(timerId):
     """This function is for the server to update timers"""
     data =  request.get_json()
-    postAttrs = ['userId', 'title', 'startTime', 'duration',
+    postAttrs = ['id', 'userId', 'title', 'startTime', 'duration',
                  'breakTime', 'round', 'description', 'zoomLink']
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysCorrect(data, postAttrs):
@@ -151,7 +152,7 @@ def putTimers(timerId):
                 targetTimer.update(data)
                 db.session.commit()
                 result["data"] = targetTimer.toDict()
-                code, msg = 200, apiStatus.getResponseMsg(201)
+                code, msg = 201, apiStatus.getResponseMsg(201)
             except:
                 code, msg = 500, apiStatus.getResponseMsg(500)
     result["code"] = code

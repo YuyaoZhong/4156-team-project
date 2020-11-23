@@ -5,5 +5,14 @@
     left: 0;
     right: 0;
     margin: auto;
-    top: -2em;
   }
+
+.Timeline-container {
+  position: relative;
+  /* padding: 30px; */
+}
+
+.Timeline-title {
+  text-align: center;
+}
+

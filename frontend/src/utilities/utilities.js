@@ -13,11 +13,20 @@ const formatTime = (date) => {
     return `${curHour}:${curMin}`;
 }
 
+const formatDateAndTime = (date) => {
+    return formatDate(date) + " " + formatTime(date);
+}
+
 const toLocalTime = (date) =>{
     let localDate = new Date(date)
     // let localDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000)
     return localDate
 }
+
+const timerSort = (a, b)=> (new Date(a.startTime) - new Date(b.startTime))
+const getEndTime = (timer) => (new Date(new Date(timer.startTime).getTime() + (timer.duration + timer.breakTime) * timer.round * 60000));
+
+const getIncomingTimer = (timerlist) => { return timerlist.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort)};
 
 const constructDate = (dateString) => {
     // var dateString = "2010-08-09 01:02:03";
@@ -39,5 +48,6 @@ export {
     formatDate,
     formatTime,
     constructDate,
-    toLocalTime
+    toLocalTime,
+    formatDateAndTime
 }

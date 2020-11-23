@@ -115,6 +115,7 @@ class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     taskId = db.Column(db.Integer, nullable=False)
     timerId = db.Column(db.Integer, nullable=False)
+    userId = db.Column(db.String(256), nullable=False)
 
     def update(self, data):
         """this function is for the server to update the relation class"""
@@ -131,6 +132,7 @@ class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
         taskToTimer = {
             "id": self.id,
             "taskId": self.taskId,
-            "timerId": self.timerId
+            "timerId": self.timerId,
+            "userId": self.userId
         }
         return taskToTimer

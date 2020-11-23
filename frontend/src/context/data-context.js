@@ -1,33 +1,25 @@
 import React from 'react'
 import { SERVER_URL } from '../constants/constants';
 import { useGoogleAuth } from './google-login-context';
+import { upsertData, deleteData } from '../utilities/apiMethods';
 
 export const DataContext = React.createContext()
 
-// todo: write unified post methods;
-
-const upsertData = (route, data, method) => {
-    return fetch(route, {
-        method: method,
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(r=>r.json())
-};
 
 const timerSort = (a, b)=> (new Date(a.startTime) - new Date(b.startTime))
 const getEndTime = (timer) => (new Date(new Date(timer.startTime).getTime() + (timer.duration + timer.breakTime) * timer.round * 60000));
+
+const getIncomingTimer = (timerlist) => {return timerlist.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort)};
 
 export const DataContextProvider = props => {
     const [timerList, setTimerList] = React.useState([]);
     const [tasks, setTasks] = React.useState([]);
     const [tasklists, setTasklists] = React.useState([]);
-    const [running, setRunning]  = React.useState(false); // may not need, just keep
     const [timerRun, setTimerRun] = React.useState({});
+    // const [taskAndTimer, setTaskToTimer] = React.useState({});
     const [loading, setLoading] = React.useState(false);
     const [curTime, setCurTime] =  React.useState(new Date().getTime());
+    const [incomingTimers, setIncomingTimers] = React.useState([]);
 
     const {isSignedIn, googleUser} = useGoogleAuth();
     const userId = isSignedIn ? googleUser.googleId : ""
@@ -37,50 +29,58 @@ export const DataContextProvider = props => {
        async function fetchData () {
             const getAllTimerRoute = `${SERVER_URL}/timers/?userId=${userId}`;
             const getAllTaskRoute = `${SERVER_URL}/tasks?userId=${userId}`;
-            const getAllTasklistRoute = `${SERVER_URL}/tasklists/user${userId}`;
+            const getAllTasklistRoute = `${SERVER_URL}/tasklists?userId=${userId}`;
+            // const getAllTaskandTimerRoute = `${SERVER_URL}/task_timers?userId=${userId}`;
             const urls = [getAllTimerRoute, getAllTaskRoute, getAllTasklistRoute];
-            const promises = urls.map(url=>fetch(url).then(r=>r.json()))
-            await Promise.all(promises).then(res=>{
-                // console.log(res);
-                // todo: seperate past timers
-                const timers = res[0]["data"].sort(timerSort);
-                setTimerList(timers);
-                setTasks(res[1]["data"]);
-                setTasklists(res[2]["data"]);
-            })
+            const promises = urls.map(url=>fetch(url).then(r=>r.json())) //.then(r=>JSON.parse(r)));
+            try {
+                await Promise.all(promises).then(res=>{
+                    console.log(res);
+                    const timers = res[0]["data"].sort(timerSort);
+                    setIncomingTimers(getIncomingTimer(timers));
+                    setTimerList(timers);
+                    setTasks(res[1]["data"]);
+                    setTasklists(res[2]["data"]);
+                })
+            } catch(e){
+                console.log(e);
+            }
             setLoading(false);
        }
 
        fetchData();
-    },[isSignedIn, userId])
+    },[userId])
 
     const checkTImerRunning = () => {
         // may need to change fetching first
     
         const curTime = new Date();
+        const incomingTimerList = getIncomingTimer(timerList);
+
         if (Object.keys(timerRun) !== 0) {
             const lastMins = timerRun.round * (timerRun.duration + timerRun.breakTime);
             const endTime = new Date(new Date(timerRun.startTime).getTime() + lastMins * 60000);
             if (curTime.getTime() - endTime.getTime() >= 0){
                 setTimerRun({});
-                setRunning(false);
             }
         }
 
         if (timerList.length > 0 && Object.keys(timerRun).length === 0){
             
-            const incomingTimerList = timerList.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort);
+            // const incomingTimerList = timerList.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort);
             const firstTimer = Object.assign({}, incomingTimerList[0]);
             console.log(firstTimer);
             const nextStartTime = new Date(firstTimer.startTime);
             const differTime = nextStartTime.getTime() - curTime.getTime(); // millseconds
-            // console.log('in checking time diff', differTime);
-            if (differTime < 0.5 * 60000){ // less than one minutes
-                setTimerRun(firstTimer);
-                setRunning(true);
-            }
+      
+            // if (differTime < 0.5 * 60000){ // less than one minutes
+            //     setTimerRun(firstTimer);
+            // }
+            // test: change to the first timer
+            setTimerRun(firstTimer);
         }
 
+        setIncomingTimers(setIncomingTimers);
      
     }
 
@@ -91,7 +91,7 @@ export const DataContextProvider = props => {
           setCurTime(prev=>prev + intervalTime)
         }, intervalTime)
         return ()=>clearInterval(interval);
-    }, []);
+    }, [timerList]);
 
 
     React.useEffect(()=>{
@@ -100,35 +100,65 @@ export const DataContextProvider = props => {
     }, [curTime, timerList])
 
 
-    const addTimer = (newTime) => {
-        const newTimerList = timerList.splice(0);
-        newTimerList.push(newTime);
-        newTimerList.sort(timerSort);
-        setTimerList(newTimerList);
-        // setTimerList(state=>{
-        //     const newState = state.splice(0);
-        //     newState.push(newTime);
-        //     newState.sort((a, b)=> (new Date(a.startTime) - new Date(b.startTime)));
-        //     console.log('in add timer', newState)
-        //     return newState
-        // });
-    }
-
     const handleCreateTimer = async (timerData, edit) => {
-        console.log(timerData);
+        // console.log(timerData);
         timerData.userId = userId;
-
-        const route = `${SERVER_URL}/timers/`;
         let timerId = timerData.id;
-        await upsertData(route, timerData, 'POST').then(res=>{
+        const route = edit? `${SERVER_URL}/timers/${timerData.id}` : `${SERVER_URL}/timers/`;
+        const method = edit ? 'PUT' : 'POST';
+        await upsertData(route, timerData, method).then(res=>{
             console.log('timer', res);
             if(res.code === 201 && res.data){
-                addTimer(res.data);
                 timerId = res.data.id;
+                 setTimerList(state=>{
+                    const newState = [...state];
+                    let idx = -1;
+                    if(edit){
+                        idx = newState.findIndex(item=>String(item.id) === String(timerData.id));
+                    }
+                    if (idx === -1){
+                        newState.push(res.data);
+                    } else {
+                        newState[idx] = res.data;
+                    }
+                   
+                    newState.sort((a, b)=> (new Date(a.startTime) - new Date(b.startTime)));
+                    // console.log('in add timer', newState)
+                    return newState
+                });
+                // timerId = res.data.id;
             }
         })
 
         return timerId; // for redirect
+    }
+
+
+    const handleDeleteTimer = async (timerIds) => {
+    //    const deletePromises = timerIds.map(timerId=>(`${SERVER_URL}/timers/${timerId}`));
+        const deletePromises = timerIds.map(timerId=>{
+            let route = `${SERVER_URL}/timers/${timerId}`;
+            return deleteData(route);
+        });
+
+        await Promise.all(deletePromises).then(results=>{
+
+            const deleteIds = results.reduce((res, item)=>{
+                if(item.code === 200 && item.data){
+                    res.push(item.data.id);
+                }
+                return res;
+            }, []);
+
+            setTimerList(state=>{
+                const newState = state.filter(item=>{
+                    const idx = deleteIds.findIndex(deleteId=>(String(deleteId) === String(item.id)));
+                    return idx === -1; // not delete
+                })
+                return newState;
+            })
+        })
+
     }
 
     const handleUpsertTask = async (taskData, edit) => {
@@ -138,9 +168,10 @@ export const DataContextProvider = props => {
         await upsertData(route, taskData, method).then(res=>{
             console.log('in upsert task', res)
          if(res.code === 201 && res.data){
+             console.log(res)
              setTasks(state=>{
                  // todo: sort default by incomplete / compete
-                 const newState = state.splice(0);
+                 const newState = [...state];
                  let idx = -1;
                  if(edit){
                    idx = newState.findIndex(item=>(String(item.id) === String(taskData.id)));
@@ -156,6 +187,21 @@ export const DataContextProvider = props => {
         })
     }
 
+    const getRelatedTasksOfTimers  = async (timerId) => {
+
+        const tasksOftimersRoute = `${SERVER_URL}/task_timers?userId=${userId}&timerId=${timerId}`;
+        // console.log(tasksOftimersRoute);
+        let relatedTasks = []
+        await fetch(tasksOftimersRoute).then(r=>r.json()).then(
+            res=>{
+                if(res.code === 200){
+                    relatedTasks = res.data;
+                }
+                console.log(res);
+            })
+        return relatedTasks;
+    }
+
     const getTimerById = (timerId) => {
         const targetTimer = timerList.find(timer=>String(timer.id) === String(timerId));
         return targetTimer;
@@ -165,11 +211,14 @@ export const DataContextProvider = props => {
         tasks,
         tasklists,
         timerList,
+        incomingTimers,
         loading,
         timerRun,
         getTimerById,
         handleCreateTimer,
         handleUpsertTask,
+        getRelatedTasksOfTimers,
+        handleDeleteTimer,
     }}>
         {props.children}
     </DataContext.Provider>)

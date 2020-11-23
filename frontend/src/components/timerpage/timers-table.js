@@ -4,6 +4,7 @@ import {  Container, Button} from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 import ReactSemanticTable from '../table/semantic-react-table';
 import TimerForm from './timer-form';
+import './timer-table.css';
 
 const dateFormatter = ({cell}) =>{
     const {value} = cell;
@@ -20,7 +21,45 @@ const linkFormatter = ({row, cell}) => {
     return (<Link to={`/timer/${timerId}`}>{value}</Link>)
 }
 
-const timerTableColumns = [ 
+
+const IndeterminateCheckbox = React.forwardRef(
+    ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef()
+      const resolvedRef = ref || defaultRef
+  
+      React.useEffect(() => {
+        resolvedRef.current.indeterminate = indeterminate
+      }, [resolvedRef, indeterminate])
+  
+      return (
+        <>
+          <input type="checkbox" ref={resolvedRef} {...rest} />
+        </>
+      )
+    }
+  )
+
+const selectionColumn = {
+    id: 'selection',
+    // The header can use the table's getToggleAllRowsSelectedProps method
+    // to render a checkbox
+    Header: ({ getToggleAllPageRowsSelectedProps }) => (
+      <div>
+        <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
+      </div>
+    ),
+    // The cell can use the individual row's getToggleRowSelectedProps method
+    // to the render a checkbox
+    Cell: ({ row }) => (
+      <div>
+        <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+      </div>
+    ),
+  }
+
+const timerTableColumns = [
+
+
     {
         Header: 'Timer ID',
         accessor: 'id',
@@ -55,14 +94,50 @@ const timerTableColumns = [
 
 const TimerTable = () => {
     // todo: sepearate incoming one
-    const {timerList} = useDataContext();
+    const {timerList,
+        handleDeleteTimer, 
+    
+    } = useDataContext();
     const [editMode, setEditMode] = React.useState(false);
+    const closeEditMode = () => setEditMode(false);
+    const [selectedRows, setSelectedRows] = React.useState([]);
+    const [deleteMode, setDeleteMode] = React.useState(false);
+    
+    const handleDelete = async () => {
+        const selectedTimerIds = [...selectedRows];
+        await  handleDeleteTimer(selectedTimerIds);
+        // console.log(selectedTimerId);
 
+    }
     return (<Container>
+      
+        {editMode?<TimerForm
+          closeEditMode = {closeEditMode}
+        /> :
+         <>
+        <div className='button-group'>
         <Button primary floated='right' onClick={()=>setEditMode(true)}>Add New Timer</Button>
-        {editMode?<TimerForm/> :<ReactSemanticTable
-             columns = {timerTableColumns}
-             data = {timerList}/>}
+         {
+             !deleteMode?(
+                <Button color= 'grey' floated='right' onClick={()=>{
+                    setDeleteMode(true);
+                    setSelectedRows({});
+                }}>Delete Mode</Button>
+             ):  <Button color= 'red' floated='right' onClick={async ()=>{
+                await handleDelete();
+                setDeleteMode(false);
+                setSelectedRows({});
+            }}>Delete Timers</Button>
+         }
+        </div>
+         <ReactSemanticTable
+             columns = {deleteMode === false? timerTableColumns: [selectionColumn, ...timerTableColumns]}
+             data = {timerList}
+            //  showSelect = {showSelect}
+             selectedRows={selectedRows}
+             onSelectedRowsChange={setSelectedRows} 
+            />
+         </>}
     </Container>
 )
 }
