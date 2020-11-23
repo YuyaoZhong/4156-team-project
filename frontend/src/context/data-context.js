@@ -157,6 +157,44 @@ export const DataContextProvider = props => {
         })
     }
 
+    const handleDeleteTask = async (taskData) => {
+        taskData.userId = userId;
+        const route = `${SERVER_URL}/tasks/${taskData.id}`;
+        const method = 'DELETE';
+        await upsertData(route, taskData, method).then(res=>{
+            console.log('in upsert task', res)
+         if(res.code === 201){
+             setTasks(state=>{
+                 // todo: sort default by incomplete / compete
+                 let idx = -1;
+                 idx = state.findIndex(item=>(String(item.id) === String(taskData.id)));
+                 state.splice(idx,1)
+                 const newState = state.splice(0)
+                 return newState;
+             });
+         }
+        })
+    }
+
+    const handleDeleteTaskList = async (taskListData) => {
+        taskListData.userId = userId;
+        const route = `${SERVER_URL}/tasklists/${taskListData.id}`;
+        const method = 'DELETE';
+        await upsertData(route, taskListData, method).then(res=>{
+            console.log('in upsert task', res)
+         if(res.code === 201){
+             setTasklists(state=>{
+                 // todo: sort default by incomplete / compete
+                 let idx = -1;
+                 idx = state.findIndex(item=>(String(item.id) === String(taskListData.id)));
+                 state.splice(idx,1)
+                 const newState = state.splice(0)
+                 return newState;
+             });
+         }
+        })
+    }
+
     const handleUpsertTaskList = async (taskListData, edit) => {
     taskListData.userId = userId;
     const route = edit? `${SERVER_URL}/tasklists/${taskListData.id}`:`${SERVER_URL}/tasklists`;
@@ -197,6 +235,8 @@ export const DataContextProvider = props => {
         handleCreateTimer,
         handleUpsertTask,
         handleUpsertTaskList,
+        handleDeleteTask,
+        handleDeleteTaskList,
     }}>
         {props.children}
     </DataContext.Provider>)

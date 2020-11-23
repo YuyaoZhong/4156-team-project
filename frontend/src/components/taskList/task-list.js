@@ -55,6 +55,7 @@ const TaskDiv = props => {
     const {task} = props;
     const {
         handleUpsertTask,
+        handleDeleteTask,
      } = useDataContext();
     const [checked, setChecked] = React.useState(task.status);
     const toggleChecked = () =>{
@@ -64,6 +65,10 @@ const TaskDiv = props => {
         handleUpsertTask(newTask, true);
         setChecked(nextStatus);
     }
+    const deleteTask = () =>{
+        const deletedTask = Object.assign({}, task);
+        handleDeleteTask(deletedTask);
+    }
 
     const iconClass = checked ? 'check square outline': 'square outline';
     return (<List.Item>
@@ -71,18 +76,28 @@ const TaskDiv = props => {
         <List.Content>
             <List.Header><Header as="h4">{task.name}</Header></List.Header>
         </List.Content>
+        <List.Icon name = {'trash alternate icon'} size = "middle" verticalAlign='middle' onClick = {deleteTask} />
 
     </List.Item>)
 }
 
 const TasklistCard  = props => {
-    const {tasklist } = props;
+    const {tasklist} = props;
     const [addTaskMode, setAddTaskMode] = React.useState(false);
+    const {
+        handleDeleteTaskList,
+     } = useDataContext();
+    const deleteTaskList = () =>{
+        const deletedTaskList = Object.assign({}, tasklist);
+        handleDeleteTaskList(deletedTaskList);
+    }
+
     const handleAddTaskMode = (status) => setAddTaskMode(status);
     const closeAddTaskMode = () => setAddTaskMode(false);
     return(<Card>
         <Card.Content>
-            <Card.Header>{tasklist.name}</Card.Header>
+            <Card.Header>{tasklist.name}
+            <Icon name="trash alternate icon" color = "red" onClick = {deleteTaskList}/></Card.Header>
 
         </Card.Content>
         <Card.Content>
