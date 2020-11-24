@@ -1,0 +1,18 @@
+.Timeline-line {
+    z-index: -1;
+    position: absolute;
+    width: 3px;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+.Timeline-container {
+  position: relative;
+  /* padding: 30px; */
+}
+
+.Timeline-title {
+  text-align: center;
+}
+

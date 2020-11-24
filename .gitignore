@@ -1,6 +1,5 @@
 .idea
 venv
-frontend/node_modules
 backend/.env
 backend/.idea
 backend/venv
@@ -9,3 +8,18 @@ backend/app/__pycache__
 backend/app/routes/__pycache__
 backend/app/utls/__pycache__
 backend/tests/__pycache__
+
+
+# frontend
+# dependencies
+/node_modules
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
+
+# misc
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local

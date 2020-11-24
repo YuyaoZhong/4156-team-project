@@ -52,21 +52,29 @@ def handleQueryTasksOrTimers():
     taskId = request.args.get('taskId', None)
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None) # for verification
-    if not userId or (not taskId and not timerId) or (taskId and timerId):
+    if (taskId and timerId):
         code, msg = 500, apiStatus.getResponseMsg(500)
         return jsonify({"code": code, "message": msg, "data":[]})
 
     code, msg, resultData = 0, "", []
     result = {}
-    if timerId:
+    if not timerId and not taskId and userId:
+        # retrieve by user
+        result['data'] = []  # should also return an empty list
+        targetRels = TaskToTimer.query.filter_by(userId=userId).all()
+        for rel in targetRels:
+            result['data'].append(rel.toDict())
+        code, msg = 200, apiStatus.getResponseMsg(200)
+
+    elif timerId:
         targetTimer = Timer.query.get(timerId)
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
-        elif targetTimer.userId != userId:
-            code, msg = 401, apiStatus.getResponseMsg(401)
+        # elif targetTimer.userId != userId:
+        #     code, msg = 401, apiStatus.getResponseMsg(401)
         else:
             code, msg, resultData = getTasksByTimerid(int(timerId))
-    if taskId:
+    elif taskId:
         targetTask = Task.query.get(taskId)
         if not targetTask:
             code, msg = 404, apiStatus.getResponseMsg(404)
@@ -84,16 +92,30 @@ def getTasksByTimerid(timerId):
     """get lists of tasks by timer id"""
     try:
         # disable no member since it is setted flask function
-        relatedTasks = db.session.query(TaskToTimer.taskId.label('taskId')).filter( # pylint: disable=maybe-no-member
-            TaskToTimer.timerId == timerId).subquery() # pylint: disable=maybe-no-member
-        tasks = db.session.query(Task).filter(Task.id.in_(relatedTasks)).all() # pylint: disable=maybe-no-member
-        tasksData = [task.toDict() for task in tasks]
+        # may think about change to join query
+        relateTasks = TaskToTimer.query.filter_by(timerId = timerId).all()
+        relateTaskDict = {}
+        for relTask in relateTasks:
+            relateTaskDict[relTask.taskId] = relTask.id
+        relatedTasksId = [rel.taskId for rel in relateTasks]
+        tasks = Task.query.filter(Task.id.in_(relatedTasksId)).all()
+        tasksData =[]
+        for task in tasks:
+            taskDict = task.toDict()
+            taskDict["relId"] = relateTaskDict[task.id]
+            tasksData.append(taskDict)
+        # relatedTasks = db.session.query(TaskToTimer.taskId.label('taskId')).filter( # pylint: disable=maybe-no-member
+        #     TaskToTimer.timerId == timerId).subquery() # pylint: disable=maybe-no-member
+        # tasks = db.session.query(Task).filter(Task.id.in_(relatedTasks)).all() # pylint: disable=maybe-no-member
+        # tasksData = [task.toDict() for task in tasks]
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
         code, msg = 500, apiStatus.getResponseMsg(500)
         tasksData = []
+    print(tasksData)
     return code, msg, tasksData
 
+# def getDataByUserId(userId):
 
 def getTimersByTaskid(taskId):
     """get lists of timers by task id"""
@@ -128,7 +150,7 @@ def createTaskTimer():
             code, msg = 401, apiStatus.getResponseMsg(401)
         else:
             try:
-                newTaskToTimer = TaskToTimer(taskId=str(targetTask.id), timerId=str(targetTimer.id))
+                newTaskToTimer = TaskToTimer(taskId=str(targetTask.id), timerId=str(targetTimer.id), userId=str(data['userId']))
                 if specifiedId:
                     newTaskToTimer.update({"id": specifiedId})
                 db.session.add(newTaskToTimer)
