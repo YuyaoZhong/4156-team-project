@@ -5,10 +5,8 @@ import { useGoogleAuth } from '../../context/google-login-context';
 
 
 
-const GoogleButton = () => {
+export const GoogleButton = () => {
  const {isSignedIn, signIn, signOut, googleUser} = useGoogleAuth();
-//  console.log(clientId)
-// console.log(googleUser);
 
  return isSignedIn? 
  (<Menu.Item>
@@ -24,8 +22,10 @@ const GoogleButton = () => {
 const NavBar = () => {
    const [activeItem, setActiveItem] = React.useState('');
    const handleItemClick = (e, {name}) => setActiveItem(name);
+   const {isSignedIn} = useGoogleAuth();
+   const style = !isSignedIn? {marginBottom: 0, borderRadius: 0} : {  borderRadius: 0 }
    return (
-    <Segment inverted>
+    <Segment inverted style={ style}>
          <Menu inverted secondary size='massive'>
               <Menu.Item
               name = 'Dashboard'

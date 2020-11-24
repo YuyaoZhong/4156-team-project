@@ -136,11 +136,11 @@ const RunningTimer = () => {
     const [timeLeft, setTimeLeft] = React.useState(curTimeLeft);
     const [curTimerStatus, setCurTimer] = React.useState(defaultState);
 
-    React.useEffect(()=>{
-        console.log('timer list change');
-        console.log(timerRun);
+    // React.useEffect(()=>{
+    //     console.log('timer list')
+    //     console.log(timerRun);
     
-    }, [timerList])
+    // }, [timerList])
 
     React.useEffect(()=>{
         setCurTimer(getTimerState(timerRun));
@@ -172,7 +172,7 @@ const RunningTimer = () => {
                 </div>
                 </div>
         </TimerLabel>
-        <TimerDetailInfo timer = {timerRun} />
+        <DisplayTimer timer = {timerRun} hideTitle={true} hideEdit={true} />
       </Container>
       )
 }

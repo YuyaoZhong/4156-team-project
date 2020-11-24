@@ -18,8 +18,8 @@ const NotFoundTimer = () => {
 };
 
 export const DisplayTimer = props => {
-    const {timer} = props;
-    const [editMode, setEditMode,] = React.useState(false);
+    const {timer, hideTitle, hideEdit} = props;
+    const [editMode, setEditMode] = React.useState(false);
 
     const {
         getRelatedTasksOfTimers,
@@ -45,12 +45,16 @@ export const DisplayTimer = props => {
 
     return editMode? (  <TimerForm editTimer = {timer} editMode = {true} closeEditMode = {closeEditMode}/> ):
       (<Container>
-        <Header as='h2' textAlign='center' icon>
-        <Icon name='clock outline'/>
-           {timer.title}
-       </Header>
+       {
+           hideTitle?"":<Header as='h2' textAlign='center' icon>
+           <Icon name='clock outline'/>
+              {timer.title}
+          </Header>
+       }
         <TimerDetailInfo timer = {timer} relatedTasklists = {displayTasklist} />
-           <Button primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>
+        {
+            hideEdit? "":  <Button floated='right' primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>
+        }
    </Container>)
 };
 
