@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Header, Icon, Button} from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
-import { useParams} from 'react-router-dom'
+import { useParams, Link} from 'react-router-dom'
 import TimerDetailInfo  from './timer-detail-info';
 import TimerForm from '../timerpage/timer-form';
 import { matchedTaskLists } from '../../utilities/tasklist-utilities';
@@ -53,7 +53,12 @@ export const DisplayTimer = props => {
        }
         <TimerDetailInfo timer = {timer} relatedTasklists = {displayTasklist} />
         {
-            hideEdit? "":  <Button floated='right' primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>
+            hideEdit? "":  (<>
+           
+            <Button floated='right' primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>
+            <Link to='/timers'><Button floated='right' color='grey' size = 'big'>All Timers</Button></Link>
+            {/* <Link to='/dashboard'><Button floated='right' color='grey' size = 'big'>Dashboard</Button></Link> */}
+            </>)
         }
    </Container>)
 };
