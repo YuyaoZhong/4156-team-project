@@ -1,5 +1,7 @@
 """Models for the application"""
+from datetime import datetime
 from app.ext import db
+
 
 class Task(db.Model):  # pylint: disable=too-few-public-methods
     """Task models"""
@@ -64,12 +66,12 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
     title = db.Column(db.String(256), nullable=False)
     description = db.Column(db.String(512))
     zoomLink = db.Column(db.String(512))
-    startTime = db.Column(db.DateTime, nullable=False)
+    startTime = db.Column(db.String(512), nullable=False)
     duration = db.Column(db.Integer, nullable=False, default=25)
     breakTime = db.Column(db.Integer, nullable=False, default=5)
     round = db.Column(db.Integer, nullable=False, default=1)
 
-    def toDict(self):
+    def toDict(self, dateToIsoStr = False):
         """this function is for the server to turn Timer class into dic in python"""
         timer = {
             "id": self.id,
@@ -109,6 +111,7 @@ class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     taskId = db.Column(db.Integer, nullable=False)
     timerId = db.Column(db.Integer, nullable=False)
+    userId = db.Column(db.String(256), nullable=False)
 
     def update(self, data):
         """this function is for the server to update the relation class"""
@@ -125,7 +128,8 @@ class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
         taskToTimer = {
             "id": self.id,
             "taskId": self.taskId,
-            "timerId": self.timerId
+            "timerId": self.timerId,
+            "userId": self.userId
         }
         return taskToTimer
 

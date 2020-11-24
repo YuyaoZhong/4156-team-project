@@ -14,10 +14,10 @@ from app.utls.utilities import judgeKeysExist
 from app.utls.utilities import judgeKeysCorrect
 
 
-@routes.route('/timers')
-def testTimers():
-    """this is for test"""
-    return "timers url"
+# @routes.route('/timers')
+# def testTimers():
+#     """this is for test"""
+#     return "timers url"
 
 @routes.route('/timers/', methods=['GET'])
 def getTimers():
@@ -30,19 +30,20 @@ def getTimers():
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
-            result["data"] = targetTimer.toDict()
+            result["data"] = targetTimer.toDict(True)
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
         return jsonify(result)
     if userId is not None:
+        result['data'] = [] # should also return an empty list
         targetTimer = Timer.query.filter_by(userId=userId).all()
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
-            result['data'] = []
+            # result['data'] = []
             for timer in targetTimer :
-                result['data'].append(timer.toDict())
+                result['data'].append(timer.toDict(True)) # to iso format
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
@@ -61,9 +62,11 @@ def deleteTimers(timerId):
     if not targetTimer:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
+
         try:
             db.session.delete(targetTimer)
             db.session.commit()
+            result["data"] = {"id": timerId}
             code, msg = 200, apiStatus.getResponseMsg(200)
         except:
             code, msg = 500, apiStatus.getResponseMsg(500)
@@ -86,7 +89,9 @@ def createTimers():
         description = data['description'] if 'description' in data else None
         zoomLink = data['zoomLink'] if 'zoomLink' in data else None
         startTime = data['startTime']
-        formatStartTime = parser.parse(startTime)
+        # formatStartTime = parser.parse(startTime)
+        # testFormStartTime = datetime.datetime.fromisoformat(startTime)
+        # print(formatStartTime, testFormStartTime)
         duration = int(data['duration'])
         breakTime = int(data['breakTime'])
         round = int(data['round'])
@@ -96,18 +101,18 @@ def createTimers():
             for oldTimer in oldTimers:
                 totalDuration = (oldTimer.duration + oldTimer.breakTime) * oldTimer.round
                 totalDuration = datetime.timedelta(minutes=totalDuration)
-                endTime = oldTimer.startTime + totalDuration
+                endTime =  parser.parse(oldTimer.startTime) + totalDuration
                 # sTime = datetime.datetime.strptime(startTime, "%Y-%m-%d %H:%M:%S")
-                sTime = parser.parse(startTime).replace(tzinfo=None)
+                sTime = parser.parse(startTime)
                 newDuration = (duration + breakTime) * round
                 newDuration = datetime.timedelta(minutes=newDuration)
                 eTime = sTime + newDuration
-                if oldTimer.startTime <= sTime < endTime or oldTimer.startTime < eTime <= endTime:
+                if parser.parse(oldTimer.startTime) <= sTime < endTime or parser.parse(oldTimer.startTime) < eTime <= endTime:
                     code, msg = 403, apiStatus.getResponseMsg(403)
                     result["code"] = code
                     result["message"] = msg
                     return jsonify(result)
-                if sTime < oldTimer.startTime and eTime > endTime:
+                if sTime < parser.parse(oldTimer.startTime) and eTime > endTime:
                     code, msg = 403, apiStatus.getResponseMsg(403)
                     result["code"] = code
                     result["message"] = msg
@@ -115,7 +120,7 @@ def createTimers():
         try:
             newTimer = Timer(userId=str(userId), title=str(title),
                              description=str(description), zoomLink=str(zoomLink),
-                             startTime=formatStartTime, duration=str(duration),
+                             startTime=startTime, duration=str(duration),
                              breakTime=str(breakTime), round=str(round))
             db.session.add(newTimer)
             db.session.commit()
@@ -133,7 +138,7 @@ def createTimers():
 def putTimers(timerId):
     """This function is for the server to update timers"""
     data =  request.get_json()
-    postAttrs = ['userId', 'title', 'startTime', 'duration',
+    postAttrs = ['id', 'userId', 'title', 'startTime', 'duration',
                  'breakTime', 'round', 'description', 'zoomLink']
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysCorrect(data, postAttrs):
@@ -147,7 +152,7 @@ def putTimers(timerId):
                 targetTimer.update(data)
                 db.session.commit()
                 result["data"] = targetTimer.toDict()
-                code, msg = 200, apiStatus.getResponseMsg(201)
+                code, msg = 201, apiStatus.getResponseMsg(201)
             except:
                 code, msg = 500, apiStatus.getResponseMsg(500)
     result["code"] = code
