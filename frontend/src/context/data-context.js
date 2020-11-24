@@ -99,6 +99,7 @@ export const DataContextProvider = props => {
         const interval = setInterval(()=>{
           setCurTime(prev=>prev + intervalTime)
         }, intervalTime)
+        setIncomingTimers(getIncomingTimer(timerList))
         return ()=>clearInterval(interval);
     }, [timerList]);
 

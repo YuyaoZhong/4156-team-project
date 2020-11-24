@@ -18,7 +18,6 @@ const filterToAdd = (x) => (!x.selected && x.alterSelected);
 const formatTask = (tasks, relatedTasks, tasklists) => {
     // console.log(relatedTasks, tasklists);
     return tasks.reduce((res, item, index)=>{
-        console.log(item)
         const idx = relatedTasks.findIndex(relatedTask=>String(relatedTask.id) === String(item.id));
      
         let taskListName = "Default";
