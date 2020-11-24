@@ -132,3 +132,28 @@ class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
             "userId": self.userId
         }
         return taskToTimer
+
+class TimerToUser(db.Model):  # pylint: disable=too-few-public-methods
+    """This model manages relations between users and timers"""
+    timerId = db.Column(db.Integer, nullable=False, primary_key=True)
+    userId = db.Column(db.String(256), nullable=False, primary_key=True)
+    status = db.Column(db.Boolean, nullable=False)
+
+    def update(self, data):
+        """this function is for the server to update the relation class"""
+        for key, value in data.items():
+            if key == "timerId":
+                self.timerId = value
+            elif key == "userId":
+                self.userId = value
+            elif key == "status":
+                self.status = value
+
+    def toDict(self):
+        """Change the object to dictionary"""
+        timerToUser = {
+            "timerId": self.timerId,
+            "userId": self.userId,
+            "status": self.status
+        }
+        return timerToUser
