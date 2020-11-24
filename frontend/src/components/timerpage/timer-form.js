@@ -16,13 +16,16 @@ const filterToDelete = (x) => (x.selected && !x.alterSelected && x.relId !== -1)
 const filterToAdd = (x) => (!x.selected && x.alterSelected);
 
 const formatTask = (tasks, relatedTasks, tasklists) => {
-    console.log(relatedTasks);
+    // console.log(relatedTasks, tasklists);
     return tasks.reduce((res, item, index)=>{
+        console.log(item)
         const idx = relatedTasks.findIndex(relatedTask=>String(relatedTask.id) === String(item.id));
      
         let taskListName = "Default";
-        if (item.taskListId && item.taskListId != 0){
-            const taskList = tasklists.find(item=>String(item.id) === String(item.taskListId))
+        if (item.taskListId && item.taskListId !== 0){
+         
+            const taskList = tasklists.find(y=>String(y.id) === String(item.taskListId))
+            // console.log('here', taskList, tasklists)
             if(taskList){
                 taskListName = taskList.name;
             }
@@ -57,8 +60,12 @@ const TimerForm = (props) => {
            }
        }
        fetchData();
-    }, []);
+    }, [tasks, tasklists]);
 
+
+    // React.useEffect(()=>{
+       
+    // }, [tasks, tasklists])
 
     const toggleSelectTask = (keyIndex) => {
       setAddTasks(state=>{

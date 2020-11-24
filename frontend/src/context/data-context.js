@@ -30,10 +30,16 @@ export const DataContextProvider = props => {
             const getAllTimerRoute = `${SERVER_URL}/timers/?userId=${userId}`;
             const getAllTaskRoute = `${SERVER_URL}/tasks?userId=${userId}`;
             // const getAllTasklistRoute = `${SERVER_URL}/tasklists?userId=${userId}`;
-            const getAllTasklistRoute =  `${SERVER_URL}/tasklists/user/${userId}`;
+            const getAllTasklistRoute =  `${SERVER_URL}/tasklists?userId=${userId}`;
             // const getAllTaskandTimerRoute = `${SERVER_URL}/task_timers?userId=${userId}`;
             const urls = [getAllTimerRoute, getAllTaskRoute, getAllTasklistRoute];
-            const promises = urls.map(url=>fetch(url).then(r=>r.json())) //.then(r=>JSON.parse(r)));
+            const promises = urls.map(url=>fetch(url).then(r=>{
+                if(r.status === 200){
+                    return r.json()
+                }
+                return {"data": []}
+            }));
+             //.then(r=>JSON.parse(r)));
             try {
                 await Promise.all(promises).then(res=>{
                     console.log(res);

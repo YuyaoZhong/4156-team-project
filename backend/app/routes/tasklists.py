@@ -104,9 +104,10 @@ def createTaskList():
     result['message'] = msg
     return jsonify(result)
 
-@routes.route('/tasklists/user/<userId>', methods=['GET'])
-def getTaskListsByUserId(userId):
+@routes.route('/tasklists', methods=['GET'])
+def getTaskListsByUserId():
     """API for getting all tasklists with user id as userId"""
+    userId = request.args.get('userId', None)
     code, msg, result = 0, '', {"data": None}
     result["data"] = []
     taskLists = TaskList.query.filter_by(userId=userId).all()

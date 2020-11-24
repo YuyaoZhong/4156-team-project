@@ -83,7 +83,7 @@ def deleteTask(taskId):
 def createTasks():
     """create a task and save to database"""
     data = request.get_json()
-    postAttrs = ['userId', 'taskListId', 'name', 'status' ]
+    postAttrs = ['userId', 'taskListId', 'name', 'status', 'relId']
     code, msg, result = 0, '', {'data': None}
     if not data:
         code, msg = 400, apiStatus.getResponseMsg(400)
