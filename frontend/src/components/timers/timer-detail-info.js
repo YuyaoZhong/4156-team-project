@@ -51,7 +51,7 @@ const TimerDetailInfo = props => {
           <List.Item>
               <TimerDetailAttr name = "Related Tasks"/>
             <div style = {{marginTop: "20px", padding: "20px", background: "rgb(209 207 207 / 10%)"}}>
-                <TaskListArea curTaskLists = {relatedTasklists} hideAddTask = {true} /> 
+                <TaskListArea curTaskLists = {relatedTasklists} hideEdit = {true} /> 
             </div>
           </List.Item>:""
       }

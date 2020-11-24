@@ -130,11 +130,17 @@ const TimerLabel = props => {
 
  
 const RunningTimer = () => {
-    const { timerRun } = useDataContext();
+    const { timerRun, timerList } = useDataContext();
     const defaultState = getTimerState(timerRun);
     const curTimeLeft =  getTimeLeft(timerRun, defaultState.curRound, defaultState.isBreak);
     const [timeLeft, setTimeLeft] = React.useState(curTimeLeft);
     const [curTimerStatus, setCurTimer] = React.useState(defaultState);
+
+    React.useEffect(()=>{
+        console.log('timer list change');
+        console.log(timerRun);
+    
+    }, [timerList])
 
     React.useEffect(()=>{
         setCurTimer(getTimerState(timerRun));

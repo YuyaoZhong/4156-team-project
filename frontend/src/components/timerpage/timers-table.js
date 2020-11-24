@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import {  Container, Button} from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 import ReactSemanticTable from '../table/semantic-react-table';
+import { formatDateAndTime } from '../../utilities/utilities';
 import TimerForm from './timer-form';
 import './timer-table.css';
 
@@ -11,7 +12,7 @@ const dateFormatter = ({cell}) =>{
     if(!value){
       return "";
     }
-    return (value).split('T')[0];
+    return formatDateAndTime(new Date(value));
   }
 
 const linkFormatter = ({row, cell}) => {
@@ -121,12 +122,12 @@ const TimerTable = () => {
              !deleteMode?(
                 <Button color= 'grey' floated='right' onClick={()=>{
                     setDeleteMode(true);
-                    setSelectedRows({});
+                    setSelectedRows([]);
                 }}>Delete Mode</Button>
              ):  <Button color= 'red' floated='right' onClick={async ()=>{
                 await handleDelete();
                 setDeleteMode(false);
-                setSelectedRows({});
+                setSelectedRows([]);
             }}>Delete Timers</Button>
          }
         </div>

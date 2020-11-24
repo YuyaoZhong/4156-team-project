@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { useDataContext } from '../../context/data-context';
 import { Container, Icon, Header, Label} from 'semantic-ui-react';
-import { formatDateAndTime } from '../../utilities/utilities';
 import TimerDetailInfo  from '../timers/timer-detail-info';
 import Timeline from './time-line';
 import './timer-board-style.css';

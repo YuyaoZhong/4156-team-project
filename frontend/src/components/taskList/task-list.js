@@ -52,7 +52,7 @@ const EditTaskDiv = props => {
 }
 
 export const TaskDiv = props => {
-    const {task} = props;
+    const {task, hideEdit} = props;
     const {
         handleUpsertTask,
         handleDeleteTask,
@@ -76,13 +76,15 @@ export const TaskDiv = props => {
         <List.Content>
             <List.Header><Header as="h4">{task.name}</Header></List.Header>
         </List.Content>
-        <List.Icon name = {'trash alternate icon'} size = "middle" verticalAlign='middle' onClick = {deleteTask} />
+     {
+         hideEdit? "":   <List.Icon style ={{"cursor":"pointer"}} name = {'minus square'} verticalAlign='middle' onClick = {deleteTask} />
+     }
 
     </List.Item>)
 }
 
 const TasklistCard  = props => {
-    const {tasklist, hideAddTask} = props;
+    const {tasklist, hideEdit} = props;
 
     const [addTaskMode, setAddTaskMode] = React.useState(false);
     const {
@@ -96,23 +98,38 @@ const TasklistCard  = props => {
     const handleAddTaskMode = (status) => setAddTaskMode(status);
     const closeAddTaskMode = () => setAddTaskMode(false);
     return(<Card>
-        <Card.Content>
-            <Card.Header>{tasklist.name}
-            <Icon name="trash alternate icon" color = "red" onClick = {deleteTaskList}/></Card.Header>
+        <Card.Content extra style={{alignItems:"center"}}>
+            <Card.Header>
+            {tasklist.name}
+            {
+                hideEdit?"": 
+                <Button floated = 'right'  color ='grey'  animated>
+                    <Button.Content  visible>Delete</Button.Content>
+                    <Button.Content onClick = {deleteTaskList} hidden>
+                    <Icon name="trash alternate" />
+                    </Button.Content>
+                </Button>
+
+                // <Button  style={{"padding": "5px"}} icon inverted  floated='right'>
+                //     <Icon color ='red' name="trash alternate"/></Button>
+                // <Icon name="trash alternate icon" color = "red" onClick = {deleteTaskList}/>
+            }
+            
+            </Card.Header>
 
         </Card.Content>
         <Card.Content>
         <List divided relaxed>
             {tasklist.tasks && tasklist.tasks.length > 0 ?
               tasklist.tasks.map((task, i) => {
-                  return(<TaskDiv task = {task}/>)
+                  return(<TaskDiv task = {task} hideEdit={hideEdit}/>)
               })
             :""}
         </List>
            
         </Card.Content>
 
-      {hideAddTask? "":
+      {hideEdit? "":
         <Card.Content extra>
         {addTaskMode? <EditTaskDiv
               taskListId = {tasklist.id}
@@ -125,10 +142,10 @@ const TasklistCard  = props => {
 
 
 export const TaskListArea = props => {
-    const {curTaskLists} = props;
+    const {curTaskLists, hideEdit} = props;
     return ( <Card.Group itemsPerRow = {3}>
         {curTaskLists.map((item, i)=>{
-            return(<TasklistCard key = {i} tasklist = {item} hideAddTask = {hideAddTask}/>)
+            return(<TasklistCard key = {i} tasklist = {item} hideEdit = {hideEdit}/>)
         })}
         </Card.Group>)
 };
@@ -149,15 +166,28 @@ const NewTasklistCard  = props => {
  }
     return(
         <Card>
+            <Card.Content>
+                <Card.Header>
+                     Create new Tasklist
+                </Card.Header>
+            </Card.Content>
+
+            <Card.Content>
+
             <Form size = 'large'>
                 <Form.Field
-                name = 'tasklist name' label = 'Create new Tasklist' control = 'input' type = 'text'
+                name = 'tasklist name' label = '' control = 'input' type = 'text'
                 value = {taskListName}
                 onChange = {handleChange}
             />
-            <Button secondary type="button" onClick={closeAddTaskListMode}>Cancel</Button>
+
             </Form>
-        <Card.Content>
+            </Card.Content>
+          
+
+        <Card.Content extra>
+            <Button secondary floated="right" type="button" onClick={closeAddTaskListMode}>Cancel</Button>
+            <Button primary floated="right" type="button" onClick={handleSubmit}>Add </Button>
         </Card.Content>
     </Card>)
 }
@@ -184,21 +214,26 @@ const AllTaskLists = () =>{
     console.log(curTaskLists)
 
     return loading? "":(<Container>
-        <Header as='h2' textAlign='center'>
-           <Icon name='tasks'/>
-           <Header.Content>
-               Tasks
-           <Header.Subheader>Manage your tasks</Header.Subheader>
-           </Header.Content>
-            <button class="ui button" fluid onClick={()=>handleAddTaskListMode(true)}>Create New Task List</button>
-       </Header>
-        {addTaskListMode?<NewTasklistCard tasklist = {defaultNewList} closeAddTaskListMode = {closeAddTaskListMode}/>:<h4></h4>}
+        <Header as='h1' textAlign='center'>
+            {/* <Icon name='tasks'/> */}
+            Tasks
+    <Button color = 'black' floated='right' onClick={()=>handleAddTaskListMode(!addTaskListMode)}>{
+        !addTaskListMode? (<>
+        <Icon name='plus'/> Add Task List
+        </>) : ("Cancel Add")
+    }</Button>
+        </Header>
+
+
+    
        <Card.Group itemsPerRow = {3}>
        {curTaskLists.map((item, i)=>{
            console.log(item)
            return(<TasklistCard key = {i} tasklist = {item}/>)
        })}
+       {addTaskListMode?<NewTasklistCard tasklist = {defaultNewList} closeAddTaskListMode = {closeAddTaskListMode}/>:<h4></h4>}
        </Card.Group>
+  
    </Container>)
 }
 

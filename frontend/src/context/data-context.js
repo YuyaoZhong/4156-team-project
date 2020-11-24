@@ -58,7 +58,7 @@ export const DataContextProvider = props => {
         const curTime = new Date();
         const incomingTimerList = getIncomingTimer(timerList);
 
-        if (Object.keys(timerRun) !== 0) {
+        if (Object.keys(timerRun).length !== 0) {
             const lastMins = timerRun.round * (timerRun.duration + timerRun.breakTime);
             const endTime = new Date(new Date(timerRun.startTime).getTime() + lastMins * 60000);
             if (curTime.getTime() - endTime.getTime() >= 0){
@@ -66,7 +66,7 @@ export const DataContextProvider = props => {
             }
         }
 
-        if (timerList.length > 0 && Object.keys(timerRun).length === 0){
+        if (timerList.length > 0){
             
             // const incomingTimerList = timerList.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort);
             const firstTimer = Object.assign({}, incomingTimerList[0]);
@@ -78,7 +78,9 @@ export const DataContextProvider = props => {
             //     setTimerRun(firstTimer);
             // }
             // test: change to the first timer
-            setTimerRun(firstTimer);
+            if(firstTimer.id !== timerRun.id){
+                setTimerRun(firstTimer);
+            }
         }
 
         setIncomingTimers(setIncomingTimers);
