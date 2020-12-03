@@ -8,7 +8,7 @@ from dateutil import parser
 from flask import request, jsonify
 from app.ext import db
 from app.routes import routes
-from app.models import TimerToUser
+from app.models import TimerToUser, Timer
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
 
@@ -31,13 +31,23 @@ def getTimerToUser():
         result["message"] = msg
         return jsonify(result)
     if userId is not None and timerId is None:
-        target = TimerToUser.query.filter_by(userId=userId).all()
+        target = Timer.query.join(TimerToUser,Timer.id == TimerToUser.timerId) \
+                    .add_columns(TimerToUser.userId.label('timerToUserId'),
+                                 TimerToUser.status.label('timerToUserStatus')) \
+                    .filter(TimerToUser.userId == userId)
+
+        # target = TimerToUser.query.filter_by(userId=userId).all()
         if not target:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
-            result['data'] = []
+            result["data"] = []
             for timer in target:
-                result['data'].append(timer.toDict())
+                # print(timer, type(timer))
+                timer = tuple(timer)
+                timerDict = timer[0].toDict()
+                timerDict["timerToUserId"] = timer[1]
+                timerDict["isCreator"] = timer[2]
+                result["data"].append(timerDict)
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg

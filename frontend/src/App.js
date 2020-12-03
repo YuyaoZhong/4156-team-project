@@ -11,6 +11,7 @@ import AllTaskLists from '../src/components/taskList/task-list';
 import SingleTimer from '../src/components/timers/timer-info';
 import TimelineBoard from '../src/components/timerpage/timer-board';
 import RunningTimerContainer from '../src/components/timers/timer-running';
+import CreateZoomPage from './components/zoom/zoom-page';
 import './App.css';
 
 
@@ -47,6 +48,11 @@ function App() {
               <PrivateRoute
                 path = "/running_timer"
                 component = {RunningTimerContainer}
+              />
+              <Route
+                path = "/zoom"
+                exact
+                component = {CreateZoomPage}
               />
           
           </Switch>

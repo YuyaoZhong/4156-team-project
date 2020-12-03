@@ -19,11 +19,13 @@ const NotFoundTimer = () => {
 };
 
 const ZoomButton = props => {
-    const {hasLink, isCreating, timerId} = props
+    const {link, timerId} = props
     // const curRedirectUrl = `http://127.0.0.1:3000/timer/${timerId}`;
     const zoomUrl = ZOOM_LINK_URL +  `&state=${timerId}`;
     // console.log()
-    return (<a href={zoomUrl} ><Button floated='right' color='grey' size = 'big'>Create Zoom Meeting</Button></a>)
+    return link && link.length > 0?
+    (<a href={link} target='_blank'><Button primary floated='right' size = 'big'>Join Zoom Meeting</Button></a>)
+    :(<a href={zoomUrl} ><Button floated='right' color='grey' size = 'big'>Create Zoom Meeting</Button></a>);
 }
 
 
@@ -73,7 +75,7 @@ export const DisplayTimer = props => {
             <Button floated='right' primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>
             <Link to='/timers'><Button floated='right' color='grey' size = 'big'>All Timers</Button></Link>
 
-           <ZoomButton timerId={timer.id}/>
+           <ZoomButton link = {timer.zoomLink} timerId={timer.id}/>
             
             {/* <Link to='/dashboard'><Button floated='right' color='grey' size = 'big'>Dashboard</Button></Link> */}
             </>)

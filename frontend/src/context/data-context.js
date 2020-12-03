@@ -30,7 +30,8 @@ export const DataContextProvider = props => {
     React.useEffect(()=>{
     setLoading(true);
        async function fetchData () {
-            const getAllTimerRoute = `${SERVER_URL}/timers/?userId=${userId}`;
+            // const getAllTimerRoute = `${SERVER_URL}/timers/?userId=${userId}`;
+            const getAllTimerRoute = `${SERVER_URL}/timerToUser/?userId=${userId}`;
             const getAllTaskRoute = `${SERVER_URL}/tasks?userId=${userId}`;
             // const getAllTasklistRoute = `${SERVER_URL}/tasklists?userId=${userId}`;
             const getAllTasklistRoute =  `${SERVER_URL}/tasklists?userId=${userId}`;
@@ -112,6 +113,25 @@ export const DataContextProvider = props => {
       checkTImerRunning();
     }, [curTime, timerList])
 
+    const updateTimerListState = (timerId, newTimer, edit)=>{
+        const updateCallBack = (state) =>{
+            const newState = [...state];
+            let idx = -1;
+            if(edit){
+                idx = newState.findIndex(item=>String(item.id) === String(timerId));
+            }
+            if (idx === -1){
+                newState.push(newTimer);
+            } else {
+                newState[idx] = newTimer;
+            }
+           
+            newState.sort((a, b)=> (new Date(a.startTime) - new Date(b.startTime)));
+            // console.log('in add timer', newState)
+            return newState;
+        }
+        setTimerList(updateCallBack);
+    }
 
     const handleCreateTimer = async (timerData, edit) => {
         // console.log(timerData);
@@ -120,25 +140,26 @@ export const DataContextProvider = props => {
         const route = edit? `${SERVER_URL}/timers/${timerData.id}` : `${SERVER_URL}/timers/`;
         const method = edit ? 'PUT' : 'POST';
         await upsertData(route, timerData, method).then(res=>{
-            console.log('timer', res);
+            console.log('timer update', res);
             if(res.code === 201 && res.data){
                 timerId = res.data.id;
-                 setTimerList(state=>{
-                    const newState = [...state];
-                    let idx = -1;
-                    if(edit){
-                        idx = newState.findIndex(item=>String(item.id) === String(timerData.id));
-                    }
-                    if (idx === -1){
-                        newState.push(res.data);
-                    } else {
-                        newState[idx] = res.data;
-                    }
+                updateTimerListState(timerData.id, res.data, edit);
+                //  setTimerList(state=>{
+                //     const newState = [...state];
+                //     let idx = -1;
+                //     if(edit){
+                //         idx = newState.findIndex(item=>String(item.id) === String(timerData.id));
+                //     }
+                //     if (idx === -1){
+                //         newState.push(res.data);
+                //     } else {
+                //         newState[idx] = res.data;
+                //     }
                    
-                    newState.sort((a, b)=> (new Date(a.startTime) - new Date(b.startTime)));
-                    // console.log('in add timer', newState)
-                    return newState
-                });
+                //     newState.sort((a, b)=> (new Date(a.startTime) - new Date(b.startTime)));
+                //     // console.log('in add timer', newState)
+                //     return newState
+                // });
                 // timerId = res.data.id;
             }
         })
@@ -284,6 +305,7 @@ export const DataContextProvider = props => {
         return targetTimer;
     }
 
+
     return (<DataContext.Provider value = {{
             tasks,
             tasklists,
@@ -299,6 +321,7 @@ export const DataContextProvider = props => {
             handleUpsertTaskList,
             handleDeleteTask,
             handleDeleteTaskList,
+            updateTimerListState,
     }}>
         {props.children}
     </DataContext.Provider>)

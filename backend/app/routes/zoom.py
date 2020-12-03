@@ -20,7 +20,7 @@ def zoomIntegration():
     params = {
         "grant_type": "authorization_code",
         "code": code,
-        "redirect_uri": "http://localhost:3000/zoom"
+        "redirect_uri": "https://localhost:3000/zoom"
     }
     headers = {
         "Authorization": "Basic" + " " + b64encode(ZOOM_CREDENTIALS.encode("utf-8")).decode("utf-8")
@@ -90,7 +90,8 @@ def zoomIntegration():
 
     data = {
         "start_url": response["start_url"],
-        "join_url": response["join_url"]
+        "join_url": response["join_url"],
+        "timer": timer,
     }
 
     code, msg, result = 200, apiStatus.getResponseMsg(200), {"data": data}
