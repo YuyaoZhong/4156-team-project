@@ -21,7 +21,7 @@ def zoomIntegration():
     params = {
         "grant_type": "authorization_code",
         "code": code,
-        "redirect_uri": "https://127.0.0.1:3000/zoom"
+        "redirect_uri": "http://127.0.0.1:3000/zoom"
     }
     headers = {
         "Authorization": "Basic" + " " + b64encode(ZOOM_CREDENTIALS.encode("utf-8")).decode("utf-8")
