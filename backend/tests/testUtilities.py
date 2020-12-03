@@ -3,6 +3,7 @@
 """Unit tests for utility functions
 """
 import unittest
+from app.utls.apiStatus import APIStatus
 from app.utls.utilities import judgeKeysCorrect, judgeKeysExist
 
 class TestCasesForUtilities(unittest.TestCase):
@@ -48,6 +49,24 @@ class TestCasesForUtilities(unittest.TestCase):
         attrs = ['test', 'test2']
         result = judgeKeysCorrect(data,attrs)
         self.assertEqual(result,True)
+
+    def testApiStatus(self):
+        """test the apiStatus class"""
+        testApi = APIStatus()
+        result = testApi.getResponseMsg(300,"test")
+        self.assertEqual(result,"test")
+
+    def testApiStatus2(self):
+        """test the apiStatus class"""
+        testApi = APIStatus()
+        result = testApi.getResponseMsg(200,"test")
+        self.assertEqual(result,"Request succeed")
+
+    def testApiStatus3(self):
+        """test the apiStatus class"""
+        testApi = APIStatus()
+        result = testApi.getResponseMsg(600,"")
+        self.assertEqual(result,"Request Error")
 
 
 

@@ -37,8 +37,7 @@ def getTaskTimer(taskTimerId):
     try:
         targetTaskTimer = TaskToTimer.query.get(taskTimerId)
     except:
-        code, msg = 500, apiStatus.getResponseMsg(500)
-        return code, msg, None
+        return 500, apiStatus.getResponseMsg(500), None
     if not targetTaskTimer:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
@@ -114,8 +113,6 @@ def getTasksByTimerid(timerId):
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
         code, msg = 500, apiStatus.getResponseMsg(500)
-        tasksData = []
-    print(tasksData)
     return code, msg, tasksData
 
 # def getDataByUserId(userId):
@@ -130,7 +127,6 @@ def getTimersByTaskid(taskId):
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
         code, msg = 500, apiStatus.getResponseMsg(500)
-        timersData = []
     return code, msg, timersData
 
 
