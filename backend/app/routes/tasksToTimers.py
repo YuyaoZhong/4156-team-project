@@ -62,9 +62,12 @@ def handleQueryTasksOrTimers():
         # retrieve by user
         result['data'] = []  # should also return an empty list
         targetRels = TaskToTimer.query.filter_by(userId=userId).all()
-        for rel in targetRels:
-            result['data'].append(rel.toDict())
-        code, msg = 200, apiStatus.getResponseMsg(200)
+        if not targetRels:
+            code, msg = 404, apiStatus.getResponseMsg(404)
+        else:
+            for rel in targetRels:
+                result['data'].append(rel.toDict())
+            code, msg = 200, apiStatus.getResponseMsg(200)
 
     elif timerId:
         targetTimer = Timer.query.get(timerId)

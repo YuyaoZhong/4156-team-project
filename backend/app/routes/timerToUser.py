@@ -12,11 +12,6 @@ from app.models import TimerToUser
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
 
-@routes.route('/timerToUser')
-def testTimerToUser():
-    """this is for test"""
-    return "timerToUser url"
-
 @routes.route('/timerToUser/', methods=['GET'])
 def getTimerToUser():
     """This function is for the server to store the relationship about timers and users"""

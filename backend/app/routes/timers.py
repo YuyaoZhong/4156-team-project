@@ -8,7 +8,7 @@ from dateutil import parser
 from flask import request, jsonify
 from app.ext import db
 from app.routes import routes
-from app.models import Timer
+from app.models import Timer, TimerToUser
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
 from app.utls.utilities import judgeKeysCorrect
@@ -123,8 +123,12 @@ def createTimers():
                              startTime=startTime, duration=str(duration),
                              breakTime=str(breakTime), round=str(round))
             db.session.add(newTimer)
-            db.session.commit()
+            newTimerTwo = Timer.query.filter_by(userId=userId).all()
+            # print(newTimerTwo)
             result["data"] = newTimer.toDict()
+            newTimerToUser = TimerToUser(timerId=newTimer.id, userId=userId, status=1)
+            db.session.add(newTimerToUser)
+            db.session.commit()
             result["data"]["startTime"] = startTime # remain to be string for the frontend consistent, or change to utcstring
             code, msg = 201, apiStatus.getResponseMsg(201)
         except:

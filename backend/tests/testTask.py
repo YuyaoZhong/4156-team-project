@@ -64,7 +64,7 @@ class TestTask(TestCase):
 
     def testGetTasksFail(self):
         """test to get a task that does not exist"""
-        response = self.testApp.get('/tasks/'+'200')
+        response = self.testApp.get('/tasks/'+'9999')
         resp = json.loads(response.data)
         self.assertEqual(resp['code'], 404)
 
@@ -137,7 +137,7 @@ class TestTask(TestCase):
 
     def testDeleteTasksFail(self):
         """test to delete a non-existing task"""
-        response = self.testApp.delete('/tasks/' + '200')
+        response = self.testApp.delete('/tasks/' + '9999')
         resp = json.loads(response.data)
         self.assertEqual(resp['code'], 404)
 
