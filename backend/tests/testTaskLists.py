@@ -110,9 +110,9 @@ class TestTaskLists(TestCase):
 
     def testGetTaskListsByUserId(self):
         """test to retrieve all the tasklists given an user id"""
-        response = self.testApp.get('/tasklists/user/'+'test1')
-        resp = json.loads(response.data)
-        data = resp['data']
+        response = self.testApp.get('/tasklists?userId=test1')
+        jsonData = response.get_json()
+        data = jsonData['data']
         oldLen = 0
         if data:
             oldLen = len(data)
@@ -132,7 +132,7 @@ class TestTaskLists(TestCase):
             "userId": 'test2'
         })
 
-        response = self.testApp.get('/tasklists/user/'+'test1')
+        response = self.testApp.get('/tasklists?userId=test1')
         resp = json.loads(response.data)
         data = resp['data']
 
@@ -141,7 +141,7 @@ class TestTaskLists(TestCase):
         self.assertTrue('Default task list 1' in (taskList['name'] for taskList in data))
         self.assertTrue('Default task list 2' in (taskList['name'] for taskList in data))
 
-        response = self.testApp.get('/tasklists/user/'+'test3')
+        response = self.testApp.get('/tasklists?userId=test3')
         resp = json.loads(response.data)
 
         self.assertEqual(resp['code'], 404)

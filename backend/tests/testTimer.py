@@ -79,7 +79,7 @@ class TestTimers(TestCase):
         """test to update a timer"""
         appResponse = self.testApp.put('/timers/9', json={"breakTime": 15})
         jsonData = appResponse.get_json()
-        self.assertEqual(jsonData['code'], 200)
+        self.assertEqual(jsonData['code'], 201)
 
     def testUpdateTimers2(self):
         """test to update a non-existing timer"""
@@ -103,6 +103,7 @@ class TestTimers(TestCase):
                                            "title": "test timer", "userId": "99", "zoomLink": ""
         })
         jsonData = appResponse1.get_json()
+        print(jsonData)
         id = jsonData['data']['id']
         appResponse2 = self.testApp.delete('/timers/%s' %id)
         jsonData = appResponse2.get_json()
