@@ -112,9 +112,7 @@ def getTasksByTimerid(timerId):
         # tasksData = [task.toDict() for task in tasks]
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
-        code, msg = 500, apiStatus.getResponseMsg(500)
-        tasksData = []
-
+        return 500, apiStatus.getResponseMsg(500), []
     return code, msg, tasksData
 
 # def getDataByUserId(userId):
@@ -128,9 +126,7 @@ def getTimersByTaskid(taskId):
         timersData = [timer.toDict() for timer in timers]
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
-        code, msg = 500, apiStatus.getResponseMsg(500)
-        timersData = []
-
+        return 500, apiStatus.getResponseMsg(500), []
     return code, msg, timersData
 
 

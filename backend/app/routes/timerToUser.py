@@ -45,14 +45,17 @@ def getTimerToUser():
         else:
             result["data"] = []
             for timer in target:
-                # print(timer, type(timer))
+                print(timer, type(timer))
                 timer = tuple(timer)
                 timerDict = timer[0].toDict({
                     "timerToUserId": timer[1],
                     "isCreator": timer[2]
                 })
                 result["data"].append(timerDict)
-            code, msg = 200, apiStatus.getResponseMsg(200)
+            if len(result["data"]) == 0:
+                code, msg = 404, apiStatus.getResponseMsg(404)
+            else :
+                code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
         return jsonify(result)

@@ -38,7 +38,7 @@ class TestTimers(TestCase):
 
     def testGetTimerToUser3(self):
         """test to get a timer by userId"""
-        appResponse = self.testApp.get('/timerToUser/?userId=99')
+        appResponse = self.testApp.get('/timerToUser/?userId=105308008508442350021')
         jsonData = appResponse.get_json()
         self.assertEqual(jsonData['code'], 200)
 
@@ -46,6 +46,7 @@ class TestTimers(TestCase):
         """test to get a timer by invalid userId"""
         appResponse = self.testApp.get('/timerToUser/?userId=999')
         jsonData = appResponse.get_json()
+        print(jsonData)
         self.assertEqual(jsonData['code'], 404)
 
     def testGetTimerToUser5(self):

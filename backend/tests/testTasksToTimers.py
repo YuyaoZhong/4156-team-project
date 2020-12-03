@@ -120,6 +120,10 @@ class TestTasksToTimers(TestCase):
         response = self.testApp.get(testWrongParasUrl3)
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 200)
+        testWrongParasUrl3 = '/task_timers?userId={}'.format('106511126518215594341')
+        response = self.testApp.get(testWrongParasUrl3)
+        responseBody = response.get_json()
+        self.assertEqual(responseBody['code'], 404)
 
 
 
@@ -145,7 +149,7 @@ class TestTasksToTimers(TestCase):
         testWrongParasUrl = '/task_timers'
         response = self.testApp.get(testWrongParasUrl)
         responseBody = response.get_json()
-        self.assertEqual(responseBody['code'], 0)
+        self.assertEqual(responseBody['code'], 500)
 
     def testDeleteTaskToTimer(self):
         """Test to delete an existing relation in the database
