@@ -21,7 +21,7 @@ def zoomIntegration():
     params = {
         "grant_type": "authorization_code",
         "code": code,
-        "redirect_uri": "http://localhost:3000/zoom"
+        "redirect_uri": "https://localhost:3000/zoom"
     }
     headers = {
         "Authorization": "Basic" + " " + b64encode(ZOOM_CREDENTIALS.encode("utf-8")).decode("utf-8")
@@ -71,7 +71,6 @@ def zoomIntegration():
 
     if r.status_code != 200 and r.status_code != 201:
         code, msg, result = r.status_code, apiStatus.getResponseMsg(code), {"data": json.loads(r.text)}
-
         result["code"] = code
         result["message"] = msg
         return jsonify(result)
