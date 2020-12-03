@@ -42,22 +42,22 @@ class TestTasksToTimers(TestCase):
             db.session.commit()
 
         response = self.testApp.post('/task_timers/', json={
-            "taskId": testTaskid,
-            "timerId": testTimerId,
-            "userId": 0
+            "taskId": 167,
+            "timerId": 106,
+            "userId": 106511126518215594731
         })
 
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 201)
-        self.assertEqual(str(responseBody['data']['taskId']), str(testTaskid))
-        self.assertEqual(str(responseBody['data']['timerId']), str(testTimerId))
+        self.assertEqual(str(responseBody['data']['taskId']), str(167))
+        self.assertEqual(str(responseBody['data']['timerId']), str(106))
         # newTaskTestId = int(responseBody['data']['id'])
 
         # test duplicate with the same task and timer id, which will cause exception
         response = self.testApp.post('/task_timers/', json={
-            "taskId": testTaskid,
-            "timerId": testTaskid,
-            "userId": 0
+            "taskId": 167,
+            "timerId": 106,
+            "userId": 106511126518215594731
         })
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 500)
@@ -71,7 +71,7 @@ class TestTasksToTimers(TestCase):
 
     def testGetTaskToTimer(self):
         """Test to get an existing relation in the database"""
-        testTaskTimerId = -200
+        testTaskTimerId = 162
         getUrl = '/task_timers/{}'.format(testTaskTimerId)
         response = self.testApp.get(getUrl)
         responseBody = response.get_json()
@@ -80,9 +80,9 @@ class TestTasksToTimers(TestCase):
 
     def testGetTasksByTimerId(self):
         """Test retrieve a list of tasks with timer id"""
-        testTimerId = -200
+        testTimerId = 37
         testNonexistTimerId = -500
-        testUserId = 0
+        testUserId = 116412381383511248338
         testAnotherUser = -1
         baseUrl = '/task_timers?userId={}&timerId={}'
         # test a work request
@@ -92,25 +92,20 @@ class TestTasksToTimers(TestCase):
         self.assertEqual(responseBody['code'], 200)
         self.assertEqual(len(responseBody['data']), 1)
         # test with invalid user
-        # testWrongUserUrl = baseUrl.format(testAnotherUser, testTimerId)
-        # response = self.testApp.get(testWrongUserUrl)
-        # responseBody = response.get_json()
-        # self.assertEqual(responseBody['code'], 401)
         testWrongUserUrl = baseUrl.format(testAnotherUser, testTimerId)
         response = self.testApp.get(testWrongUserUrl)
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 200)
-        # self.assertEqual(responseBody['code'], 404)
         # test with a not-exist timer
         testNonexistTimerUrl = baseUrl.format(testUserId, testNonexistTimerId)
         response = self.testApp.get(testNonexistTimerUrl)
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 404)
-        # test get requests without parameters required
-        # testWrongParasUrl = '/task_timers?userId={}'.format(testUserId)
-        # response = self.testApp.get(testWrongParasUrl)
-        # responseBody = response.get_json()
-        # self.assertEqual(responseBody['code'], 500)
+    #     # test get requests without parameters required
+        testWrongParasUrl = '/task_timers?userId={}'.format(testUserId)
+        response = self.testApp.get(testWrongParasUrl)
+        responseBody = response.get_json()
+        self.assertEqual(responseBody['code'], 200)
 
         testWrongParasUrl2 = '/task_timers?taskId={}&timerId={}'.format(1,testUserId)
         response = self.testApp.get(testWrongParasUrl2)
@@ -129,9 +124,9 @@ class TestTasksToTimers(TestCase):
 
     def testGetTimersByTaskId(self):
         """Test retrieve a list of timers with task id"""
-        testTaskId = -200
+        testTaskId = 147
         testNonexistTaskId = -500
-        testUserId = 0
+        testUserId = 116412381383511248338
         baseUrl = '/task_timers?userId={}&taskId={}'
         # test a work request
         testNormalUrl = baseUrl.format(testUserId, testTaskId)
@@ -155,7 +150,7 @@ class TestTasksToTimers(TestCase):
         """Test to delete an existing relation in the database
            (The effect will be rolled back)
         """
-        testTaskTimerId = -200
+        testTaskTimerId = 162
         deleteUrl = '/task_timers/{}'.format(testTaskTimerId)
         response = self.testApp.delete(deleteUrl)
         responseBody = response.get_json()

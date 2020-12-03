@@ -17,16 +17,16 @@ class TestTimers(TestCase):
 
     def testCreateTimersToUser2(self):
         """test to create timerToUser"""
-        appResponse = self.testApp.post('/timerToUser/', json={"userId": 200,
-                                                               "timerId": 999,
-                                                               "status": 1
+        appResponse = self.testApp.post('/timerToUser/', json={"userId": 1,
+                                                               "timerId": -200,
+                                                               "status": 0
         })
         jsonData = appResponse.get_json()
         self.assertEqual(jsonData['code'], 201)
 
     def testGetTimerToUser(self):
         """test to get a timer by timerId"""
-        appResponse = self.testApp.get('/timerToUser/?timerId=1')
+        appResponse = self.testApp.get('/timerToUser/?timerId=104')
         jsonData = appResponse.get_json()
         self.assertEqual(jsonData['code'], 200)
 
@@ -51,7 +51,7 @@ class TestTimers(TestCase):
 
     def testGetTimerToUser5(self):
         """test to get a timer by userId and timerId"""
-        appResponse = self.testApp.get('/timerToUser/?userId=99&timerId=92')
+        appResponse = self.testApp.get('/timerToUser/?userId=0&timerId=-200')
         jsonData = appResponse.get_json()
         self.assertEqual(jsonData['code'], 200)
 
@@ -69,7 +69,7 @@ class TestTimers(TestCase):
 
     def testDeleteTimers(self):
         """test to delete timerToUser"""
-        appResponse1 = self.testApp.delete('/timerToUser/3/3')
+        appResponse1 = self.testApp.delete('/timerToUser/84/89')
         jsonData = appResponse1.get_json()
         self.assertEqual(jsonData['code'], 200)
 
