@@ -5,16 +5,17 @@ import unittest
 import pprint
 from tests.testCase import TestCase
 
-# Need to manually get valid OAuths
+# Need to manually get valid OAuths and timer ID to make tests work
 VALID_OAUTH_0 = ""
 VALID_OAUTH_1 = ""
+VALID_TIMER_ID = "38"
 
 class TestZoom(TestCase):
     def testZoomIntegration(self):
         """ Test to successfully create a meeting based on provided timer ID """
         response = self.testApp.put('/zoom' +
                                     '?code=' + VALID_OAUTH_0 +
-                                    '&state=' + "38")
+                                    '&state=' + VALID_TIMER_ID)
         r = response.get_json()
         print(r)
         self.assertTrue(r['code'] == 200)
@@ -33,7 +34,7 @@ class TestZoom(TestCase):
 
 
     def testZoomIntegrationInvalidTimer(self):
-        """ Test to create a meeting with invalid OAuth code """
+        """ Test to create a meeting with invalid Timer ID """
         response = self.testApp.put('/zoom' +
                                     '?code=' + VALID_OAUTH_1 +
                                     '&state=0')
