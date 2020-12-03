@@ -79,7 +79,6 @@ const TimerForm = (props) => {
 
  
 
-    // todo: put handler
     // todo: check box for zoom link
     // todo: including host's name
 

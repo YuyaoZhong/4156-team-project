@@ -52,7 +52,7 @@ def handleQueryTasksOrTimers():
     taskId = request.args.get('taskId', None)
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None) # for verification
-    if (taskId and timerId):
+    if (taskId and timerId) or not userId:
         code, msg = 500, apiStatus.getResponseMsg(500)
         return jsonify({"code": code, "message": msg, "data":[]})
 
@@ -112,7 +112,6 @@ def getTasksByTimerid(timerId):
     except:
         code, msg = 500, apiStatus.getResponseMsg(500)
         tasksData = []
-    print(tasksData)
     return code, msg, tasksData
 
 # def getDataByUserId(userId):

@@ -66,7 +66,7 @@ def getTimerToUser():
     return jsonify(result)
 
 @routes.route('/timerToUser/<timerId>/<userId>', methods=['DELETE'])
-def deleteTimerToUser(timerId,userId):
+def deleteTimerToUser(timerId, userId):
     """This function is for the server to delete timerToUser relations"""
     code, msg, result = 0, "", {"data": None}
     target = TimerToUser.query.filter_by(timerId=timerId, userId=userId).first()

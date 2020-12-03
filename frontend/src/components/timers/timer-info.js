@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, Header, Icon, Button} from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
+import { ZOOM_LINK_URL } from '../../constants/constants';
 import { useParams, Link} from 'react-router-dom'
 import TimerDetailInfo  from './timer-detail-info';
 import TimerForm from '../timerpage/timer-form';
@@ -17,8 +18,18 @@ const NotFoundTimer = () => {
     </Container>)
 };
 
+const ZoomButton = props => {
+    const {hasLink, isCreating, timerId} = props
+    // const curRedirectUrl = `http://127.0.0.1:3000/timer/${timerId}`;
+    const zoomUrl = ZOOM_LINK_URL +  `&state=${timerId}`;
+    // console.log()
+    return (<a href={zoomUrl} ><Button floated='right' color='grey' size = 'big'>Create Zoom Meeting</Button></a>)
+}
+
+
 export const DisplayTimer = props => {
     const {timer, hideTitle, hideEdit} = props;
+    
     const [editMode, setEditMode] = React.useState(false);
 
     const {
@@ -43,7 +54,11 @@ export const DisplayTimer = props => {
     const displayTasklist = relatedTaskLists && relatedTaskLists.length > 0?
         relatedTaskLists.filter(item=>(item.tasks && item.tasks.length > 0)) : [];
 
-    return editMode? (  <TimerForm editTimer = {timer} editMode = {true} closeEditMode = {closeEditMode}/> ):
+    // todo2:  share link
+    // todo1: creeate zoom
+
+    return editMode? 
+    (  <TimerForm editTimer = {timer} editMode = {true} closeEditMode = {closeEditMode}/> ):
       (<Container>
        {
            hideTitle?"":<Header as='h2' textAlign='center' icon>
@@ -57,6 +72,9 @@ export const DisplayTimer = props => {
            
             <Button floated='right' primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>
             <Link to='/timers'><Button floated='right' color='grey' size = 'big'>All Timers</Button></Link>
+
+           <ZoomButton timerId={timer.id}/>
+            
             {/* <Link to='/dashboard'><Button floated='right' color='grey' size = 'big'>Dashboard</Button></Link> */}
             </>)
         }

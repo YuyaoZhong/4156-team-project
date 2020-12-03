@@ -20,6 +20,9 @@ export const DataContextProvider = props => {
     const [loading, setLoading] = React.useState(false);
     const [curTime, setCurTime] =  React.useState(new Date().getTime());
     const [incomingTimers, setIncomingTimers] = React.useState([]);
+    
+
+
 
     const {isSignedIn, googleUser} = useGoogleAuth();
     const userId = isSignedIn ? googleUser.googleId : ""
@@ -282,20 +285,20 @@ export const DataContextProvider = props => {
     }
 
     return (<DataContext.Provider value = {{
-        tasks,
-        tasklists,
-        timerList,
-        incomingTimers,
-        loading,
-        timerRun,
-        getTimerById,
-        handleCreateTimer,
-        handleUpsertTask,
-        getRelatedTasksOfTimers,
-        handleDeleteTimer,
-        handleUpsertTaskList,
-        handleDeleteTask,
-        handleDeleteTaskList,
+            tasks,
+            tasklists,
+            timerList,
+            incomingTimers,
+            loading,
+            timerRun,
+            getTimerById,
+            handleCreateTimer,
+            handleUpsertTask,
+            getRelatedTasksOfTimers,
+            handleDeleteTimer,
+            handleUpsertTaskList,
+            handleDeleteTask,
+            handleDeleteTaskList,
     }}>
         {props.children}
     </DataContext.Provider>)

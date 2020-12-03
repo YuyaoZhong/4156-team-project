@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, Container, Card, Icon, List, ListItem } from 'semantic-ui-react';
 
 // {id, name}
-// todo: search box
-// todo: with category
+// search box
+// with category
 const AttachList = props => {
     const {data, renderAttr, buttonName, selectHandler} = props;
     const [show, setShow] = React.useState(false);
