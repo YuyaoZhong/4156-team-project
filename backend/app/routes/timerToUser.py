@@ -19,13 +19,16 @@ def getTimerToUser():
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None)
     if userId is None and timerId is not None :
+        targetTimer = Timer.query.get(timerId)
         target = TimerToUser.query.filter_by(timerId=timerId).all()
-        if not target:
+        if not target or not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
-            result["data"] = []
-            for timer in target:
-                result['data'].append(timer.toDict())
+            result["data"] = targetTimer.toDict({
+                "relatedUser": [timerToUser.toDict()['userId'] for timerToUser in target]
+            })
+            # for timer in target:
+            #     result['data'].append(timer.toDict())
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
@@ -44,22 +47,43 @@ def getTimerToUser():
             for timer in target:
                 # print(timer, type(timer))
                 timer = tuple(timer)
-                timerDict = timer[0].toDict()
-                timerDict["timerToUserId"] = timer[1]
-                timerDict["isCreator"] = timer[2]
+                timerDict = timer[0].toDict({
+                    "timerToUserId": timer[1],
+                    "isCreator": timer[2]
+                })
                 result["data"].append(timerDict)
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
         return jsonify(result)
     if userId is not None and timerId is not None:
-        target = TimerToUser.query.filter_by(userId=userId, timerId=timerId).all()
-        if not target:
-            code, msg = 404, apiStatus.getResponseMsg(404)
+        # target = TimerToUser.query.filter_by(userId=userId, timerId=timerId).all()
+        target = Timer.query.join(TimerToUser, Timer.id == TimerToUser.timerId) \
+            .add_columns(TimerToUser.userId.label('timerToUserId'),
+                         TimerToUser.status.label('timerToUserStatus')) \
+            .filter(TimerToUser.userId == userId) \
+            .filter(Timer.id == timerId)
+        if not target or len(list(target)) == 0:
+            targetTimer = Timer.query.get(timerId)
+            if not targetTimer:
+                code, msg = 404, apiStatus.getResponseMsg(404)
+            else:
+                added = False if str(userId) != str(targetTimer.userId) else True
+                timerDict = targetTimer.toDict({
+                    "added": added,
+                    "isCreator": added,
+                    "timerToUserId": userId,
+                })
+                result['data'] = timerDict
+                code, msg = 200, apiStatus.getResponseMsg(200)
         else:
-            result['data'] = []
-            for timer in target:
-                result['data'].append(timer.toDict())
+            timer = tuple(target[0])
+            timerDict = timer[0].toDict({
+                "timerToUserId": timer[1],
+                "isCreator": timer[2],
+                "added": True,
+            })
+            result['data'] = timerDict
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg

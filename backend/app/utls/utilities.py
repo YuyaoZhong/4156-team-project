@@ -21,5 +21,6 @@ def judgeKeysCorrect(data, attrs):
             return False
     return True
 
+
 SQL_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
 

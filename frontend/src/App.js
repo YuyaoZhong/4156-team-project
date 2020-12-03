@@ -41,7 +41,7 @@ function App() {
                 path="/tasks"
                 component={AllTaskLists}
               />
-              <PrivateRoute
+              <Route
                 path = "/timer/:timerid"
                 component = {SingleTimer}
               />

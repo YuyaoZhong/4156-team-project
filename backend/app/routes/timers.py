@@ -30,7 +30,7 @@ def getTimers():
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
-            result["data"] = targetTimer.toDict(True)
+            result["data"] = targetTimer.toDict()
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
@@ -43,7 +43,7 @@ def getTimers():
         else:
             # result['data'] = []
             for timer in targetTimer :
-                result['data'].append(timer.toDict(True)) # to iso format
+                result['data'].append(timer.toDict()) # to iso format
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg

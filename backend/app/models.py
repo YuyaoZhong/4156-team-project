@@ -71,7 +71,7 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
     breakTime = db.Column(db.Integer, nullable=False, default=5)
     round = db.Column(db.Integer, nullable=False, default=1)
 
-    def toDict(self, dateToIsoStr = False):
+    def toDict(self, otherAttrs = None):
         """this function is for the server to turn Timer class into dic in python"""
         timer = {
             "id": self.id,
@@ -84,6 +84,8 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
             "breakTime": self.breakTime,
             "round": self.round
         }
+        if otherAttrs and len(otherAttrs) != 0 and isinstance(otherAttrs, dict):
+            timer.update(otherAttrs)
         return timer
     def update(self,data):
         """this function is for the server to update the Timer class"""
