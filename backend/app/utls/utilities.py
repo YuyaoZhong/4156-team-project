@@ -35,6 +35,7 @@ def judgeInputValid(data):
             continue
         else:
             return False
+    return True
 
 def judgeIntValid(data):
     if isinstance(data, int):

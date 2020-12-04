@@ -8,7 +8,7 @@ from app.ext import db
 from app.routes import routes
 from app.models import Task, TaskToTimer, Timer
 from app.utls.apiStatus import apiStatus
-from app.utls.utilities import judgeKeysExist
+from app.utls.utilities import judgeKeysExist, judgeInputValid, judgeIntValid
 
 
 @routes.route('/task_timers/<taskTimerId>', methods=['GET', 'DELETE'])
@@ -16,6 +16,12 @@ def handleTaskTimer(taskTimerId):
     """This function is used to handle GET / DELETE requests for handle task timer"""
     getCode, getMsg, targetTaskTimer = getTaskTimer(int(taskTimerId))
     result = {"code": getCode, "message": getMsg, "data": None}
+    if not judgeIntValid(int(taskTimerId)):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     if request.method == "GET":
         if targetTaskTimer:
             result["data"] = targetTaskTimer.toDict()
