@@ -8,7 +8,7 @@ from tests.testCase import TestCase
 # Need to manually get valid OAuths and timer ID to make tests work
 VALID_OAUTH_0 = ""
 VALID_OAUTH_1 = ""
-VALID_TIMER_ID = "38"
+VALID_TIMER_ID = "136"
 
 class TestZoom(TestCase):
     def testZoomIntegration(self):
