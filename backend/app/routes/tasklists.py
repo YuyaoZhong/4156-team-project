@@ -8,13 +8,19 @@ from app.ext import db
 from app.routes import routes
 from app.models import TaskList
 from app.utls.apiStatus import apiStatus
-from app.utls.utilities import judgeKeysCorrect
+from app.utls.utilities import judgeKeysCorrect, judgeInputValid, judgeIntValid
 
 
 @routes.route('/tasklists/<taskListId>', methods=['GET'])
 def getTaskList(taskListId):
     """API for getting all tasklists with task list id as taskListId"""
     code, msg, result = 0, '', {"data": None}
+    if not judgeIntValid(taskListId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     result["data"] = []
     targetTaskList = TaskList.query.get(taskListId)
     if not targetTaskList:
@@ -35,6 +41,12 @@ def getTaskList(taskListId):
 def deleteTaskList(taskListId):
     """API for delete a task list with id"""
     code, msg, result = 0, '', {"data": None}
+    if not judgeIntValid(taskListId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     targetTaskList = TaskList.query.get(taskListId)
     if not targetTaskList:
         code, msg = 404, apiStatus.getResponseMsg(404)
@@ -57,6 +69,18 @@ def putTaskList(taskListId):
     data = request.get_json(force=True)
     postAttrs = ['userId', 'name']
     code, msg, result = 0, '', {"data": None}
+    if not judgeIntValid(taskListId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
+    if not judgeInputValid(data):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     if not data:
         code, msg = 400, apiStatus.getResponseMsg(400)
     elif not judgeKeysCorrect(data, postAttrs):
@@ -84,8 +108,13 @@ def createTaskList():
     data = request.get_json(force=True)
     postAttrs = ['userId', 'name']
     code, msg, result = 0, '', {"data": None}
-    if not data:
+
+    if not judgeInputValid(data):
         code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     elif not judgeKeysCorrect(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
     else:
@@ -109,6 +138,13 @@ def getTaskListsByUserId():
     """API for getting all tasklists with user id as userId"""
     userId = request.args.get('userId', None)
     code, msg, result = 0, '', {"data": None}
+
+    if not judgeInputValid({"userId":userId}):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     result["data"] = []
     taskLists = TaskList.query.filter_by(userId=userId).all()
     if not taskLists:
