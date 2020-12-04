@@ -44,7 +44,7 @@ class TestTasksToTimers(TestCase):
         response = self.testApp.post('/task_timers/', json={
             "taskId": 167,
             "timerId": 106,
-            "userId": 106511126518215594731
+            "userId": '106511126518215594731'
         })
 
         responseBody = response.get_json()
@@ -57,7 +57,7 @@ class TestTasksToTimers(TestCase):
         response = self.testApp.post('/task_timers/', json={
             "taskId": 167,
             "timerId": 106,
-            "userId": 106511126518215594731
+            "userId": '106511126518215594731'
         })
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 500)
@@ -82,7 +82,7 @@ class TestTasksToTimers(TestCase):
         """Test retrieve a list of tasks with timer id"""
         testTimerId = 37
         testNonexistTimerId = -500
-        testUserId = 116412381383511248338
+        testUserId = '116412381383511248338'
         testAnotherUser = -1
         baseUrl = '/task_timers?userId={}&timerId={}'
         # test a work request
@@ -126,7 +126,7 @@ class TestTasksToTimers(TestCase):
         """Test retrieve a list of timers with task id"""
         testTaskId = 147
         testNonexistTaskId = -500
-        testUserId = 116412381383511248338
+        testUserId = '116412381383511248338'
         baseUrl = '/task_timers?userId={}&taskId={}'
         # test a work request
         testNormalUrl = baseUrl.format(testUserId, testTaskId)
