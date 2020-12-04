@@ -14,13 +14,13 @@ from app.utls.utilities import judgeKeysExist, judgeInputValid, judgeIntValid
 @routes.route('/task_timers/<taskTimerId>', methods=['GET', 'DELETE'])
 def handleTaskTimer(taskTimerId):
     """This function is used to handle GET / DELETE requests for handle task timer"""
+
+    if not judgeIntValid(taskTimerId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
     getCode, getMsg, targetTaskTimer = getTaskTimer(int(taskTimerId))
     result = {"code": getCode, "message": getMsg, "data": None}
-    if not judgeIntValid(int(taskTimerId)):
-        code, msg = 400, apiStatus.getResponseMsg(400)
-        result["code"] = code
-        result["message"] = msg
-        return jsonify(result)
 
     if request.method == "GET":
         if targetTaskTimer:
@@ -40,6 +40,10 @@ def handleTaskTimer(taskTimerId):
 
 def getTaskTimer(taskTimerId):
     """This function is used to handle retrieve task from database"""
+    if not judgeIntValid(taskTimerId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
     try:
         targetTaskTimer = TaskToTimer.query.get(taskTimerId)
     except:
@@ -57,6 +61,13 @@ def handleQueryTasksOrTimers():
     taskId = request.args.get('taskId', None)
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None) # for verification
+
+    # judge input
+    inputData = {"taskId": taskId, "timerId": timerId, "userId": userId}
+    if not judgeInputValid(inputData):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
     if (taskId and timerId) or not userId:
         code, msg = 500, apiStatus.getResponseMsg(500)
         return jsonify({"code": code, "message": msg, "data":[]})
@@ -98,6 +109,10 @@ def handleQueryTasksOrTimers():
 
 def getTasksByTimerid(timerId):
     """get lists of tasks by timer id"""
+    if not judgeIntValid(timerId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
     try:
         # disable no member since it is setted flask function
         # may think about change to join query
@@ -125,12 +140,14 @@ def getTasksByTimerid(timerId):
 
 def getTimersByTaskid(taskId):
     """get lists of timers by task id"""
+    if not judgeIntValid(taskId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
     try:
         relatedTasks = db.session.query(TaskToTimer.timerId.label('timerId')).filter( # pylint: disable=maybe-no-member
             TaskToTimer.taskId == taskId).subquery() # pylint: disable=maybe-no-member
-        print(relatedTasks)
         timers = db.session.query(Timer).filter(Timer.id.in_(relatedTasks)).all() # pylint: disable=maybe-no-member
-        print(timers)
         timersData = [timer.toDict() for timer in timers]
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
@@ -142,6 +159,12 @@ def getTimersByTaskid(taskId):
 def createTaskTimer():
     """This function is used to create a new relation"""
     data =  request.get_json()
+
+    if not judgeInputValid(data):
+        print(data)
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
     postAttrs = ['taskId', 'timerId', 'userId']
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysExist(data, postAttrs):
@@ -171,5 +194,4 @@ def createTaskTimer():
 
     result["code"] = code
     result["message"] = msg
-    # print(result)
     return jsonify(result)
