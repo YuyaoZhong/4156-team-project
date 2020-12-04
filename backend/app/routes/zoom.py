@@ -70,7 +70,6 @@ def zoomIntegration():
 
     if r.status_code != 200 and r.status_code != 201:
         code, msg, result = r.status_code, apiStatus.getResponseMsg(code), {"data": json.loads(r.text)}
-
         result["code"] = code
         result["message"] = msg
         return jsonify(result)
