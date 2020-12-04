@@ -5,9 +5,10 @@ import { useDataContext } from '../../context/data-context';
 const EditTaskDiv = props => {
     const {taskListId, closeAddTaskMode} = props;
     const { handleUpsertTask } = useDataContext();
-   
+    const MAX_TITTLE_LENGTH = 140;
     const [taskName, setTaskName] = React.useState('New Task');
-    const handleChange = (e) => setTaskName(e.target.value);
+    const handleChange = (e) => setTaskName(e.target.value.length > MAX_TITTLE_LENGTH ? 
+         e.target.value.slice(0, MAX_TITTLE_LENGTH ): e.target.value);
     const handleSubmit = () => {
         const newTask = {
             'taskListId': taskListId,
@@ -22,7 +23,7 @@ const EditTaskDiv = props => {
                         name = 'task name' label = 'name' control = 'input' type = 'text'
                         value = {taskName}
                         // defaultValue = {taskName}
-                        maxLength =  {140}
+                        maxLength =  {MAX_TITTLE_LENGTH }
                         onChange = {handleChange}
                      />
                <Button primary type="button" onClick={handleSubmit}>Save </Button>

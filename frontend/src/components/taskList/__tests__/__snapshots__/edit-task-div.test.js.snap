@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test <EditTaskDiv/> snapshot tests 1`] = `
+<form
+  className="ui large form"
+  onSubmit={[Function]}
+>
+  <div
+    className="field"
+  >
+    <label>
+      name
+    </label>
+    <input
+      aria-describedby={null}
+      maxLength={140}
+      name="task name"
+      onChange={[Function]}
+      type="text"
+      value="New Task"
+    />
+  </div>
+  <button
+    className="ui primary button"
+    onClick={[Function]}
+    type="button"
+  >
+    Save 
+  </button>
+  <button
+    className="ui secondary button"
+    onClick={[Function]}
+    type="button"
+  >
+    Cancel
+  </button>
+</form>
+`;

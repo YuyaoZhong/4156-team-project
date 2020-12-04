@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test <NewTaskListCard/>  snapshot tests for new task lists 1`] = `
+<div
+  className="ui card"
+  onClick={[Function]}
+>
+  <div
+    className="content"
+  >
+    <div
+      className="header"
+    >
+      Create new Tasklist
+    </div>
+  </div>
+  <div
+    className="content"
+  >
+    <form
+      className="ui large form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="field"
+      >
+        <label>
+          
+        </label>
+        <input
+          aria-describedby={null}
+          maxLength={140}
+          name="tasklist name"
+          onChange={[Function]}
+          type="text"
+          value="New TaskList"
+        />
+      </div>
+    </form>
+  </div>
+  <div
+    className="extra content"
+  >
+    <button
+      className="ui secondary right floated button"
+      onClick={[Function]}
+      type="button"
+    >
+      Cancel
+    </button>
+    <button
+      className="ui primary right floated button"
+      onClick={[Function]}
+      type="button"
+    >
+      Add 
+    </button>
+  </div>
+</div>
+`;

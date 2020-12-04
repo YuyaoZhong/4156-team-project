@@ -6,10 +6,12 @@ import { useDataContext } from '../../context/data-context';
 const NewTasklistCard  = props => {
     const {closeAddTaskListMode} = props;
     const [taskListName, setTaskListName] = React.useState('New TaskList');
+    const MAX_TITTLE_LENGTH = 140;
     const {
     handleUpsertTaskList,
  } = useDataContext();
-     const handleChange = (e) => setTaskListName(e.target.value);
+     const handleChange = (e) => setTaskListName(e.target.value.length > MAX_TITTLE_LENGTH ? 
+        e.target.value.slice(0, MAX_TITTLE_LENGTH ): e.target.value);
      const handleSubmit = () => {
         const newTask = {
             'name': taskListName
@@ -29,7 +31,9 @@ const NewTasklistCard  = props => {
 
             <Form size = 'large'>
                 <Form.Field
-                name = 'tasklist name' label = '' control = 'input' type = 'text'
+                name = 'tasklist name'
+                label = '' control = 'input' type = 'text'
+                maxLength =  {MAX_TITTLE_LENGTH }
                 value = {taskListName}
                 onChange = {handleChange}
             />
