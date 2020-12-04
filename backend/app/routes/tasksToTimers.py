@@ -122,7 +122,9 @@ def getTimersByTaskid(taskId):
     try:
         relatedTasks = db.session.query(TaskToTimer.timerId.label('timerId')).filter( # pylint: disable=maybe-no-member
             TaskToTimer.taskId == taskId).subquery() # pylint: disable=maybe-no-member
+        print(relatedTasks)
         timers = db.session.query(Timer).filter(Timer.id.in_(relatedTasks)).all() # pylint: disable=maybe-no-member
+        print(timers)
         timersData = [timer.toDict() for timer in timers]
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
@@ -144,9 +146,9 @@ def createTaskTimer():
         specifiedId = data['id'] if 'id' in data else None
         if not targetTask or not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
-        elif str(data['userId']) != str(targetTask.userId) \
-                or str(data['userId']) != str(targetTimer.userId):
-            code, msg = 401, apiStatus.getResponseMsg(401)
+        # elif str(data['userId']) != str(targetTask.userId) \
+        #         or str(data['userId']) != str(targetTimer.userId):
+        #     code, msg = 401, apiStatus.getResponseMsg(401)
         else:
             try:
                 newTaskToTimer = TaskToTimer(taskId=str(targetTask.id), timerId=str(targetTimer.id), userId=str(data['userId']))
