@@ -5,6 +5,7 @@ import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { useDataContext } from '../../context/data-context';
 import { constructDate, formatDate, formatTime } from '../../utilities/utilities';
 import { upsertData, deleteData} from '../../utilities/apiMethods';
+import { formatTask, isNumericAttr, errorMessages, checkTimeValid, judgeInputError, judgeStartTimerError} from '../../utilities/timer-form-utilities';
 import { useGoogleAuth } from '../../context/google-login-context';
 import { SERVER_URL } from '../../constants/constants';
 import AttachList from './attach-list';
@@ -14,28 +15,6 @@ import AttachedTasks from './display-attached-tasks';
 const filterSelected = (x)=>(x.alterSelected);
 const filterToDelete = (x) => (x.selected && !x.alterSelected && x.relId !== -1);
 const filterToAdd = (x) => (!x.selected && x.alterSelected);
-
-const formatTask = (tasks, relatedTasks, tasklists) => {
-    // console.log(relatedTasks, tasklists);
-    return tasks.reduce((res, item, index)=>{
-        const idx = relatedTasks.findIndex(relatedTask=>String(relatedTask.id) === String(item.id));
-     
-        let taskListName = "Default";
-        if (item.taskListId && item.taskListId !== 0){
-         
-            const taskList = tasklists.find(y=>String(y.id) === String(item.taskListId))
-            // console.log('here', taskList, tasklists)
-            if(taskList){
-                taskListName = taskList.name;
-            }
-        }
-        const relId = idx === -1 ? -1 : relatedTasks[idx].relId;
-        const newItem = {...item, key: index, relId: relId, 
-            selected: idx !== -1, alterSelected: idx !== -1, taskListName: taskListName};
-        res.push(newItem);
-        return res;
-    }, [])
-};
 
 
 const TimerForm = (props) => {
@@ -62,10 +41,6 @@ const TimerForm = (props) => {
     }, [tasks, tasklists]);
 
 
-    // React.useEffect(()=>{
-       
-    // }, [tasks, tasklists])
-
     const toggleSelectTask = (keyIndex) => {
       setAddTasks(state=>{
           const newState = state.splice(0);
@@ -78,8 +53,6 @@ const TimerForm = (props) => {
     }
 
  
-
-
     const delayMin = 5;
     const curDefaultTime = new Date(new Date().getTime() + delayMin * 60000);
     const minDate = formatDate(curDefaultTime);
@@ -94,6 +67,8 @@ const TimerForm = (props) => {
         'date': minDate,
         'time': minTime,
     };
+
+
     const defaultTimerData = editMode ? {...editTimer, 
         "date": formatDate(new Date(editTimer.startTime)),
         "time": formatTime(new Date(editTimer.startTime))}: 
@@ -103,136 +78,39 @@ const TimerForm = (props) => {
 
     const [timerData, setTimerData] = React.useState(defaultTimerData);
     const [redirect, setRedirect] = React.useState(null);
-    const [errors, setErrors] = React.useState({}); // for form validation
+    const [errors, setErrors] = React.useState({}); 
 
     const handleChange = e => setTimerData({...timerData, [e.target.name]: e.target.value})
     const handleStartTimeChange = (e, {name, value}) => setTimerData({...timerData, [name]: value});
     const {isSignedIn, googleUser} = useGoogleAuth();
 
-   
 
-    // todo: move to utilities;
-    const errorMessages =(type, attrName) => {
-        switch(type){
-            case 'empty':
-                return `${attrName} can not be empty!`;
-            case 'non-positive number':
-                return `${attrName} value can not be negative!`;
-            case 'wrong time':
-                return `Start time can not be later than current time!`;
-            case 'wrong date format':
-                return `Date format error`;
-            case 'numeric error':
-                return `${attrName} must be number value`;
-            default:
-                return 'Error!';
-        }
-    }
+  
 
-    const isNumericAttr = (name) => (name === "duration" || name === "breakTime" || name === "round");
     const validateInput = (e) => {
-        // const newErrors = Object.assign({}, errors);
-        
         const originErrors = Object.assign({}, errors);
-        let newErrors = {};
+        
         const attrName = e.target.name;
         const value = e.target.value;
-        if ((attrName !== "description") && !isNumericAttr(attrName) && (!value || value === "" || value.length === 0)){
-            newErrors[attrName] = errorMessages('empty', attrName);
-        }else if ( isNumericAttr(attrName)) {
-            const tryParseInt = parseInt(value, 10);
-            if(isNaN(tryParseInt)){
-                newErrors[attrName] = errorMessages('numeric error', attrName);
-            }
-            else if(tryParseInt <= 0){
-                newErrors[attrName] = errorMessages('non-positive number', attrName);
-            }
-        }
-        
+        let newErrors = judgeInputError(attrName, value);
+
         if(!newErrors[attrName] && originErrors[attrName]){
             delete originErrors[attrName];
         }
 
         newErrors = {...originErrors, ...newErrors}
         setErrors(newErrors);
-        // if(!newErrors.attrName || )
-
-        return newErrors;
-
     }
 
-    // todo: move to utilities
-    const checkTimeValie = (timeStr)=>{
-        if(!timeStr.includes(":")){
-            return false;
+ 
+    const validateStartTime = (attrName) => {
+        const originErrors = Object.assign({}, errors);
+        let newErrors = judgeStartTimerError(attrName, timerData.date, timerData.time, originErrors);
+        if(!newErrors[attrName] && originErrors[attrName]){
+            delete originErrors[attrName];
         }
-        const times = timeStr.split(":");
-        if (times.length !== 2){
-            return false;
-        }
-        const tryParseHour = parseInt(times[0], 10);
-        const tryParseMin = parseInt(times[1], 10);
-        if(times[0].includes('.') || times[1].includes('.') 
-        || isNaN(tryParseMin) || isNaN(tryParseHour)){
-            return false;
-        } 
-        if(tryParseHour < 0 || tryParseHour > 23){
-            return false;
-        }
-        if(tryParseMin < 0 || tryParseMin >= 60){
-            return false;
-        }
-        return true;
-    }
-
-    const validateStartTime = (name) => {
-        const newErrors = Object.assign({}, errors);
-        const compareDate = new Date(formatDate(new Date()));
-        if(name === "date"){
-            const value = timerData.date;
-            const tryParseDate = Date.parse(value);
-            if (!value || value === ""){
-                newErrors[name] = errorMessages('empty', name);
-            }
-            else if(isNaN(tryParseDate)){
-                newErrors[name] = errorMessages('wrong date format', name);
-            }else{
-               // valid start time
-               if (new Date(tryParseDate).getTime() < compareDate.getTime()){
-                 newErrors[name] = errorMessages('wrong time');
-               }
-                else if(newErrors[name]){
-                   delete newErrors[name];
-               }
-            }
-        }
-
-        if(name === "time"){ // change to a seperate utilitiy function
-            const value = timerData.time;
-            if(!value || value ===""){
-                newErrors[name] = errorMessages('empty', name);
-            }
-            else if(!checkTimeValie(value)){
-                newErrors[name] = errorMessages('wrong date format', name);
-            }else{
-                if(!errors.date && compareDate.getTime() === new Date(timerData.date).getTime()){
-                    const todayHour = new Date().getHours();
-                    const todayMin = new Date().getMinutes();
-                    const times = value.split(":");
-                    const tryHour = parseInt(times[0], 10);
-                    const tryMin = parseInt(times[1], 10);
-                    if(tryHour < todayHour || (tryHour === todayHour && tryMin < todayMin)){
-                        newErrors[name]  = errorMessages('wrong time');
-                    }
-                }
-                else if(newErrors[name]){
-                    delete newErrors[name];
-                }
-            }
-        }
-
+        newErrors = {...originErrors, ...newErrors}
         setErrors(newErrors);
-        return newErrors;
     }
 
     const deleteStartTimeError = (name)=>setErrors(errros=>{

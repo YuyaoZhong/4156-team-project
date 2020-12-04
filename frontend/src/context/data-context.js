@@ -23,8 +23,6 @@ export const DataContextProvider = props => {
     const [incomingTimers, setIncomingTimers] = React.useState([]);
     
 
-
-
     const {isSignedIn, googleUser} = useGoogleAuth();
     const userId = isSignedIn ? googleUser.googleId : ""
 
