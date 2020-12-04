@@ -11,6 +11,8 @@ from app.routes import routes
 from app.models import TimerToUser, Timer
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
+from app.utls.utilities import judgeInputValid
+from app.utls.utilities import judgeIntValid
 
 @routes.route('/timerToUser/', methods=['GET'])
 def getTimerToUser():
@@ -19,6 +21,11 @@ def getTimerToUser():
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None)
     if userId is None and timerId is not None :
+        if not judgeIntValid(timerId) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         targetTimer = Timer.query.get(timerId)
         target = TimerToUser.query.filter_by(timerId=timerId).all()
         if not target or not targetTimer:
@@ -59,6 +66,11 @@ def getTimerToUser():
         result["message"] = msg
         return jsonify(result)
     if userId is not None and timerId is not None:
+        if not judgeIntValid(timerId) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         # target = TimerToUser.query.filter_by(userId=userId, timerId=timerId).all()
         target = Timer.query.join(TimerToUser, Timer.id == TimerToUser.timerId) \
             .add_columns(TimerToUser.userId.label('timerToUserId'),
@@ -100,6 +112,11 @@ def getTimerToUser():
 def deleteTimerToUser(timerId, userId):
     """This function is for the server to delete timerToUser relations"""
     code, msg, result = 0, "", {"data": None}
+    if not judgeIntValid(timerId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
     target = TimerToUser.query.filter_by(timerId=timerId, userId=userId).first()
     if not target:
         code, msg = 404, apiStatus.getResponseMsg(404)
@@ -125,6 +142,11 @@ def createTimerToUser():
     if not judgeKeysExist(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
     else:
+        if not judgeInputValid(data) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         timerId = data['timerId']
         userId = data['userId']
         status = data['status']

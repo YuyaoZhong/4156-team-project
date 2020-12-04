@@ -12,7 +12,8 @@ from app.models import Timer, TimerToUser
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
 from app.utls.utilities import judgeKeysCorrect
-
+from app.utls.utilities import judgeInputValid
+from app.utls.utilities import judgeIntValid
 
 # @routes.route('/timers')
 # def testTimers():
@@ -26,6 +27,11 @@ def getTimers():
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None)
     if timerId is not None :
+        if not judgeIntValid(timerId) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         targetTimer = Timer.query.get(timerId)  # query by primary key
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
@@ -58,6 +64,11 @@ def getTimers():
 def deleteTimers(timerId):
     """This function is for the server to delete timers"""
     code, msg, result = 0, "", {"data": None}
+    if not judgeIntValid(timerId) :
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
     targetTimer = Timer.query.get(timerId)  # query by primary key
     if not targetTimer:
         code, msg = 404, apiStatus.getResponseMsg(404)
@@ -84,6 +95,11 @@ def createTimers():
     if not judgeKeysExist(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
     else:
+        if not judgeInputValid(data) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         userId = data['userId']
         title = data['title']
         description = data['description'] if 'description' in data else None
@@ -151,11 +167,15 @@ def putTimers(timerId):
     postAttrs = ['id', 'userId', 'title', 'startTime', 'duration',
                  'breakTime', 'round', 'description', 'zoomLink',
                  'isCreator', 'timerToUserId', 'added']
-    print(data)
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysCorrect(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
     else:
+        if not judgeInputValid(data) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         targetTimer = Timer.query.get(timerId)
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
