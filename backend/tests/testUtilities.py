@@ -77,7 +77,7 @@ class TestCasesForUtilities(unittest.TestCase):
         result = judgeKeysExist(data,attrs)
         self.assertEqual(result,True)
 
-    def testJudgeInputValidInt(self):
+    def testJudgeInputValidInteger(self):
         """test the utility function to judge whether input is valid"""
         data = {'key': 1}
         result = judgeInputValid(data)
