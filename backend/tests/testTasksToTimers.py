@@ -106,7 +106,7 @@ class TestTasksToTimers(TestCase):
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 200)
 
-        testWrongParasUrl2 = '/task_timers?taskId={}&timerId={}'.format(1,testUserId)
+        testWrongParasUrl2 = '/task_timers?taskId={}&timerId={}'.format(1, testTimerId)
         response = self.testApp.get(testWrongParasUrl2)
         responseBody = response.get_json()
         self.assertEqual(responseBody['code'], 500)

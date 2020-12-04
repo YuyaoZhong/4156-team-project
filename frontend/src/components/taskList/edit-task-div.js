@@ -19,11 +19,12 @@ const EditTaskDiv = props => {
     }
      return ( <Form size = 'large'>
                    <Form.Field
-                   name = 'task name' label = 'name' control = 'input' type = 'text'
-                   value = {taskName}
-                   // defaultValue = {taskName}
-                   onChange = {handleChange}
-               />
+                        name = 'task name' label = 'name' control = 'input' type = 'text'
+                        value = {taskName}
+                        // defaultValue = {taskName}
+                        maxLength =  {140}
+                        onChange = {handleChange}
+                     />
                <Button primary type="button" onClick={handleSubmit}>Save </Button>
                <Button secondary type="button" onClick={closeAddTaskMode}>Cancel</Button>
        </Form>)

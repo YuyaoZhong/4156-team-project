@@ -34,4 +34,5 @@ describe("handleChange", () => {
 
        expect(wrapper.find('input[name="task name"]').prop('value')).toEqual(testName);
     });
+
   });
