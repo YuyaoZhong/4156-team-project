@@ -26,11 +26,21 @@ def judgeInputValid(data):
         return False
     for key, value in data.items():
         if isinstance(value, str):
-            return (len(value) <= 140)
+            if (len(value) > 140):
+                return False
         elif isinstance(value, int):
-            return (value >= -1000) and (value < 65536)
+            if (value < -1000) or (value >= 65536):
+                return False
+        elif isinstance(value, type(None)):
+            continue
         else:
             return False
+
+def judgeIntValid(data):
+    if isinstance(data, int):
+        return (data >= -1000) and (data < 65536)
+    else:
+        return False
 
 
 SQL_DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
