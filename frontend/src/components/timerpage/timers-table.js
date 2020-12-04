@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import {  Container, Button} from 'semantic-ui-react';
+import {  Container, Button, Label, Segment} from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 import ReactSemanticTable from '../table/semantic-react-table';
 import { formatDateAndTime } from '../../utilities/utilities';
@@ -15,11 +15,31 @@ const dateFormatter = ({cell}) =>{
     return formatDateAndTime(new Date(value));
   }
 
+const idFormat = ({row, cell})=>{
+  const {value } = cell;
+  const {values} = row;
+  return (<>
+      {!values.isCreator? <Label color='blue' size='small' ribbon>Shared</Label>:""}
+        
+        <div>
+        {value}  
+        </div>
+ 
+  </>)
+}
 const linkFormatter = ({row, cell}) => {
     const {value } = cell;
     const {values} = row;
     const timerId = values ? values.id : 0;
-    return (<Link to={`/timer/${timerId}`}>{value}</Link>)
+    return (
+      <>
+         
+        <div>
+          <Link to={`/timer/${timerId}`}>{value}</Link>
+        </div>
+        {!values.isCreator?(<small>shared from other users</small>):""}
+      </>
+    )
 }
 
 
@@ -66,6 +86,7 @@ const timerTableColumns = [
         accessor: 'id',
         width: '45',
         maxWidth: '50',
+        // Cell: idFormat,
     },
     {
         Header: 'Title',
@@ -91,14 +112,26 @@ const timerTableColumns = [
         accessor: 'breakTime',
         
     },
+    {
+      Header: 'timerToUserId',
+      accessor: 'timerToUserId',
+      show: false,
+      
+    },
+    {
+      Header: 'Creator',
+      accessor: 'isCreator',
+      show: false, 
+    },
 ]
 
 const TimerTable = () => {
-    // todo: sepearate incoming one
-    const {timerList,
+
+    const {
+        timerList,
         handleDeleteTimer, 
-    
     } = useDataContext();
+
     const [editMode, setEditMode] = React.useState(false);
     const closeEditMode = () => setEditMode(false);
     const [selectedRows, setSelectedRows] = React.useState([]);
@@ -118,23 +151,22 @@ const TimerTable = () => {
          <>
         <div className='button-group'>
         <Button primary floated='right' onClick={()=>setEditMode(true)}>Add New Timer</Button>
-         {
-             !deleteMode?(
-                <Button color= 'grey' floated='right' onClick={()=>{
-                    setDeleteMode(true);
-                    setSelectedRows([]);
-                }}>Delete Mode</Button>
-             ):  <Button color= 'red' floated='right' onClick={async ()=>{
-                await handleDelete();
-                setDeleteMode(false);
-                setSelectedRows([]);
-            }}>Delete Timers</Button>
-         }
+          {
+              !deleteMode?(
+                  <Button color= 'grey' floated='right' onClick={()=>{
+                      setDeleteMode(true);
+                      setSelectedRows([]);
+                  }}>Delete Mode</Button>
+              ):  <Button color= 'red' floated='right' onClick={async ()=>{
+                  await handleDelete();
+                  setDeleteMode(false);
+                  setSelectedRows([]);
+              }}>Delete Timers</Button>
+          }
         </div>
          <ReactSemanticTable
              columns = {deleteMode === false? timerTableColumns: [selectionColumn, ...timerTableColumns]}
              data = {timerList}
-            //  showSelect = {showSelect}
              selectedRows={selectedRows}
              onSelectedRowsChange={setSelectedRows} 
             />

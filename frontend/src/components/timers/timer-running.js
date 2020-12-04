@@ -109,7 +109,7 @@ const RunningTimer = () => {
                 </div>
                 </div>
         </TimerLabel>
-        <DisplayTimer timer = {timerRun} hideTitle={true} hideEdit={true} />
+        <DisplayTimer timer = {timerRun} editMode = {false} />
       </Container>
       )
 }

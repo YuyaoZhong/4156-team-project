@@ -25,8 +25,6 @@ describe("handleChange", () => {
       });
 
     it("should call setState on input of task name", async () => {
-   
-       
        const testName = "Test Task";
        wrapper.find('input[name="task name"]').simulate('change', {
            target:{ 
