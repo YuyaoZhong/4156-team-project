@@ -42,7 +42,7 @@ def getTaskTimer(taskTimerId):
     """This function is used to handle retrieve task from database"""
     if not judgeIntValid(taskTimerId):
         code, msg = 400, apiStatus.getResponseMsg(400)
-        return jsonify({"code": code, "message": msg, "data": None})
+        return code, msg, None
 
     try:
         targetTaskTimer = TaskToTimer.query.get(taskTimerId)
@@ -61,10 +61,10 @@ def handleQueryTasksOrTimers():
     taskId = request.args.get('taskId', None)
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None) # for verification
-
     # judge input
-    inputData = {"taskId": taskId, "timerId": timerId, "userId": userId}
-    if not judgeInputValid(inputData):
+    if not judgeInputValid({"userId": userId}) or \
+            (taskId and not judgeIntValid(taskId)) or \
+            (timerId and not judgeIntValid(timerId)):
         code, msg = 400, apiStatus.getResponseMsg(400)
         return jsonify({"code": code, "message": msg, "data": None})
 
@@ -111,7 +111,7 @@ def getTasksByTimerid(timerId):
     """get lists of tasks by timer id"""
     if not judgeIntValid(timerId):
         code, msg = 400, apiStatus.getResponseMsg(400)
-        return jsonify({"code": code, "message": msg, "data": None})
+        return code, msg, None
 
     try:
         # disable no member since it is setted flask function
@@ -142,7 +142,7 @@ def getTimersByTaskid(taskId):
     """get lists of timers by task id"""
     if not judgeIntValid(taskId):
         code, msg = 400, apiStatus.getResponseMsg(400)
-        return jsonify({"code": code, "message": msg, "data": None})
+        return code, msg, None
 
     try:
         relatedTasks = db.session.query(TaskToTimer.timerId.label('timerId')).filter( # pylint: disable=maybe-no-member
@@ -161,7 +161,6 @@ def createTaskTimer():
     data =  request.get_json()
 
     if not judgeInputValid(data):
-        print(data)
         code, msg = 400, apiStatus.getResponseMsg(400)
         return jsonify({"code": code, "message": msg, "data": None})
 
@@ -175,9 +174,6 @@ def createTaskTimer():
         specifiedId = data['id'] if 'id' in data else None
         if not targetTask or not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
-        # elif str(data['userId']) != str(targetTask.userId) \
-        #         or str(data['userId']) != str(targetTimer.userId):
-        #     code, msg = 401, apiStatus.getResponseMsg(401)
         else:
             try:
                 newTaskToTimer = TaskToTimer(taskId=str(targetTask.id), timerId=str(targetTimer.id), userId=str(data['userId']))

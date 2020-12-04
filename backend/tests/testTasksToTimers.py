@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 """Unit tests for relations between tasks and timers
 """
-import os
 import unittest
 from datetime import datetime
 from tests.testCase import TestCase
-from app.models import Task, Timer, TaskToTimer
+from app.models import Task, Timer
 from app.ext import db
 
 
