@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 class APIStatus:
+    """Class to Unify response code and message"""
     def __init__(self):
         self.messageDict = {
             200: "Request succeed",
@@ -15,13 +16,12 @@ class APIStatus:
         }
 
     def getResponseMsg(self, code, msg = ""):
+        """function to Unify response code and message"""
         if code not in self.messageDict and msg != "" and len(msg) > 0:
             self.messageDict[code] = msg
 
         if code in self.messageDict:
             msg = self.messageDict[code]
-        elif code == 200 or code == 201:
-            msg = "Succeed"
         else:
             msg = "Request Error"
 

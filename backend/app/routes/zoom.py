@@ -1,4 +1,3 @@
-"""Create and manage tasks"""
 
 from flask import request, json, jsonify
 from app.routes import routes
@@ -90,7 +89,8 @@ def zoomIntegration():
 
     data = {
         "start_url": response["start_url"],
-        "join_url": response["join_url"]
+        "join_url": response["join_url"],
+        "timer": timer,
     }
 
     code, msg, result = 200, apiStatus.getResponseMsg(200), {"data": data}
