@@ -122,25 +122,33 @@ const TimerForm = (props) => {
                 return `Start time can not be later than current time!`;
             case 'wrong date format':
                 return `Date format error`;
+            case 'numeric error':
+                return `${attrName} must be number value`;
             default:
                 return 'Error!';
         }
     }
 
+    const isNumericAttr = (name) => (name === "duration" || name === "breakTime" || name === "round");
     const validateInput = (e) => {
         // const newErrors = Object.assign({}, errors);
-   
+        
         const originErrors = Object.assign({}, errors);
         let newErrors = {};
         const attrName = e.target.name;
         const value = e.target.value;
-        if ((attrName !== "description") && (!value || value === "" || value === undefined || value ===null || value.length === 0)){
+        if ((attrName !== "description") && !isNumericAttr(attrName) && (!value || value === "" || value.length === 0)){
             newErrors[attrName] = errorMessages('empty', attrName);
+        }else if ( isNumericAttr(attrName)) {
+            const tryParseInt = parseInt(value, 10);
+            if(isNaN(tryParseInt)){
+                newErrors[attrName] = errorMessages('numeric error', attrName);
+            }
+            else if(tryParseInt <= 0){
+                newErrors[attrName] = errorMessages('non-positive number', attrName);
+            }
         }
-        const tryParseInt = parseInt(value, 10);
-        if(!isNaN(tryParseInt) && tryParseInt <= 0){
-            newErrors[attrName] = errorMessages('non-positive number', attrName);
-        }
+        
         if(!newErrors[attrName] && originErrors[attrName]){
             delete originErrors[attrName];
         }
@@ -179,6 +187,7 @@ const TimerForm = (props) => {
 
     const validateStartTime = (name) => {
         const newErrors = Object.assign({}, errors);
+        const compareDate = new Date(formatDate(new Date()));
         if(name === "date"){
             const value = timerData.date;
             const tryParseDate = Date.parse(value);
@@ -189,8 +198,10 @@ const TimerForm = (props) => {
                 newErrors[name] = errorMessages('wrong date format', name);
             }else{
                // valid start time
-
-               if(newErrors[name]){
+               if (new Date(tryParseDate).getTime() < compareDate.getTime()){
+                 newErrors[name] = errorMessages('wrong time');
+               }
+                else if(newErrors[name]){
                    delete newErrors[name];
                }
             }
@@ -204,7 +215,17 @@ const TimerForm = (props) => {
             else if(!checkTimeValie(value)){
                 newErrors[name] = errorMessages('wrong date format', name);
             }else{
-                if(newErrors[name]){
+                if(!errors.date && compareDate.getTime() === new Date(timerData.date).getTime()){
+                    const todayHour = new Date().getHours();
+                    const todayMin = new Date().getMinutes();
+                    const times = value.split(":");
+                    const tryHour = parseInt(times[0], 10);
+                    const tryMin = parseInt(times[1], 10);
+                    if(tryHour < todayHour || (tryHour === todayHour && tryMin < todayMin)){
+                        newErrors[name]  = errorMessages('wrong time');
+                    }
+                }
+                else if(newErrors[name]){
                     delete newErrors[name];
                 }
             }
@@ -293,7 +314,7 @@ const TimerForm = (props) => {
            onChange = {handleChange} 
            onFocus = {deleteError}
            onBlur = {validateInput}   
-           maxLength =  {256}
+           maxLength =  {140}
            error={errors.title? errors.title :null}
          />
 
@@ -301,7 +322,7 @@ const TimerForm = (props) => {
             name = 'description' label = 'Description' control = 'input' type = 'text'
            defaultValue = {timerData.description}
            onChange = {handleChange}    
-           maxLength =  {512} 
+           maxLength =  {140} 
          />
              
              <Form.Group widths='equal'>
@@ -355,21 +376,31 @@ const TimerForm = (props) => {
                      name = 'duration'
                      label = 'Duration' 
                      control = 'input' 
-                     type = 'number'  min = {1}
+                     type = 'number'  
+                     min = {1}
                      defaultValue = {timerData.duration}
                      onChange = {handleChange}
+                     onFocus = {deleteError}
+                     onBlur = {validateInput}
+                     error={errors.duration? errors.duration :null}
                  />
                  <Form.Field 
                     name = 'breakTime' label = 'Break' 
                     control = 'input' type = 'number' min = {1} 
                     defaultValue= {timerData.breakTime} 
                     onChange = {handleChange}
+                    onFocus = {deleteError}
+                    onBlur = {validateInput}
+                    error={errors.breakTime? errors.breakTime :null}
                   />
                   <Form.Field 
                     name = 'round' label = 'Round' 
                     control = 'input' type = 'number' min = {1} 
                     defaultValue= {timerData.round} 
                     onChange = {handleChange}
+                    onFocus = {deleteError}
+                    onBlur = {validateInput}
+                    error={errors.round? errors.round :null}
                   />
              </Form.Group>
              <label><strong>Attached Tasks</strong></label>

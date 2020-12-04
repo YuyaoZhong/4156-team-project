@@ -134,14 +134,16 @@ export const DisplayTimer = props => {
 }
 
 export const DisplayTimerArea = props => {
-    const {timer, hideTitle, hideEdit, canAddTimer, changeAddedStatus} = props;
-    const [editMode, setEditMode] = React.useState(false);
+    const {timer, hideTitle, hideEdit, changeAddedStatus, 
+        editMode, closeEditMode, openEditMode,
+    } = props;
+    // const [editMode, setEditMode] = React.useState(false);
 
     const {
         updateTimerListState,
     } = useDataContext();
 
-    const closeEditMode = ()=> setEditMode(false);
+    // const closeEditMode = ()=> setEditMode(false);
 
     const handleAddTimer = async () => {
       
@@ -173,7 +175,7 @@ export const DisplayTimerArea = props => {
             </Header>
         <DisplayTimer timer = {timer} editMode = {editMode}/>
         {timer.isCreator?
-            (<Button floated='right' primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>)
+            (<Button floated='right' primary size = 'big' onClick = {openEditMode}>Edit</Button>)
             :""}
             <Link to='/timers'><Button floated='right' color='grey' size = 'big'>All Timers</Button></Link>
 
@@ -215,6 +217,9 @@ const SingleTimer = props => {
     const [popupStatus, setPopupstatus] = React.useState({open: false})
 
     const handleMessageClose = () => setPopupstatus({open: false});
+    const [editMode, setEditMode] = React.useState(false);
+    const closeEditMode = ()=> setEditMode(false);
+    const openEditMode = () => setEditMode(true);
 
     const changeAddedStatus = (success, added) => {
         if(success){
@@ -249,7 +254,7 @@ const SingleTimer = props => {
 
         fetchData();
 
-    }, [timerid, userId])
+    }, [timerid, userId, editMode])
    
  
     // find the user created timer => may need to change fetch
@@ -261,7 +266,12 @@ const SingleTimer = props => {
         <NotFoundTimer/>
     ):(
        <>
-        <DisplayTimerArea  timer = {displayTimer} changeAddedStatus= {changeAddedStatus} />
+        <DisplayTimerArea  
+            editMode={editMode} 
+            closeEditMode={closeEditMode} 
+            openEditMode = {openEditMode} 
+            timer = {displayTimer} 
+            changeAddedStatus= {changeAddedStatus} />
         <AddedTimerMessage handleClose = {handleMessageClose} messageStatus = {popupStatus} />
        </>
     )

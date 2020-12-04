@@ -150,7 +150,8 @@ def putTimers(timerId):
     data =  request.get_json()
     postAttrs = ['id', 'userId', 'title', 'startTime', 'duration',
                  'breakTime', 'round', 'description', 'zoomLink',
-                 'isCreator', 'timerToUserId']
+                 'isCreator', 'timerToUserId', 'added']
+    print(data)
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysCorrect(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
