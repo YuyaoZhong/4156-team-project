@@ -38,9 +38,10 @@ def judgeInputValid(data):
     return True
 
 def judgeIntValid(data):
-    if isinstance(data, int):
+    try:
+        data = int(data)
         return (data >= -1000) and (data < 65536)
-    else:
+    except:
         return False
 
 
