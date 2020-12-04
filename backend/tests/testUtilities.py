@@ -173,6 +173,5 @@ class TestCasesForUtilities(unittest.TestCase):
         result = judgeIntValid(data)
         self.assertEqual(result, False)
 
-
 if __name__ == '__main__':
     unittest.main()
