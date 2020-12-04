@@ -125,11 +125,17 @@ def createTimers():
             db.session.add(newTimer)
             newTimerTwo = Timer.query.filter_by(userId=userId).all()
             # print(newTimerTwo)
-            result["data"] = newTimer.toDict()
+
             newTimerToUser = TimerToUser(timerId=newTimer.id, userId=userId, status=1)
             db.session.add(newTimerToUser)
             db.session.commit()
-            result["data"]["startTime"] = startTime # remain to be string for the frontend consistent, or change to utcstring
+
+            result["data"] = newTimer.toDict({
+                "added": True,
+                "isCreator": True,
+                "timerToUserId": userId,
+            })
+            # result["data"]["startTime"] = startTime # remain to be string for the frontend consistent, or change to utcstring
             code, msg = 201, apiStatus.getResponseMsg(201)
         except:
             code, msg = 500, apiStatus.getResponseMsg(500)
@@ -144,7 +150,8 @@ def putTimers(timerId):
     data =  request.get_json()
     postAttrs = ['id', 'userId', 'title', 'startTime', 'duration',
                  'breakTime', 'round', 'description', 'zoomLink',
-                 'isCreator', 'timerToUserId']
+                 'isCreator', 'timerToUserId', 'added']
+    print(data)
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysCorrect(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)

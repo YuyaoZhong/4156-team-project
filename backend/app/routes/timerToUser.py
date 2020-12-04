@@ -106,6 +106,7 @@ def deleteTimerToUser(timerId, userId):
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
         try:
+            result["data"] = target.toDict({"isTimerToUser": True})
             db.session.delete(target)
             db.session.commit()
             code, msg = 200, apiStatus.getResponseMsg(200)

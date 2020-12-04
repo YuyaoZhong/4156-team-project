@@ -12,7 +12,7 @@ const CreateZoomPage = () => {
     const [redirect, setRedirect] = React.useState(null);
     
     const location = useLocation();
-    const path = location.pathname.slice(1);
+    const path = location.pathname.slice(0);
     
     React.useEffect(()=>{
 

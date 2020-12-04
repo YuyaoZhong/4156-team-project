@@ -79,8 +79,6 @@ const TimerForm = (props) => {
 
  
 
-    // todo: check box for zoom link
-    // todo: including host's name
 
     const delayMin = 5;
     const curDefaultTime = new Date(new Date().getTime() + delayMin * 60000);
@@ -105,11 +103,149 @@ const TimerForm = (props) => {
 
     const [timerData, setTimerData] = React.useState(defaultTimerData);
     const [redirect, setRedirect] = React.useState(null);
+    const [errors, setErrors] = React.useState({}); // for form validation
+
     const handleChange = e => setTimerData({...timerData, [e.target.name]: e.target.value})
     const handleStartTimeChange = (e, {name, value}) => setTimerData({...timerData, [name]: value});
     const {isSignedIn, googleUser} = useGoogleAuth();
 
+   
 
+    // todo: move to utilities;
+    const errorMessages =(type, attrName) => {
+        switch(type){
+            case 'empty':
+                return `${attrName} can not be empty!`;
+            case 'non-positive number':
+                return `${attrName} value can not be negative!`;
+            case 'wrong time':
+                return `Start time can not be later than current time!`;
+            case 'wrong date format':
+                return `Date format error`;
+            case 'numeric error':
+                return `${attrName} must be number value`;
+            default:
+                return 'Error!';
+        }
+    }
+
+    const isNumericAttr = (name) => (name === "duration" || name === "breakTime" || name === "round");
+    const validateInput = (e) => {
+        // const newErrors = Object.assign({}, errors);
+        
+        const originErrors = Object.assign({}, errors);
+        let newErrors = {};
+        const attrName = e.target.name;
+        const value = e.target.value;
+        if ((attrName !== "description") && !isNumericAttr(attrName) && (!value || value === "" || value.length === 0)){
+            newErrors[attrName] = errorMessages('empty', attrName);
+        }else if ( isNumericAttr(attrName)) {
+            const tryParseInt = parseInt(value, 10);
+            if(isNaN(tryParseInt)){
+                newErrors[attrName] = errorMessages('numeric error', attrName);
+            }
+            else if(tryParseInt <= 0){
+                newErrors[attrName] = errorMessages('non-positive number', attrName);
+            }
+        }
+        
+        if(!newErrors[attrName] && originErrors[attrName]){
+            delete originErrors[attrName];
+        }
+
+        newErrors = {...originErrors, ...newErrors}
+        setErrors(newErrors);
+        // if(!newErrors.attrName || )
+
+        return newErrors;
+
+    }
+
+    // todo: move to utilities
+    const checkTimeValie = (timeStr)=>{
+        if(!timeStr.includes(":")){
+            return false;
+        }
+        const times = timeStr.split(":");
+        if (times.length !== 2){
+            return false;
+        }
+        const tryParseHour = parseInt(times[0], 10);
+        const tryParseMin = parseInt(times[1], 10);
+        if(times[0].includes('.') || times[1].includes('.') 
+        || isNaN(tryParseMin) || isNaN(tryParseHour)){
+            return false;
+        } 
+        if(tryParseHour < 0 || tryParseHour > 23){
+            return false;
+        }
+        if(tryParseMin < 0 || tryParseMin >= 60){
+            return false;
+        }
+        return true;
+    }
+
+    const validateStartTime = (name) => {
+        const newErrors = Object.assign({}, errors);
+        const compareDate = new Date(formatDate(new Date()));
+        if(name === "date"){
+            const value = timerData.date;
+            const tryParseDate = Date.parse(value);
+            if (!value || value === ""){
+                newErrors[name] = errorMessages('empty', name);
+            }
+            else if(isNaN(tryParseDate)){
+                newErrors[name] = errorMessages('wrong date format', name);
+            }else{
+               // valid start time
+               if (new Date(tryParseDate).getTime() < compareDate.getTime()){
+                 newErrors[name] = errorMessages('wrong time');
+               }
+                else if(newErrors[name]){
+                   delete newErrors[name];
+               }
+            }
+        }
+
+        if(name === "time"){ // change to a seperate utilitiy function
+            const value = timerData.time;
+            if(!value || value ===""){
+                newErrors[name] = errorMessages('empty', name);
+            }
+            else if(!checkTimeValie(value)){
+                newErrors[name] = errorMessages('wrong date format', name);
+            }else{
+                if(!errors.date && compareDate.getTime() === new Date(timerData.date).getTime()){
+                    const todayHour = new Date().getHours();
+                    const todayMin = new Date().getMinutes();
+                    const times = value.split(":");
+                    const tryHour = parseInt(times[0], 10);
+                    const tryMin = parseInt(times[1], 10);
+                    if(tryHour < todayHour || (tryHour === todayHour && tryMin < todayMin)){
+                        newErrors[name]  = errorMessages('wrong time');
+                    }
+                }
+                else if(newErrors[name]){
+                    delete newErrors[name];
+                }
+            }
+        }
+
+        setErrors(newErrors);
+        return newErrors;
+    }
+
+    const deleteStartTimeError = (name)=>setErrors(errros=>{
+        const newErrors = Object.assign({}, errors);
+        delete newErrors[name];
+        return newErrors;
+    })
+
+    const deleteError = (e) => setErrors(errros=>{
+        const newErrors = Object.assign({}, errors);
+        delete newErrors[e.target.name];
+        return newErrors;
+    })
 
     const handleAddTasks = async (timerId) => {
         const userId = isSignedIn ? googleUser.googleId : ""
@@ -144,7 +280,13 @@ const TimerForm = (props) => {
 
     }
 
+
+
     const handleSubmit = async () =>{
+        // todo: pop up message
+        if(Object.keys(errors).length !== 0){
+            return;
+        }
         const newTimerData = Object.assign({}, timerData);
         const startTime = `${newTimerData.date} ${newTimerData.time}`;
         const startTimeUtc = constructDate(startTime).toISOString();
@@ -169,58 +311,96 @@ const TimerForm = (props) => {
          <Form.Field 
             name = 'title' label = 'Title' control = 'input' type = 'text'
            defaultValue = {timerData.title}
-           onChange = {handleChange}     
+           onChange = {handleChange} 
+           onFocus = {deleteError}
+           onBlur = {validateInput}   
+           maxLength =  {140}
+           error={errors.title? errors.title :null}
          />
 
          <Form.Field 
             name = 'description' label = 'Description' control = 'input' type = 'text'
            defaultValue = {timerData.description}
-           onChange = {handleChange}     
+           onChange = {handleChange}    
+           maxLength =  {140} 
          />
              
              <Form.Group widths='equal'>
-                 {/* <Form.label>Date</Form.label> */}
-                 <DateInput
-                         name="date"
-                         placeholder="Date"
-                         value={timerData.date}
-                         iconPosition='left'
-                         popupPosition='bottom right'
-                         startMode = 'year'
-                         dateFormat= 'YYYY-MM-DD'
-                         minDate = {minDate}
-                         onChange={handleStartTimeChange}
-                     />
-                     <TimeInput
-                         name="time"
-                         placeholder="Time"
-                         value = {timerData.time}
-                         iconPosition="left"
-                         popupPosition='bottom right'
-                         onChange={handleStartTimeChange}
-                         // minTime = {startTime.Date === minDate? formatTime(new Date()):""}
-                     />
+                   <Form.Field>
+                    <DateInput
+                            className = {errors.date? "error":""}
+                            name="date"
+                            placeholder="Date"
+                            value={timerData.date}
+                            iconPosition='left'
+                            popupPosition='bottom right'
+                            startMode = 'year'
+                            dateFormat= 'YYYY-MM-DD'
+                            minDate = {minDate}
+                            onChange={handleStartTimeChange}
+                            onFocus= {()=>deleteStartTimeError("date")}
+                            onBlur = {()=>validateStartTime("date")}
+                        />
+                        {
+                            errors.date? ( <Label className="prompt" pointing>
+                            {errors.date}
+                            </Label>):""
+                        }
+                   </Form.Field>
+                  
+
+                   <Form.Field>
+                        
+                        <TimeInput
+                                name="time"
+                                placeholder="Time"
+                                value = {timerData.time}
+                                iconPosition="left"
+                                popupPosition='bottom right'
+                                className = {errors.time? "error":""}
+                                onChange={handleStartTimeChange}
+                                onFocus= {()=>deleteStartTimeError("time")}
+                                onBlur = {()=>validateStartTime("time")}
+                                // minTime = {startTime.Date === minDate? formatTime(new Date()):""}
+                            />
+                        {
+                            errors.time? ( <Label className="prompt" pointing>
+                            {errors.time}
+                            </Label>):""
+                        }
+                   </Form.Field>
+                  
              </Form.Group>
              <Form.Group widths='equal'>
                  <Form.Field 
                      name = 'duration'
                      label = 'Duration' 
                      control = 'input' 
-                     type = 'number'  min = {1}
+                     type = 'number'  
+                     min = {1}
                      defaultValue = {timerData.duration}
                      onChange = {handleChange}
+                     onFocus = {deleteError}
+                     onBlur = {validateInput}
+                     error={errors.duration? errors.duration :null}
                  />
                  <Form.Field 
                     name = 'breakTime' label = 'Break' 
                     control = 'input' type = 'number' min = {1} 
                     defaultValue= {timerData.breakTime} 
                     onChange = {handleChange}
+                    onFocus = {deleteError}
+                    onBlur = {validateInput}
+                    error={errors.breakTime? errors.breakTime :null}
                   />
                   <Form.Field 
                     name = 'round' label = 'Round' 
                     control = 'input' type = 'number' min = {1} 
                     defaultValue= {timerData.round} 
                     onChange = {handleChange}
+                    onFocus = {deleteError}
+                    onBlur = {validateInput}
+                    error={errors.round? errors.round :null}
                   />
              </Form.Group>
              <label><strong>Attached Tasks</strong></label>

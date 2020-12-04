@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Icon, Button, Popup} from 'semantic-ui-react';
+import { Container, Header, Icon, Button, Popup, Segment, Message, TransitionablePortal} from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useDataContext } from '../../context/data-context';
 import { ZOOM_LINK_URL, CLIENT_URL, SERVER_URL } from '../../constants/constants';
@@ -8,7 +8,7 @@ import TimerDetailInfo  from './timer-detail-info';
 import TimerForm from '../timerpage/timer-form';
 import { matchedTaskLists } from '../../utilities/tasklist-utilities';
 import { upsertData } from '../../utilities/apiMethods';
-import { isCompositeComponent } from 'react-dom/cjs/react-dom-test-utils.production.min';
+// import { isCompositeComponent } from 'react-dom/cjs/react-dom-test-utils.production.min';
 
 // this.props.match.params.number
 
@@ -23,14 +23,13 @@ const NotFoundTimer = () => {
 
 const ZoomButton = props => {
     const {link, timerId} = props
-    // const curRedirectUrl = `http://127.0.0.1:3000/timer/${timerId}`;
     const zoomUrl = ZOOM_LINK_URL +  `&state=${timerId}`;
-    // console.log("link", link)
     return link && link !== "None"?
     (<a href={link} target='_blank'><Button primary floated='right' size = 'big'>Join Zoom Meeting</Button></a>)
     :(<a href={zoomUrl} ><Button floated='right' color='grey' size = 'big'>Add a Zoom Session</Button></a>);
 }
 
+// todo: move to utilts
 const getSharingUrl = (timerId, userId) =>{
 
     const toEncodeString = `timerId=${timerId}&creator=${userId}`;
@@ -107,20 +106,18 @@ const ShareButton = props => {
 
 
 export const DisplayTimer = props => {
-    const {timer, hideTitle, hideEdit, canAddTimer} = props;
-    const [editMode, setEditMode] = React.useState(false);
 
+    const {timer, editMode} = props;
     const {
         getRelatedTasksOfTimers,
         tasklists,
-        updateTimerListState,
     } = useDataContext();
+
     const [relatedTaskLists, setRelatedTaskLists] = React.useState([]);
 
     React.useEffect(async ()=>{
         async function fetchData(){
           const relatedTasks = await getRelatedTasksOfTimers(timer.id);
-        //   console.log(relatedTasks);
             setRelatedTaskLists(matchedTaskLists(relatedTasks, tasklists))
         }  
         // may change to edit state instead of
@@ -129,9 +126,24 @@ export const DisplayTimer = props => {
         }
     }, [editMode]);
 
-    const closeEditMode = ()=> setEditMode(false);
     const displayTasklist = relatedTaskLists && relatedTaskLists.length > 0?
-        relatedTaskLists.filter(item=>(item.tasks && item.tasks.length > 0)) : [];
+    relatedTaskLists.filter(item=>(item.tasks && item.tasks.length > 0)) : [];
+
+    return ( <TimerDetailInfo timer = {timer} relatedTasklists = {displayTasklist} />)
+
+}
+
+export const DisplayTimerArea = props => {
+    const {timer, hideTitle, hideEdit, changeAddedStatus, 
+        editMode, closeEditMode, openEditMode,
+    } = props;
+    // const [editMode, setEditMode] = React.useState(false);
+
+    const {
+        updateTimerListState,
+    } = useDataContext();
+
+    // const closeEditMode = ()=> setEditMode(false);
 
     const handleAddTimer = async () => {
       
@@ -143,31 +155,27 @@ export const DisplayTimer = props => {
         };
 
         await upsertData(addTimerRoute, addTimerData, 'POST').then(res=>{
-            if(res.code === 200 && res.data){
+            if(res.code === 201 && res.data){
+         
                 const newTimer = Object.assign({}, timer);
-                // newTimer.added = true;
+                newTimer.added = true;
                 updateTimerListState(newTimer.id, newTimer, true);
+                changeAddedStatus(true, true);
             }
         })
 
     }
-    // todo2:  share link
 
     return editMode? 
     (  <TimerForm editTimer = {timer} editMode = {true} closeEditMode = {closeEditMode}/> ):
       (<Container>
-       {
-           hideTitle?"":<Header as='h2' textAlign='center' icon>
-           <Icon name='clock outline'/>
-              {timer.title}
-          </Header>
-       }
-        <TimerDetailInfo timer = {timer} relatedTasklists = {displayTasklist} />
-        {
-            hideEdit? "":  (
-            <>
-            {timer.isCreator?
-            (<Button floated='right' primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>)
+        <Header as='h2' textAlign='center' icon>
+            <Icon name='clock outline'/>
+                {timer.title}
+            </Header>
+        <DisplayTimer timer = {timer} editMode = {editMode}/>
+        {timer.isCreator?
+            (<Button floated='right' primary size = 'big' onClick = {openEditMode}>Edit</Button>)
             :""}
             <Link to='/timers'><Button floated='right' color='grey' size = 'big'>All Timers</Button></Link>
 
@@ -175,13 +183,29 @@ export const DisplayTimer = props => {
             {timer.isCreator? (
                <ShareButton userId = {timer.userId} timerId = {timer.id}/>
             ):(!timer.added?
-                ( <Button floated='right' primary size = 'big' onClick = {handleAddTimer}>Add Timer To My List</Button>):"")}
-            </>)
+                ( <Button floated='right' primary size = 'big' onClick = {handleAddTimer}>Add Timer To My List</Button>):"")
         }
    </Container>)
 };
 
-const SingleTimer = () => {
+const AddedTimerMessage = props => {
+    const {handleClose, messageStatus} = props;
+    const messageStyle = { left: '40%', position: 'fixed', bottom: '20%', zIndex: 1000 };
+    return(<TransitionablePortal onClose={handleClose} open={messageStatus.open}>
+          {messageStatus.success? <Message positive  style={messageStyle}>
+            <Message.Header>Success</Message.Header>
+                <p>Sucessfuly Added!</p>
+            </Message> :  
+                (messageStatus.success === false? (<Message negative  style={messageStyle}>
+                    <Message.Header>Error</Message.Header>
+                    <p>Request failed.</p>
+                </Message> ): "")
+        }   
+     
+      </TransitionablePortal>)
+}
+
+const SingleTimer = props => {
     const {
         // timers
         getTimerById,
@@ -190,11 +214,22 @@ const SingleTimer = () => {
 
     const {timerid} = useParams();
     const [displayTimer, setDisplayTimer] = React.useState({});
+    const [popupStatus, setPopupstatus] = React.useState({open: false})
 
-    const changeAddedStatus = (added) => {
-        const newTimer = Object.assign({}, displayTimer);
-        newTimer.added = added;
-        setDisplayTimer(newTimer);
+    const handleMessageClose = () => setPopupstatus({open: false});
+    const [editMode, setEditMode] = React.useState(false);
+    const closeEditMode = ()=> setEditMode(false);
+    const openEditMode = () => setEditMode(true);
+
+    const changeAddedStatus = (success, added) => {
+        if(success){
+            const newTimer = Object.assign({}, displayTimer);
+            newTimer.added = added;
+            setDisplayTimer(newTimer);
+            
+        }
+        setPopupstatus({open: true, success:success});
+        setTimeout(()=>setPopupstatus({open:false, success:success}), 2500);
     }
     React.useEffect(()=>{
         
@@ -219,7 +254,7 @@ const SingleTimer = () => {
 
         fetchData();
 
-    }, [timerid, userId])
+    }, [timerid, userId, editMode])
    
  
     // find the user created timer => may need to change fetch
@@ -230,7 +265,15 @@ const SingleTimer = () => {
     return !displayTimer || Object.keys(displayTimer).length === 0 ? (
         <NotFoundTimer/>
     ):(
-        <DisplayTimer timer = {displayTimer} changeAddedStatus= {changeAddedStatus} />
+       <>
+        <DisplayTimerArea  
+            editMode={editMode} 
+            closeEditMode={closeEditMode} 
+            openEditMode = {openEditMode} 
+            timer = {displayTimer} 
+            changeAddedStatus= {changeAddedStatus} />
+        <AddedTimerMessage handleClose = {handleMessageClose} messageStatus = {popupStatus} />
+       </>
     )
 };
 

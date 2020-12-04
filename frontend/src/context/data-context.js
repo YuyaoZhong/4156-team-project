@@ -11,6 +11,7 @@ const getEndTime = (timer) => (new Date(new Date(timer.startTime).getTime() + (t
 
 const getIncomingTimer = (timerlist) => {return timerlist.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort)};
 
+
 export const DataContextProvider = props => {
     const [timerList, setTimerList] = React.useState([]);
     const [tasks, setTasks] = React.useState([]);
@@ -144,23 +145,6 @@ export const DataContextProvider = props => {
             if(res.code === 201 && res.data){
                 timerId = res.data.id;
                 updateTimerListState(timerData.id, res.data, edit);
-                //  setTimerList(state=>{
-                //     const newState = [...state];
-                //     let idx = -1;
-                //     if(edit){
-                //         idx = newState.findIndex(item=>String(item.id) === String(timerData.id));
-                //     }
-                //     if (idx === -1){
-                //         newState.push(res.data);
-                //     } else {
-                //         newState[idx] = res.data;
-                //     }
-                   
-                //     newState.sort((a, b)=> (new Date(a.startTime) - new Date(b.startTime)));
-                //     // console.log('in add timer', newState)
-                //     return newState
-                // });
-                // timerId = res.data.id;
             }
         })
 
@@ -170,16 +154,24 @@ export const DataContextProvider = props => {
 
     const handleDeleteTimer = async (timerIds) => {
     //    const deletePromises = timerIds.map(timerId=>(`${SERVER_URL}/timers/${timerId}`));
-        const deletePromises = timerIds.map(timerId=>{
-            let route = `${SERVER_URL}/timers/${timerId}`;
+        const deletePromises = timerIds.map(timerIdObj=>{
+            let route = timerIdObj.isCreator?
+            `${SERVER_URL}/timers/${timerIdObj.timerId}`
+            :`${SERVER_URL}/timerToUser/${timerIdObj.timerId}/${timerIdObj.timerToUserId}`;
+            // console.log(route)
             return deleteData(route);
         });
+
 
         await Promise.all(deletePromises).then(results=>{
 
             const deleteIds = results.reduce((res, item)=>{
                 if(item.code === 200 && item.data){
-                    res.push(item.data.id);
+                    if(item.data.isTimerToUser){
+                        res.push(item.data.timerId);
+                    }else{
+                        res.push(item.data.id);
+                    }
                 }
                 return res;
             }, []);
@@ -197,6 +189,9 @@ export const DataContextProvider = props => {
 
     const handleUpsertTask = async (taskData, edit) => {
         taskData.userId = userId;
+        if(taskData.taskListId === 0){
+            taskData.taskListId = null;
+        }
         const route = edit? `${SERVER_URL}/tasks/${taskData.id}`:`${SERVER_URL}/tasks`;
         const method = edit ? 'PUT' : 'POST';
         await upsertData(route, taskData, method).then(res=>{
@@ -204,7 +199,6 @@ export const DataContextProvider = props => {
          if(res.code === 201 && res.data){
              console.log(res)
              setTasks(state=>{
-                 // todo: sort default by incomplete / compete
                  const newState = [...state];
                  let idx = -1;
                  if(edit){
@@ -275,27 +269,27 @@ export const DataContextProvider = props => {
     }
 
     const handleUpsertTaskList = async (taskListData, edit) => {
-    taskListData.userId = userId;
-    const route = edit? `${SERVER_URL}/tasklists/${taskListData.id}`:`${SERVER_URL}/tasklists`;
-    const method = edit ? 'PUT' : 'POST';
-    await upsertData(route, taskListData, method).then(res=>{
-        console.log('in upsert taskList', res)
-     if(res.code === 201 && res.data){
-         setTasklists(state=>{
-             // todo: sort default by incomplete / compete
-             const newState = state.splice(0);
-             let idx = -1;
-             if(edit){
-               idx = newState.findIndex(item=>(String(item.id) === String(taskListData.id)));
-             }
-             if (idx === -1){
-                newState.push(res.data);
-             } else {
-                 newState[idx] = res.data;
-             }
-             return newState;
-            });
-        }
+        taskListData.userId = userId;
+        const route = edit? `${SERVER_URL}/tasklists/${taskListData.id}`:`${SERVER_URL}/tasklists`;
+        const method = edit ? 'PUT' : 'POST';
+        await upsertData(route, taskListData, method).then(res=>{
+            // console.log('in upsert taskList', res)
+        if(res.code === 201 && res.data){
+            setTasklists(state=>{
+                // todo: sort default by incomplete / compete
+                const newState = state.splice(0);
+                let idx = -1;
+                if(edit){
+                idx = newState.findIndex(item=>(String(item.id) === String(taskListData.id)));
+                }
+                if (idx === -1){
+                    newState.push(res.data);
+                } else {
+                    newState[idx] = res.data;
+                }
+                return newState;
+                });
+            }
         })
     }
    

@@ -141,11 +141,14 @@ class TimerToUser(db.Model):  # pylint: disable=too-few-public-methods
     userId = db.Column(db.String(256), nullable=False, primary_key=True)
     status = db.Column(db.Boolean, nullable=False)
 
-    def toDict(self):
+    def toDict(self, otherAttrs = None):
         """Change the object to dictionary"""
         timerToUser = {
             "timerId": self.timerId,
             "userId": self.userId,
             "status": self.status
         }
+
+        if otherAttrs and len(otherAttrs) != 0 and isinstance(otherAttrs, dict):
+            timerToUser.update(otherAttrs)
         return timerToUser
