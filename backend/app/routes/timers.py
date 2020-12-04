@@ -163,7 +163,11 @@ def putTimers(timerId):
             try:
                 targetTimer.update(data)
                 db.session.commit()
-                result["data"] = targetTimer.toDict()
+                result["data"] = targetTimer.toDict({
+                    "added": data["added"] if "added" in data else True,
+                    "isCreator": data["isCreator"] if "isCreator" in data else True,
+                    "timerToUserId": data["timerToUserId"] if "timerToUserId" in data else targetTimer.userId,
+                })
                 code, msg = 201, apiStatus.getResponseMsg(201)
             except:
                 code, msg = 500, apiStatus.getResponseMsg(500)
