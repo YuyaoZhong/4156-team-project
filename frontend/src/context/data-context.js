@@ -257,7 +257,6 @@ export const DataContextProvider = props => {
             console.log('in upsert task', res)
          if(res.code === 201){
              setTasklists(state=>{
-                 // todo: sort default by incomplete / compete
                  let idx = -1;
                  idx = state.findIndex(item=>(String(item.id) === String(taskListData.id)));
                  state.splice(idx,1)
