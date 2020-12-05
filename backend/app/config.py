@@ -12,7 +12,8 @@ load_dotenv()
 DIALECT = 'mysql'
 DRIVER = 'pymysql'
 USERNAME = 'admin'
-PASSWORD = os.environ.get('MYSQL_PASSWORD', "")
+#PASSWORD = os.environ.get('MYSQL_PASSWORD', "")
+PASSWORD = 'admin123'
 HOST = 'timerdb.cs0xiee1s8w3.us-west-2.rds.amazonaws.com'
 PORT = '3306'
 DATABASE = 'timerdb' # not create
