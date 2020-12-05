@@ -7,7 +7,7 @@ install:
 script:
   - pwd
   - ls
-  - cd/tests
+  - cd tests/
   - pwd
   - ls 
   - pytest testTask.py
