@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607164110481" clover="3.2.0">
-  <project timestamp="1607164110481" name="All files">
-    <metrics statements="812" coveredstatements="287" conditionals="483" coveredconditionals="164" methods="224" coveredmethods="64" elements="1519" coveredelements="515" complexity="0" loc="812" ncloc="812" packages="12" files="32" classes="32"/>
+<coverage generated="1607166079772" clover="3.2.0">
+  <project timestamp="1607166079772" name="All files">
+    <metrics statements="808" coveredstatements="339" conditionals="481" coveredconditionals="180" methods="223" coveredmethods="83" elements="1512" coveredelements="602" complexity="0" loc="808" ncloc="808" packages="12" files="32" classes="32"/>
     <package name="src">
       <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="App.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\App.js">
@@ -52,29 +52,29 @@
       </file>
     </package>
     <package name="src.components.table">
-      <metrics statements="20" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="11" coveredmethods="0"/>
+      <metrics statements="20" coveredstatements="17" conditionals="12" coveredconditionals="4" methods="11" coveredmethods="8"/>
       <file name="semantic-react-table.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\table\semantic-react-table.js">
-        <metrics statements="20" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="11" coveredmethods="0"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
+        <metrics statements="20" coveredstatements="17" conditionals="12" coveredconditionals="4" methods="11" coveredmethods="8"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="7" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="16" count="7" type="stmt"/>
+        <line num="17" count="58" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="14" type="stmt"/>
+        <line num="20" count="58" type="stmt"/>
+        <line num="44" count="7" type="stmt"/>
+        <line num="65" count="7" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
         <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="75" count="0" type="stmt"/>
+        <line num="75" count="7" type="stmt"/>
         <line num="76" count="0" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="152" count="0" type="stmt"/>
+        <line num="84" count="7" type="stmt"/>
+        <line num="89" count="7" type="stmt"/>
+        <line num="91" count="44" type="stmt"/>
+        <line num="112" count="42" type="stmt"/>
+        <line num="113" count="42" type="stmt"/>
+        <line num="116" count="264" type="stmt"/>
+        <line num="152" count="35" type="stmt"/>
       </file>
     </package>
     <package name="src.components.taskList">
@@ -164,7 +164,7 @@
       </file>
     </package>
     <package name="src.components.timerpage">
-      <metrics statements="172" coveredstatements="124" conditionals="122" coveredconditionals="81" methods="50" coveredmethods="35"/>
+      <metrics statements="168" coveredstatements="159" conditionals="120" coveredconditionals="93" methods="49" coveredmethods="46"/>
       <file name="attach-list.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timerpage\attach-list.js">
         <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
         <line num="7" count="3" type="stmt"/>
@@ -313,47 +313,43 @@
         <line num="279" count="2" type="stmt"/>
       </file>
       <file name="timers-table.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timerpage\timers-table.js">
-        <metrics statements="40" coveredstatements="0" conditionals="16" coveredconditionals="0" methods="13" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="36" coveredstatements="35" conditionals="14" coveredconditionals="12" methods="12" coveredmethods="11"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="42" type="stmt"/>
+        <line num="12" count="42" type="cond" truecount="1" falsecount="1"/>
         <line num="13" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="75" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="128" count="0" type="stmt"/>
-        <line num="133" count="0" type="stmt"/>
-        <line num="135" count="0" type="stmt"/>
-        <line num="136" count="0" type="stmt"/>
-        <line num="137" count="0" type="stmt"/>
-        <line num="138" count="0" type="stmt"/>
-        <line num="140" count="0" type="stmt"/>
-        <line num="141" count="0" type="stmt"/>
-        <line num="142" count="0" type="stmt"/>
-        <line num="146" count="0" type="stmt"/>
-        <line num="153" count="0" type="stmt"/>
-        <line num="157" count="0" type="stmt"/>
-        <line num="158" count="0" type="stmt"/>
-        <line num="161" count="0" type="stmt"/>
-        <line num="162" count="0" type="stmt"/>
-        <line num="163" count="0" type="stmt"/>
+        <line num="15" count="42" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="42" type="stmt"/>
+        <line num="32" count="42" type="stmt"/>
+        <line num="33" count="42" type="cond" truecount="1" falsecount="1"/>
+        <line num="34" count="42" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="48" count="14" type="stmt"/>
+        <line num="49" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="14" type="stmt"/>
+        <line num="52" count="7" type="stmt"/>
+        <line num="55" count="14" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="75" count="12" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="133" count="6" type="stmt"/>
+        <line num="135" count="6" type="stmt"/>
+        <line num="136" count="6" type="stmt"/>
+        <line num="137" count="6" type="stmt"/>
+        <line num="138" count="6" type="stmt"/>
+        <line num="140" count="6" type="stmt"/>
+        <line num="141" count="1" type="stmt"/>
+        <line num="142" count="1" type="stmt"/>
+        <line num="146" count="6" type="stmt"/>
+        <line num="153" count="1" type="stmt"/>
+        <line num="157" count="1" type="stmt"/>
+        <line num="158" count="1" type="stmt"/>
+        <line num="161" count="1" type="stmt"/>
+        <line num="162" count="1" type="stmt"/>
+        <line num="163" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.components.timers">
@@ -534,21 +530,21 @@
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="constants.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\constants\constants.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="2" count="6" type="stmt"/>
-        <line num="3" count="6" type="stmt"/>
-        <line num="4" count="6" type="stmt"/>
-        <line num="5" count="6" type="stmt"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
       </file>
     </package>
     <package name="src.context">
       <metrics statements="176" coveredstatements="9" conditionals="64" coveredconditionals="0" methods="53" coveredmethods="2"/>
       <file name="data-context.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\context\data-context.js">
         <metrics statements="171" coveredstatements="6" conditionals="64" coveredconditionals="0" methods="51" coveredmethods="1"/>
-        <line num="6" count="6" type="stmt"/>
-        <line num="9" count="6" type="stmt"/>
-        <line num="10" count="6" type="stmt"/>
-        <line num="12" count="6" type="stmt"/>
-        <line num="15" count="6" type="stmt"/>
+        <line num="6" count="7" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="10" count="7" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="15" count="7" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
@@ -714,12 +710,12 @@
         <line num="295" count="0" type="stmt"/>
         <line num="296" count="0" type="stmt"/>
         <line num="301" count="0" type="stmt"/>
-        <line num="323" count="63" type="stmt"/>
+        <line num="323" count="69" type="stmt"/>
       </file>
       <file name="google-login-context.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\context\google-login-context.js">
         <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-        <line num="5" count="6" type="stmt"/>
-        <line num="8" count="6" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="8" count="7" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="18" count="35" type="stmt"/>
@@ -746,21 +742,21 @@
       <metrics statements="183" coveredstatements="104" conditionals="127" coveredconditionals="61" methods="34" coveredmethods="16"/>
       <file name="apiMethods.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\apiMethods.js">
         <metrics statements="6" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <line num="1" count="6" type="stmt"/>
+        <line num="1" count="7" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
-        <line num="12" count="6" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
       </file>
       <file name="mockData.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\mockData.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="28" count="5" type="stmt"/>
-        <line num="44" count="5" type="stmt"/>
-        <line num="126" count="5" type="stmt"/>
-        <line num="140" count="5" type="stmt"/>
-        <line num="160" count="5" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="28" count="6" type="stmt"/>
+        <line num="44" count="6" type="stmt"/>
+        <line num="126" count="6" type="stmt"/>
+        <line num="140" count="6" type="stmt"/>
+        <line num="160" count="6" type="stmt"/>
         <line num="161" count="2" type="stmt"/>
         <line num="162" count="2" type="stmt"/>
         <line num="163" count="340" type="stmt"/>
@@ -909,32 +905,32 @@
       </file>
       <file name="utilities.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\utilities.js">
         <metrics statements="35" coveredstatements="28" conditionals="10" coveredconditionals="5" methods="11" coveredmethods="6"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="398" type="cond" truecount="2" falsecount="0"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="5" count="101" type="stmt"/>
-        <line num="6" count="101" type="stmt"/>
-        <line num="7" count="101" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="11" count="98" type="stmt"/>
-        <line num="12" count="98" type="stmt"/>
-        <line num="13" count="98" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
-        <line num="17" count="20" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="566" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="143" type="stmt"/>
+        <line num="6" count="143" type="stmt"/>
+        <line num="7" count="143" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="140" type="stmt"/>
+        <line num="12" count="140" type="stmt"/>
+        <line num="13" count="140" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="17" count="62" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="27" count="3" type="stmt"/>
-        <line num="29" count="3" type="stmt"/>
-        <line num="31" count="3" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="27" count="4" type="stmt"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
         <line num="34" count="4" type="stmt"/>
         <line num="35" count="4" type="stmt"/>
         <line num="36" count="4" type="stmt"/>
         <line num="44" count="4" type="stmt"/>
-        <line num="47" count="3" type="stmt"/>
-        <line num="48" count="3" type="stmt"/>
-        <line num="50" count="3" type="stmt"/>
+        <line num="47" count="4" type="stmt"/>
+        <line num="48" count="4" type="stmt"/>
+        <line num="50" count="4" type="stmt"/>
         <line num="51" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="52" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="53" count="1" type="stmt"/>
