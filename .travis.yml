@@ -6,4 +6,5 @@ install:
   - cd backend/
   - pip install -r requirements.txt
 script:
-  - pytest tests/testTasks.py
+  - cd backend/tests
+  - pytest testTasks.py
