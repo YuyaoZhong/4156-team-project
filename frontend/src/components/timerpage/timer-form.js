@@ -202,7 +202,7 @@ const TimerForm = (props) => {
         if(Object.keys(errors).length !== 0){
             return;
         }
-        console.log('AT SUBMIT')
+        // console.log('AT SUBMIT', new Date(timerData.startTime))
         const newTimerData = Object.assign({}, timerData);
         const startTime = `${newTimerData.date} ${newTimerData.time}`;
         const startTimeUtc = constructDate(startTime).toISOString();

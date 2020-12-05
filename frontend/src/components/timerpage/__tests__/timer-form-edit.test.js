@@ -1,4 +1,4 @@
-import React, {useState as useStateMock } from 'react'
+import React from 'react'
 import 'jest-enzyme';
 import Enzyme, { shallow, mount} from 'enzyme'
 import { configure } from "enzyme";
@@ -16,18 +16,13 @@ import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 configure({ adapter: new Adapter() });
 
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: jest.fn(),
-}));
-
 // mock the third part library to avoid rendering problem
 jest.mock('semantic-ui-calendar-react', ()=>({
     DateInput: ({name, value, onChange, onFocus, onBlur, ...rest}) =>(<input name={name} value = {value} onChange={onChange} onFocus={onFocus} onBlur = {onBlur}/>),
     TimeInput: ({name, value, onChange, onFocus, onBlur, ...rest}) =>(<input name={name} value = {value} onChange={onChange} onFocus={onFocus} onBlur = {onBlur}/>),
 }));
 
-describe("test <TimerForm/> create", ()=>{
+describe("test <TimerForm/> edit ( including boundary )", ()=>{
     const setState = jest.fn();
     let getRelatedTasksOfTimers;
     let closeEditMode;
@@ -40,8 +35,8 @@ describe("test <TimerForm/> create", ()=>{
 
   
       
-    beforeEach(() => {
-        useStateMock.mockImplementation(init => [init, setState]);
+    beforeEach(async () => {
+        // useStateMock.mockImplementation(init => [init, setState]);
         getRelatedTasksOfTimers = jest.fn(); // mock return value
         handleCreateTimer = jest.fn();
         closeEditMode = jest.fn();
@@ -55,7 +50,7 @@ describe("test <TimerForm/> create", ()=>{
                        handleCreateTimer: handleCreateTimer,
                        tasks: mockTaskArray,
                        tasklists: mockTaskListArray,
-                       getRelatedTasksOfTimers: ()=>{return mockRelatedTasksForTimer},
+                       getRelatedTasksOfTimers: ()=>mockRelatedTasksForTimer,
                    }}
                    >
               <TimerForm editMode={true} editTimer={mockEditTimer} closeEditMode={closeEditMode}/>
@@ -64,7 +59,7 @@ describe("test <TimerForm/> create", ()=>{
         )
        
 
-        wrapper = mount(elementwithProvider);
+        await act(async ()=>{wrapper= mount(elementwithProvider)}); // for use effect changes
         originalTimer = getDefaultTimer();
     
     });
@@ -79,11 +74,255 @@ describe("test <TimerForm/> create", ()=>{
    it("test create timer with default value", async () => {
         handleCreateTimer.mockResolvedValue(mockNewTimerId);
         act(()=>{
-            // console.log(wrapper.find({floated:"right", type: "button"}).at(1).props())
             wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
         })
         expect(handleCreateTimer).toHaveBeenCalled();
 
     });
+
+
+        
+   it("test attach task to timer", async () => {
+
+        let attachedTaskElement = wrapper.find('AttachedTasks');
+        // console.log(attachedTaskElement.debug());
+        expect(attachedTaskElement.find('ListItem')).not.toExist();
+
+        let findElement = wrapper.find('AttachList')
+        await act(async ()=>{
+            await findElement.find("button").simulate('click');
+            findElement = findElement.update()
+            let findTaskToAdd = findElement.find('AttachList').find('ListItem').at(0);
+            await findTaskToAdd.simulate('click');
+            findTaskToAdd = findTaskToAdd.update();
+            attachedTaskElement = findTaskToAdd.find('AttachedTasks');
+        
+        });
+
+        expect(attachedTaskElement.find('ListItem')).toExist();
+
+        // test submit edit timer
+        await act(async()=>{
+            wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
+        });
+
+        expect(handleCreateTimer).toHaveBeenCalled();
+   });
+        
+
+
+   it("test delete attached tasks", async () => {
+    getRelatedTasksOfTimers.mockResolvedValue(mockRelatedTasksForTimer);
+
+    act(()=>{
+        wrapper = wrapper.update();
+    });
+    let attachedTaskElement = wrapper.find('AttachedTasks');
+    expect(attachedTaskElement.find('ListItem')).toHaveLength(mockRelatedTasksForTimer.length);
+    let toDeleteTask = attachedTaskElement.find('ListItem').at(0).find({name: "close"});
+    console.log(toDeleteTask.debug());
+    await act(async ()=>{
+
+        await toDeleteTask.simulate('click');
+        wrapper = wrapper.update();
+        attachedTaskElement = wrapper.find('AttachedTasks');
+    
+    });
+    // test whether element has been deleted
+    expect(attachedTaskElement.find('ListItem')).toHaveLength(mockRelatedTasksForTimer.length - 1);
+    // expect(attachedTaskElement.find('ListItem')).toExist();
+
+    await act(async()=>{
+        wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
+    });
+
+    expect(handleCreateTimer).toHaveBeenCalled();
+});
+
+
+
+
+   // boundary tests;
+it("test title with empty check", async () => {
+    handleCreateTimer.mockResolvedValue(mockNewTimerId);
+    const attrName = "title";
+    const titleEmpty = "";
+    const normalName = "New Timer";
+
+    const targetTitleElement =  wrapper.find('input[name="title"]');
+    let errorDiv = wrapper.find({role: "alert"})
+    expect(errorDiv).not.toExist(); 
+
+    await act(async ()=>{
+        await targetTitleElement.simulate('focus');
+        await targetTitleElement.simulate('change', {
+            target:{ 
+                name: attrName,
+                value: titleEmpty,
+            }
+        });    
+
+    
+        await targetTitleElement.simulate('blur');
+
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find({role: "alert"}).find('div');
+    
+    });
+
+    expect(errorDiv.text()).toEqual(errorMessages('empty', attrName));
+
+    // test can not submit
+
+    act(()=>{
+        wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
+    })
+    expect(handleCreateTimer).not.toHaveBeenCalled();
+
+    // clear errors
+    await act(async ()=>{
+        await targetTitleElement.simulate('focus');
+
+        await targetTitleElement.simulate('change', {
+            name: attrName,
+            value: normalName,
+            target:{ 
+                name: attrName,
+                value: normalName,
+            }
+        });    
+      
+        
+        await targetTitleElement.simulate('blur')
+
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find({role: "alert"});
+    });
+
+
+    expect(errorDiv).not.toExist();
+
+});
+ 
+
+it("test past start date", async () => {
+
+    const attrName = "date";
+    const pastDate = "2019-12-01";
+    const futureDate = "2022-12-01";
+
+    const targetElement =  wrapper.find('input[name="date"]');
+    const dateErrorLocator = {className: "ui pointing label prompt"};
+    let errorDiv = wrapper.find(dateErrorLocator);
+    expect(errorDiv).not.toExist(); 
+
+
+    await act(async ()=>{
+        await  targetElement.simulate('focus');
+        
+        await targetElement.simulate('change',{
+            target:{ 
+                name: attrName,
+                value: pastDate
+            }
+        }
+        );
+        
+        // targetElement.instance().value = pastDate;
+        await targetElement.simulate('blur');
+        
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find(dateErrorLocator);
+    });
+
+   
+    expect(errorDiv.text()).toEqual(errorMessages('wrong time', attrName));
+
+    
+    
+    await act(async ()=>{
+        await  targetElement.simulate('focus');
+        
+        await targetElement.simulate('change',{
+            target:{ 
+                name: attrName,
+                value: futureDate
+            }
+        }
+        );
+        
+        // targetElement.instance().value = futureDate;
+
+        await targetElement.simulate('blur')
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find(dateErrorLocator);
+    });
+
+    expect(errorDiv).not.toExist(); 
+
+});
+
+
+it("test date on boundary ", async () => {
+
+    const attrName = "time";
+    const today = formatDate(new Date());
+    const anHourDiff = 60 * 60000;
+    const futureTime = formatTime(new Date(new Date().getTime() + anHourDiff));
+    const pastTime = formatTime(new Date(new Date().getTime() - anHourDiff));
+
+
+    const targetTimeElement =  wrapper.find('input[name="time"]');
+    const dateErrorLocator = {className: "ui pointing label prompt"};
+    let errorDiv = wrapper.find(dateErrorLocator);
+    expect(errorDiv).not.toExist(); 
+
+
+    await act(async ()=>{
+        await targetTimeElement.simulate('focus');
+
+        await targetTimeElement.simulate('change',{
+            target:{ 
+                name: attrName,
+                value: pastTime
+            }
+        }
+        );
+        
+        // targetTimeElement.instance().value = pastTime;
+
+        await targetTimeElement.simulate('blur')
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find(dateErrorLocator);
+    });
+
+
+    expect(errorDiv.text()).toEqual(errorMessages('wrong time', attrName));
+  
+
+    
+    await act(async ()=>{
+        await  targetTimeElement.simulate('focus');
+        
+        await targetTimeElement.simulate('change',{
+            target:{ 
+                name: attrName,
+                value: futureTime
+            }
+        }
+        );
+        
+        // targetTimeElement.instance().value = futureTime;
+        await targetTimeElement.simulate('blur')
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find(dateErrorLocator);
+    });
+   
+    expect(errorDiv).not.toExist(); 
+
+
+});
+
+
 
 });

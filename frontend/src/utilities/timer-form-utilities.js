@@ -3,7 +3,8 @@ import { formatDate, formatTime } from './utilities';
 const formatTask = (tasks, relatedTasks, tasklists) => {
     // console.log(relatedTasks, tasklists);
     return tasks.reduce((res, item, index)=>{
-        const idx = relatedTasks.findIndex(relatedTask=>String(relatedTask.id) === String(item.id));
+        const idx = relatedTasks && relatedTasks.length >= 0? 
+            relatedTasks.findIndex(relatedTask=>String(relatedTask.id) === String(item.id)): -1;
      
         let taskListName = "Default";
         if (item.taskListId && item.taskListId !== 0){

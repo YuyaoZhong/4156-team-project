@@ -39,7 +39,7 @@ const TimelineBoard = () => {
                 const color = colors[i % colors.length];
                 const detail = <TimerDetailInfo attrNameSize='medium' contentSize='medium' timer = {timer} color = {color} />
                 return(<Timeline
-                key = {i}
+                  key = {i}
                   icon = "clock"
                   direction = {directions[i % directions.length]}
                   color = {color}

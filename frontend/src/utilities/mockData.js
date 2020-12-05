@@ -67,10 +67,75 @@ const mockTimerArray = [
         title: "test shared timer",
         userId: "-1",
         zoomLink: "None"
+    },
+    {  
+        breakTime: 5,
+        description: "",
+        duration: 25,
+        id: -3,
+        isCreator: false,
+        round: 1,
+        startTime: "2022-12-03T20:50:00.000Z",
+        timerToUserId: "0",
+        title: "test shared timer",
+        userId: "-1",
+        zoomLink: "None"
+    },
+    {  
+        breakTime: 5,
+        description: "",
+        duration: 25,
+        id: -4,
+        isCreator: false,
+        round: 1,
+        startTime: "2023-12-03T20:50:00.000Z",
+        timerToUserId: "0",
+        title: "test shared timer",
+        userId: "-1",
+        zoomLink: "None"
+    },
+    {  
+        breakTime: 5,
+        description: "",
+        duration: 25,
+        id: -5,
+        isCreator: false,
+        round: 1,
+        startTime: "2024-12-03T20:50:00.000Z",
+        timerToUserId: "0",
+        title: "test shared timer",
+        userId: "-1",
+        zoomLink: "None"
+    },
+    {  
+        breakTime: 5,
+        description: "",
+        duration: 25,
+        id: -6,
+        isCreator: false,
+        round: 1,
+        startTime: "2025-12-03T20:50:00.000Z",
+        timerToUserId: "0",
+        title: "test shared timer",
+        userId: "-1",
+        zoomLink: "None"
     }
+
 ]
 
-const mockEditTimer = mockTimerArray.slice(0);
+const mockEditTimer =  {  
+    breakTime: 5,
+    description: "",
+    duration: 25,
+    id: -2,
+    isCreator: false,
+    round: 1,
+    startTime: new Date(new Date().getTime() + 60 * 60000).toISOString(),
+    timerToUserId: "0",
+    title: "test shared timer",
+    userId: "-1",
+    zoomLink: "None"
+};
 
 const mockRelatedTasksForTimer = [
         {
