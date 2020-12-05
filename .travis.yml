@@ -4,6 +4,8 @@ python:
 install:
   - cd backend/
   - pip install -r requirements.txt
+env:
+  - PASSWORD = 'admin123'
 script:
   - pwd
   - ls
