@@ -11,4 +11,7 @@ script:
   - pwd
   - ls 
   - pytest testTask.py
+  - pytest testTimer.py
+  - pytest testTaskLists.py
+  - pytest testUtilities.py
   
