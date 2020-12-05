@@ -2,7 +2,7 @@ import React from 'react';
 import { useGoogleLogin } from 'react-use-googlelogin';
 import { GOOGLE_CLIENT_ID } from '../constants/constants';
 
-const GoogleAuthContext = React.createContext();
+export const GoogleAuthContext = React.createContext();
 
 // mark: change to process.env will be better
 export const GoogleAuthProvider = ({ children }) => {
