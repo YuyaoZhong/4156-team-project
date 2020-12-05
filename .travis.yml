@@ -5,7 +5,8 @@ install:
   - cd backend/
   - pip install -r requirements.txt
 env:
-  - MYSQL_PASSWORD = "admin123"
+  gloabl:
+   - MYSQL_PASSWORD = admin123
 script:
   - pwd
   - ls
