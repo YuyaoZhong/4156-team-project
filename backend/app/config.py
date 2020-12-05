@@ -7,6 +7,7 @@ PASSWORD - should be set in .env
 import os
 from datetime import timedelta
 from dotenv import load_dotenv
+from sqlalchemy.pool import NullPool
 
 load_dotenv()
 DIALECT = 'mysql'
@@ -33,7 +34,7 @@ class DevConfig():  # pylint: disable=too-few-public-methods
     SQLALCHEMY_ENGINE_OPTIONS = {
         'pool_timeout': 10,
         'pool_size': 5,
-        'pool_recycle': 60
+        'pool_recycle': 60,
     }
     SEND_FILE_MAX_AGE_DEFAULT = timedelta(seconds=1)
 
