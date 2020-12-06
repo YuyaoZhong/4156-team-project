@@ -13,7 +13,7 @@ matrix:
       python:
         - "3.7"
       install:
-        - cd ../backend/
+        - cd backend/
         - pip install -r requirements.txt
       script:
         - pwd
