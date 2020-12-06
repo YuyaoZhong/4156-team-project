@@ -36,6 +36,8 @@ const DisplayTimerArea = props => {
                 newTimer.added = true;
                 updateTimerListState(newTimer.id, newTimer, true);
                 changeAddedStatus(true, true);
+            } else {
+                changeAddedStatus(false, false);
             }
         })
 

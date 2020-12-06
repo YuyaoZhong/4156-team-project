@@ -56,7 +56,7 @@ const SingleTimer = props => {
            const queryTimerUrl = `${SERVER_URL}/timerToUser/?timerId=${parseTimerid}&userId=${userId}`;
         
            await fetch(queryTimerUrl).then(r=>r.json()).then(res=>{
-               console.log('fetch Timer', res);
+            //    console.log('fetch Timer', res);
                if(res.code === 200 && res.data && (res.data.added || isSharingUrl)){
                     setDisplayTimer(res.data);
                } else{

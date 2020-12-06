@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test":  "react-scripts test --watchAll=false --coverage --collectCoverageFrom=!src/context/*.js --collectCoverageFrom=!src/components/table/*.js --collectCoverageFrom=!src/*.js --collectCoverageFrom=!src/components/**/__tests__/__snapshots__/*.js.snap",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

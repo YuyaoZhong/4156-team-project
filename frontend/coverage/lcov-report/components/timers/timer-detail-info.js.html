@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.28% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/29</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -122,18 +122,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">40x</span>
-<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,7 +185,7 @@ import { formatDateAndTime } from '../../utilities/utilities';
 export const TimerDetailAttr = props =&gt;{
     const {name, size} = props;
     return (  
-    &lt;Label  size = {size || <span class="branch-1 cbranch-no" title="branch not covered" >'huge'}</span> &gt;
+    &lt;Label  size = {size || 'huge'} &gt;
      {name}
  &lt;/Label&gt;)
 }
@@ -195,29 +195,29 @@ const TimerDetailInfo = props =&gt; {
     
     return (  &lt;List divided&gt;
            &lt;List.Item&gt;
-          &lt;TimerDetailAttr size ={ attrNameSize || <span class="branch-1 cbranch-no" title="branch not covered" >'huge'}</span> name = 'Configuration'/&gt;
-          &lt;Label circular  color = { color  || <span class="branch-1 cbranch-no" title="branch not covered" >'red'}</span> size = {contentSize || <span class="branch-1 cbranch-no" title="branch not covered" >'large'}</span> &gt;
+          &lt;TimerDetailAttr size ={ attrNameSize || 'huge'} name = 'Configuration'/&gt;
+          &lt;Label circular  color = { color  || 'red'} size = {contentSize || 'large'} &gt;
                {timer.round} rounds
           &lt;/Label&gt;
-          &lt;Label circular color = { color  || <span class="branch-1 cbranch-no" title="branch not covered" >'orange'}</span> size = {contentSize || <span class="branch-1 cbranch-no" title="branch not covered" >'large'}</span> &gt;
+          &lt;Label circular color = { color  || 'orange'} size = {contentSize || 'large'} &gt;
                {timer.duration} min 
           &lt;/Label&gt;
   
-          &lt;Label circular color = {color || <span class="branch-1 cbranch-no" title="branch not covered" >'yellow'}</span> size = {contentSize || <span class="branch-1 cbranch-no" title="branch not covered" >'large'}</span> &gt;
+          &lt;Label circular color = {color || 'yellow'} size = {contentSize || 'large'} &gt;
                {timer.breakTime} min break
           &lt;/Label&gt;
        &lt;/List.Item&gt;
       &lt;List.Item&gt;
-      &lt;TimerDetailAttr size ={ attrNameSize || <span class="branch-1 cbranch-no" title="branch not covered" >'huge'}</span> name = 'Start Time'/&gt;
+      &lt;TimerDetailAttr size ={ attrNameSize || 'huge'} name = 'Start Time'/&gt;
            &lt;span style={{"margin": "20px"}}&gt;
            { formatDateAndTime(new Date(timer.startTime))}
            &lt;/span&gt;
        &lt;/List.Item&gt;
   
       {
-          timer.description &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >timer.description.length &gt; 0 </span>?
+          timer.description &amp;&amp; timer.description.length &gt; 0 ?
 &nbsp;
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;List.Item&gt;</span>
+          &lt;List.Item&gt;
             &lt;TimerDetailAttr size ={ attrNameSize || 'huge'} name = 'Description'/&gt;
                 &lt;span style={{"margin": "20px"}}&gt;
                 {timer.description}
@@ -226,8 +226,8 @@ const TimerDetailInfo = props =&gt; {
       }
       
       {
-          !hideTasks &amp;&amp; relatedTasklists &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >relatedTasklists.length &gt; 0?</span>
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;List.Item&gt;</span>
+          !hideTasks &amp;&amp; relatedTasklists &amp;&amp; relatedTasklists.length &gt; 0?
+          &lt;List.Item&gt;
               &lt;TimerDetailAttr name = "Related Tasks"/&gt;
             &lt;div style = {{marginTop: "20px", padding: "20px", background: "rgb(209 207 207 / 10%)"}}&gt;
                 &lt;TaskListArea curTaskLists = {relatedTasklists} hideEdit = {true} /&gt; 
@@ -244,7 +244,7 @@ export default TimerDetailInfo;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 05 2020 02:27:48 GMT-0800 (GMT-08:00)
+                at Sun Dec 06 2020 01:53:37 GMT-0800 (GMT-08:00)
             </div>
         </div>
         <script src="../../prettify.js"></script>
