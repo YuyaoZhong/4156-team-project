@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607248418009" clover="3.2.0">
-  <project timestamp="1607248418009" name="All files">
-    <metrics statements="589" coveredstatements="588" conditionals="390" coveredconditionals="379" methods="155" coveredmethods="146" elements="1134" coveredelements="1113" complexity="0" loc="589" ncloc="589" packages="9" files="31" classes="31"/>
+<coverage generated="1607297927521" clover="3.2.0">
+  <project timestamp="1607297927521" name="All files">
+    <metrics statements="586" coveredstatements="586" conditionals="390" coveredconditionals="379" methods="151" coveredmethods="147" elements="1127" coveredelements="1112" complexity="0" loc="586" ncloc="586" packages="9" files="31" classes="31"/>
     <package name="components.homepage">
       <metrics statements="5" coveredstatements="5" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
       <file name="homepage.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\homepage\homepage.js">
@@ -492,15 +492,15 @@
       </file>
     </package>
     <package name="utilities">
-      <metrics statements="199" coveredstatements="198" conditionals="133" coveredconditionals="129" methods="35" coveredmethods="30"/>
+      <metrics statements="196" coveredstatements="196" conditionals="133" coveredconditionals="129" methods="31" coveredmethods="31"/>
       <file name="apiMethods.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\apiMethods.js">
-        <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="1" count="21" type="stmt"/>
-        <line num="2" count="8" type="stmt"/>
-        <line num="9" count="7" type="stmt"/>
+        <line num="2" count="9" type="stmt"/>
+        <line num="9" count="9" type="stmt"/>
         <line num="12" count="21" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
       </file>
       <file name="mockData.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\mockData.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -676,7 +676,7 @@
         <line num="94" count="13" type="stmt"/>
       </file>
       <file name="utilities.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\utilities.js">
-        <metrics statements="32" coveredstatements="32" conditionals="10" coveredconditionals="10" methods="10" coveredmethods="6"/>
+        <metrics statements="29" coveredstatements="29" conditionals="10" coveredconditionals="10" methods="6" coveredmethods="6"/>
         <line num="1" count="10" type="stmt"/>
         <line num="2" count="774" type="cond" truecount="2" falsecount="0"/>
         <line num="4" count="10" type="stmt"/>
@@ -689,9 +689,6 @@
         <line num="13" count="188" type="stmt"/>
         <line num="16" count="10" type="stmt"/>
         <line num="17" count="75" type="stmt"/>
-        <line num="26" count="10" type="stmt"/>
-        <line num="27" count="10" type="stmt"/>
-        <line num="29" count="10" type="stmt"/>
         <line num="31" count="10" type="stmt"/>
         <line num="34" count="7" type="stmt"/>
         <line num="35" count="7" type="stmt"/>

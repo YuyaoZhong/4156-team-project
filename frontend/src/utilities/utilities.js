@@ -23,10 +23,10 @@ const formatDateAndTime = (date) => {
     return localDate
 }*/
 
-const timerSort = (a, b)=> (new Date(a.startTime) - new Date(b.startTime))
-const getEndTime = (timer) => (new Date(new Date(timer.startTime).getTime() + (timer.duration + timer.breakTime) * timer.round * 60000));
+// const timerSort = (a, b)=> (new Date(a.startTime) - new Date(b.startTime))
+// const getEndTime = (timer) => (new Date(new Date(timer.startTime).getTime() + (timer.duration + timer.breakTime) * timer.round * 60000));
 
-const getIncomingTimer = (timerlist) => { return timerlist.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort)};
+// const getIncomingTimer = (timerlist) => { return timerlist.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort)};
 
 const constructDate = (dateString) => {
     // var dateString = "2010-08-09 01:02:03";
