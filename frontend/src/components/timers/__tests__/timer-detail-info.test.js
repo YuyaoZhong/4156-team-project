@@ -5,7 +5,7 @@ import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import renderer from 'react-test-renderer';
 import { DataContext} from '../../../context/data-context';
-// import {TimerDetailAttr} from '../../timers/timer-detail-info';
+import {TimerDetailAttr} from '../../timers/timer-detail-info';
 import { TaskListArea } from '../../taskList/task-list';
 import TimerDetailInfo from '../../timers/timer-detail-info';
 import {mockRelatedTasksForTimer} from '../../../utilities/mockData';
@@ -17,27 +17,27 @@ configure({ adapter: new Adapter() });
 jest.mock('../../taskList/task-list', ()=>({
 TaskListArea: ()=>(<div>Task List Area</div>)
 }));
-// describe("test <TimerDetailAttr/>", () => {
-//     // mockTimerDetail;
-//     let wrapper;
-//
-//     it("test huge size ", async () => {
-//
-//         wrapper = mount(
-//             <TimerDetailAttr name = {"test"} size = {"huge"} />
-//         );
-//         expect(wrapper.find({size: "huge"}).length).toEqual(2);
-//     });
-//
-//     it("test small size ", async () => {
-//
-//         wrapper = mount(
-//             <TimerDetailAttr name = {"test"} />
-//         );
-//         expect(wrapper.find({size: "huge"}).length).toEqual(1);
-//     });
-//
-// });
+describe("test <TimerDetailAttr/>", () => {
+    // mockTimerDetail;
+    let wrapper;
+
+    it("test huge size ", async () => {
+
+        wrapper = mount(
+            <TimerDetailAttr name = {"test"} size = {"huge"} />
+        );
+        expect(wrapper.find({size: "huge"}).length).toEqual(2);
+    });
+
+    it("test small size ", async () => {
+
+        wrapper = mount(
+            <TimerDetailAttr name = {"test"} />
+        );
+        expect(wrapper.find({size: "huge"}).length).toEqual(1);
+    });
+
+});
 
 describe("test <TimerDetailInfo/>", () => {
     // mockTimerDetail;
