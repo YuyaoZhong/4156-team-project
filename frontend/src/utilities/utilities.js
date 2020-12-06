@@ -17,11 +17,11 @@ const formatDateAndTime = (date) => {
     return formatDate(date) + " " + formatTime(date);
 }
 
-const toLocalTime = (date) =>{
+/*const toLocalTime = (date) =>{
     let localDate = new Date(date)
     // let localDate = new Date(date.getTime() - date.getTimezoneOffset()*60*1000)
     return localDate
-}
+}*/
 
 const timerSort = (a, b)=> (new Date(a.startTime) - new Date(b.startTime))
 const getEndTime = (timer) => (new Date(new Date(timer.startTime).getTime() + (timer.duration + timer.breakTime) * timer.round * 60000));
@@ -44,10 +44,30 @@ const constructDate = (dateString) => {
         return dateObject;
 }
 
+const MAX_STRING_LENGTH = 140;
+const MAX_POSITIVE_VALUE = 65535;
+
+const formatValueToBeInBoundary = (value) => {
+    if(typeof value === 'string'){
+        if(value.length > MAX_STRING_LENGTH){
+            return value.slice(0, MAX_STRING_LENGTH);
+        }
+        return value;
+    }
+    if(typeof value === 'number'){
+        if(value > MAX_POSITIVE_VALUE){
+            return MAX_POSITIVE_VALUE;
+        }
+        return value;
+    }
+    return value;
+}
+
 export {
     formatDate,
     formatTime,
     constructDate,
-    toLocalTime,
-    formatDateAndTime
+    // toLocalTime,
+    formatDateAndTime,
+    formatValueToBeInBoundary,
 }

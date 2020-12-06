@@ -22,7 +22,6 @@ const AllTaskLists = () =>{
         tasklists,
         loading,
     } = useDataContext();
-    console.log('in all task lists', tasks, tasklists)
     const [curTaskLists, setCurTaskLists] = React.useState(matchedTaskLists(tasks || [], tasklists || []));
      // console.log(curTaskLists, setCurTaskLists)
     const [addTaskListMode, setAddTaskListMode] = React.useState(false);
@@ -32,32 +31,30 @@ const AllTaskLists = () =>{
 
 
     React.useEffect(()=>{
-        console.log(tasklists)
         setCurTaskLists(matchedTaskLists(tasks || [], tasklists || []));
     }, [tasks, tasklists, loading]);
-    console.log(curTaskLists)
 
     return loading? "":(<Container>
         <Header as='h1' textAlign='center'>
             {/* <Icon name='tasks'/> */}
             Tasks
-    <Button color = 'black' floated='right' onClick={()=>handleAddTaskListMode(!addTaskListMode)}>{
-        !addTaskListMode? (<>
-        <Icon name='plus'/> Add Task List
-        </>) : ("Cancel Add")
-    }</Button>
+            <Button color = 'black' floated='right' onClick={()=>handleAddTaskListMode(!addTaskListMode)}>{
+                !addTaskListMode? (<>
+                <Icon name='plus'/> Add Task List
+                </>) : ("Cancel Add")
+            }</Button>
         </Header>
 
 
-    
+
        <Card.Group itemsPerRow = {3}>
        {curTaskLists.map((item, i)=>{
-        
+
            return(<TasklistCard key = {i} tasklist = {item}/>)
        })}
        {addTaskListMode?<NewTasklistCard tasklist = {defaultNewList} closeAddTaskListMode = {closeAddTaskListMode}/>:<h4></h4>}
        </Card.Group>
-  
+
    </Container>)
 }
 

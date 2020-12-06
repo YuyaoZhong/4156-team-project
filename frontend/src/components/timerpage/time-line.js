@@ -8,12 +8,12 @@ const Timeline = props => {
         direction, icon,  time, description, linkRoute="/",
        lineHeight = 4, lineColor = 'grey', color = 'grey'
       } = props;
-      const textAlign = direction === 'left' ? 'right' : 'left';
+      const textDir = direction === 'left' ? 'right' : 'left';
       const card = (
           <Card fluid raised color={color}>
             <Card.Content>
              <Card.Header>
-             <Label pointing={textAlign} color={color} attached="top" style={{ marginLeft: '0', fontSize: '14px'}}>
+             <Label pointing={textDir} color={color} attached="top" style={{ marginLeft: '0', fontSize: '14px'}}>
                 {time}
               </Label>
              </Card.Header>

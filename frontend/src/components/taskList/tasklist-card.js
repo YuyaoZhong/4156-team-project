@@ -44,7 +44,7 @@ const TasklistCard  = props => {
         <List divided relaxed>
             {tasklist.tasks && tasklist.tasks.length > 0 ?
               tasklist.tasks.map((task, i) => {
-                  return(<TaskDiv task = {task} hideEdit={hideEdit}/>)
+                  return(<TaskDiv key = {i} task = {task} hideEdit={hideEdit}/>)
               })
             :""}
         </List>

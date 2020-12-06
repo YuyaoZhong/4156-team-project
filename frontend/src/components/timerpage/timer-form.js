@@ -3,9 +3,9 @@ import { Redirect } from 'react-router-dom'
 import { Button, Container, Form, Header, Icon, List, Label} from 'semantic-ui-react';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { useDataContext } from '../../context/data-context';
-import { constructDate, formatDate, formatTime } from '../../utilities/utilities';
+import { constructDate, formatDate, formatTime, formatValueToBeInBoundary} from '../../utilities/utilities';
 import { upsertData, deleteData} from '../../utilities/apiMethods';
-import { formatTask, isNumericAttr, errorMessages, checkTimeValid, judgeInputError, judgeStartTimerError} from '../../utilities/timer-form-utilities';
+import { formatTask, isNumericAttr, errorMessages, checkTimeValid, judgeInputError, judgeStartTimerError, getDefaultTimer} from '../../utilities/timer-form-utilities';
 import { useGoogleAuth } from '../../context/google-login-context';
 import { SERVER_URL } from '../../constants/constants';
 import AttachList from './attach-list';
@@ -26,6 +26,7 @@ const TimerForm = (props) => {
     } = useDataContext();
     
     const {editMode, editTimer, closeEditMode} = props;
+
 
     const [addedTasks, setAddTasks] = React.useState(formatTask(tasks, [], tasklists));
 
@@ -49,7 +50,8 @@ const TimerForm = (props) => {
               newState[targetIdx].alterSelected = !newState[targetIdx].alterSelected;
           }
           return newState
-      })
+      });
+   
     }
 
  
@@ -80,8 +82,15 @@ const TimerForm = (props) => {
     const [redirect, setRedirect] = React.useState(null);
     const [errors, setErrors] = React.useState({}); 
 
-    const handleChange = e => setTimerData({...timerData, [e.target.name]: e.target.value})
-    const handleStartTimeChange = (e, {name, value}) => setTimerData({...timerData, [name]: value});
+    const handleChange = e => setTimerData({...timerData, [e.target.name]: formatValueToBeInBoundary(e.target.value)})
+    const handleStartTimeChange = (e, attrs) =>{
+        // const attrName = name || e.target.name ;
+        // const attrValue = value || e.target.value;
+        // setTimerData({...timerData, [attrName]: attrValue});
+        const attrName = (attrs && attrs.name) ? attrs.name : e.target.name ;
+        const attrValue = (attrs && attrs.value) ? attrs.value: e.target.value;
+        setTimerData({...timerData, [attrName]: attrValue});
+    }
     const {isSignedIn, googleUser} = useGoogleAuth();
 
 
@@ -91,68 +100,97 @@ const TimerForm = (props) => {
         const originErrors = Object.assign({}, errors);
         
         const attrName = e.target.name;
-        const value = e.target.value;
+        const value = formatValueToBeInBoundary(e.target.value);
+      
         let newErrors = judgeInputError(attrName, value);
-
         if(!newErrors[attrName] && originErrors[attrName]){
             delete originErrors[attrName];
         }
 
         newErrors = {...originErrors, ...newErrors}
         setErrors(newErrors);
+    }
+
+    const validateStartTime = (attrName, e) => {
+        const value = (e && e.target && e.target.value)? e.target.value : undefined;
+        const curDate = (attrName === 'date' && value !== undefined)? value : timerData.date;
+        const curTime = (attrName === 'time' && value !== undefined)? value: timerData.time;
+        const originErrors = Object.assign({}, errors);
+        let newErrors = judgeStartTimerError(attrName, curDate, curTime, originErrors);
+        if(!newErrors[attrName] && originErrors[attrName]){
+            delete originErrors[attrName];
+        }
+        newErrors = {...originErrors, ...newErrors}
+        setErrors(newErrors);
+       
     }
 
  
-    const validateStartTime = (attrName) => {
-        const originErrors = Object.assign({}, errors);
-        let newErrors = judgeStartTimerError(attrName, timerData.date, timerData.time, originErrors);
-        if(!newErrors[attrName] && originErrors[attrName]){
-            delete originErrors[attrName];
-        }
-        newErrors = {...originErrors, ...newErrors}
+    // const validateStartTime = (attrName) => {
+    //     const originErrors = Object.assign({}, errors);
+    //     let newErrors = judgeStartTimerError(attrName, timerData.date, timerData.time, originErrors);
+    //     if(!newErrors[attrName] && originErrors[attrName]){
+    //         delete originErrors[attrName];
+    //     }
+    //     newErrors = {...originErrors, ...newErrors}
+    //     setErrors(newErrors);
+       
+    // }
+
+    // const setErrorCallback = (errors) =>{
+    //     const newErrors = Object.assign({}, errors);
+    //     delete newErrors[name];
+    //     return newErrors;
+    // }
+
+    // const deleteError = (e) => setErrors(errors=>{
+    //     const newErrors = Object.assign({}, errors);
+    //     delete newErrors[e.target.name];
+    //     return newErrors;
+    // })
+
+    const deleteStartTimeError = (name)=>{
+        const newErrors = Object.assign({}, errors);
+        delete newErrors[name];
         setErrors(newErrors);
     }
 
-    const deleteStartTimeError = (name)=>setErrors(errros=>{
-        const newErrors = Object.assign({}, errors);
-        delete newErrors[name];
-        return newErrors;
-    })
-
-    const deleteError = (e) => setErrors(errros=>{
+    const deleteError = (e) => {
         const newErrors = Object.assign({}, errors);
         delete newErrors[e.target.name];
-        return newErrors;
-    })
+        setErrors(newErrors);
+    }
+   
 
     const handleAddTasks = async (timerId) => {
         const userId = isSignedIn ? googleUser.googleId : ""
         const toAddTasks = addedTasks.filter(filterToAdd);
         const addRoute = `${SERVER_URL}/task_timers/`
-        const toAddDataPromises = toAddTasks ? toAddTasks.map(item=>{
+        const toAddDataPromises = toAddTasks.map(item=>{
             const data = {
                 userId: userId,
                 taskId: item.id,
                 timerId: timerId
             };
             return upsertData(addRoute, data, 'POST');
-        }): []
+        })
     
        const toDeleteTasks = addedTasks.filter(filterToDelete);
-       const toDeletePromises = toDeleteTasks ? toDeleteTasks.map(item=>{
+    //    console.log('to delete', toDeleteTasks, addedTasks);
+       const toDeletePromises = toDeleteTasks.map(item=>{
            const deleteRoute = `${SERVER_URL}/task_timers/${item.relId}`;
-           console.log(deleteRoute);
+        //    console.log(deleteRoute);
            return deleteData(deleteRoute);
-       }) : [];
+       });
 
 
        await Promise.all(toAddDataPromises).then((results)=> {
-           console.log('add promises')
-           console.log(results);
+        //    console.log('add promises')
+        //    console.log(results);
        });
        await Promise.all(toDeletePromises).then((results)=> {
-        console.log('delete promises')
-        console.log(results);
+        // console.log('delete promises')
+        // console.log(results);
     });
 
 
@@ -162,9 +200,11 @@ const TimerForm = (props) => {
 
     const handleSubmit = async () =>{
         // todo: pop up message
+   
         if(Object.keys(errors).length !== 0){
             return;
         }
+        // console.log('AT SUBMIT', new Date(timerData.startTime))
         const newTimerData = Object.assign({}, timerData);
         const startTime = `${newTimerData.date} ${newTimerData.time}`;
         const startTimeUtc = constructDate(startTime).toISOString();
@@ -188,7 +228,7 @@ const TimerForm = (props) => {
          <Form size = 'big'>
          <Form.Field 
             name = 'title' label = 'Title' control = 'input' type = 'text'
-           defaultValue = {timerData.title}
+           value = {timerData.title}
            onChange = {handleChange} 
            onFocus = {deleteError}
            onBlur = {validateInput}   
@@ -198,7 +238,7 @@ const TimerForm = (props) => {
 
          <Form.Field 
             name = 'description' label = 'Description' control = 'input' type = 'text'
-           defaultValue = {timerData.description}
+           value = {timerData.description}
            onChange = {handleChange}    
            maxLength =  {140} 
          />
@@ -217,7 +257,7 @@ const TimerForm = (props) => {
                             minDate = {minDate}
                             onChange={handleStartTimeChange}
                             onFocus= {()=>deleteStartTimeError("date")}
-                            onBlur = {()=>validateStartTime("date")}
+                            onBlur = {(e)=>validateStartTime("date", e)}
                         />
                         {
                             errors.date? ( <Label className="prompt" pointing>
@@ -238,7 +278,7 @@ const TimerForm = (props) => {
                                 className = {errors.time? "error":""}
                                 onChange={handleStartTimeChange}
                                 onFocus= {()=>deleteStartTimeError("time")}
-                                onBlur = {()=>validateStartTime("time")}
+                                onBlur = {(e)=>validateStartTime("time", e)}
                                 // minTime = {startTime.Date === minDate? formatTime(new Date()):""}
                             />
                         {
@@ -256,7 +296,7 @@ const TimerForm = (props) => {
                      control = 'input' 
                      type = 'number'  
                      min = {1}
-                     defaultValue = {timerData.duration}
+                     value = {timerData.duration}
                      onChange = {handleChange}
                      onFocus = {deleteError}
                      onBlur = {validateInput}
@@ -265,7 +305,7 @@ const TimerForm = (props) => {
                  <Form.Field 
                     name = 'breakTime' label = 'Break' 
                     control = 'input' type = 'number' min = {1} 
-                    defaultValue= {timerData.breakTime} 
+                    value = {timerData.breakTime} 
                     onChange = {handleChange}
                     onFocus = {deleteError}
                     onBlur = {validateInput}
@@ -274,7 +314,7 @@ const TimerForm = (props) => {
                   <Form.Field 
                     name = 'round' label = 'Round' 
                     control = 'input' type = 'number' min = {1} 
-                    defaultValue= {timerData.round} 
+                    value = {timerData.round} 
                     onChange = {handleChange}
                     onFocus = {deleteError}
                     onBlur = {validateInput}

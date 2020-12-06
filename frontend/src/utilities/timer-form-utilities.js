@@ -1,9 +1,10 @@
-import { formatDate } from './utilities';
+import { formatDate, formatTime } from './utilities';
 
 const formatTask = (tasks, relatedTasks, tasklists) => {
     // console.log(relatedTasks, tasklists);
     return tasks.reduce((res, item, index)=>{
-        const idx = relatedTasks.findIndex(relatedTask=>String(relatedTask.id) === String(item.id));
+        const idx = relatedTasks && relatedTasks.length >= 0? 
+            relatedTasks.findIndex(relatedTask=>String(relatedTask.id) === String(item.id)): -1;
      
         let taskListName = "Default";
         if (item.taskListId && item.taskListId !== 0){
@@ -67,8 +68,9 @@ const checkTimeValid = (timeStr)=>{
 
 const judgeInputError = (attrName, value) => {
     let newErrors = {};
-    if ((attrName !== "description") && !isNumericAttr(attrName) && (!value || value === "" || value.length === 0)){
+    if ((attrName !== "description") && !isNumericAttr(attrName) && (!value || value === "" || value === undefined || value.length === 0)){
         newErrors[attrName] = errorMessages('empty', attrName);
+        
     }else if ( isNumericAttr(attrName)) {
         const tryParseInt = parseInt(value, 10);
         if(isNaN(tryParseInt)){
@@ -132,11 +134,31 @@ const judgeStartTimerError = (name, timerDate, timerTime, errors) => {
 
 
 
+const getDefaultTimer = () => {
+    const delayMin = 5;
+    const curDefaultTime = new Date(new Date().getTime() + delayMin * 60000);
+    const minDate = formatDate(curDefaultTime);
+    const minTime = formatTime(curDefaultTime);
+    
+    const defaultTimerConfig =   {
+        'title': 'new timer',
+        'description': '',
+        'breakTime': 5,
+        'duration': 25,
+        'round': 1,
+        'date': minDate,
+        'time': minTime,
+    };
+    return defaultTimerConfig;
+  }
+  
+
 export {
     formatTask,
     isNumericAttr,
     errorMessages,
     checkTimeValid,
     judgeInputError,
-    judgeStartTimerError
+    judgeStartTimerError,
+    getDefaultTimer,
 }

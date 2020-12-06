@@ -15,22 +15,22 @@ const dateFormatter = ({cell}) =>{
     return formatDateAndTime(new Date(value));
   }
 
-const idFormat = ({row, cell})=>{
-  const {value } = cell;
-  const {values} = row;
-  return (<>
-      {!values.isCreator? <Label color='blue' size='small' ribbon>Shared</Label>:""}
+// const idFormat = ({row, cell})=>{
+//   const {value } = cell;
+//   const {values} = row;
+//   return (<>
+//       {!values.isCreator? <Label color='blue' size='small' ribbon>Shared</Label>:""}
         
-        <div>
-        {value}  
-        </div>
+//         <div>
+//         {value}  
+//         </div>
  
-  </>)
-}
+//   </>)
+// }
 const linkFormatter = ({row, cell}) => {
     const {value } = cell;
     const {values} = row;
-    const timerId = values ? values.id : 0;
+    const timerId = values.id || 0;
     return (
       <>
          

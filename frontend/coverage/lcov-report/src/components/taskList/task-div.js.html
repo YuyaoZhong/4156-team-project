@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,28 +100,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,28 +138,28 @@ import { Header,  List} from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 &nbsp;
 &nbsp;
-const TaskDiv = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
-    const {task, hideEdit} = <span class="cstat-no" title="statement not covered" >props;</span>
+const TaskDiv = props =&gt; {
+    const {task, hideEdit} = props;
     const {
         handleUpsertTask,
         handleDeleteTask,
-     } = <span class="cstat-no" title="statement not covered" >useDataContext();</span>
-    const [checked, setChecked] = <span class="cstat-no" title="statement not covered" >React.useState(task.status);</span>
+     } = useDataContext();
+    const [checked, setChecked] = React.useState(task.status);
     
-    const toggleChecked = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt;{</span>
-        const newTask = <span class="cstat-no" title="statement not covered" >Object.assign({}, task);</span>
-        const nextStatus = <span class="cstat-no" title="statement not covered" >1 - checked;</span>
-<span class="cstat-no" title="statement not covered" >        newTask.status = nextStatus;</span>
-<span class="cstat-no" title="statement not covered" >        handleUpsertTask(newTask, true);</span>
-<span class="cstat-no" title="statement not covered" >        setChecked(nextStatus);</span>
+    const toggleChecked = () =&gt;{
+        const newTask = Object.assign({}, task);
+        const nextStatus = 1 - checked;
+        newTask.status = nextStatus;
+        handleUpsertTask(newTask, true);
+        setChecked(nextStatus);
     }
-    const deleteTask = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt;{</span>
-        const deletedTask = <span class="cstat-no" title="statement not covered" >Object.assign({}, task);</span>
-<span class="cstat-no" title="statement not covered" >        handleDeleteTask(deletedTask);</span>
+    const deleteTask = () =&gt;{
+        const deletedTask = Object.assign({}, task);
+        handleDeleteTask(deletedTask);
     }
 &nbsp;
-    const iconClass = <span class="cstat-no" title="statement not covered" >checked ? 'check square outline': 'square outline';</span>
-<span class="cstat-no" title="statement not covered" >    return (&lt;List.Item&gt;</span>
+    const iconClass = checked ? 'check square outline': 'square outline';
+    return (&lt;List.Item&gt;
         &lt;List.Icon name = {iconClass} size = "large" verticalAlign='middle' onClick = {toggleChecked} /&gt;
         &lt;List.Content&gt;
             &lt;List.Header&gt;&lt;Header as="h4"&gt;{task.name}&lt;/Header&gt;&lt;/List.Header&gt;
@@ -178,7 +178,7 @@ export default TaskDiv;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 04 2020 11:05:53 GMT-0800 (GMT-08:00)
+                at Sat Dec 05 2020 17:49:11 GMT-0800 (GMT-08:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -5,8 +5,10 @@ import { Button, Container, Card, Icon, List, ListItem } from 'semantic-ui-react
 // search box
 // with category
 const AttachList = props => {
+
     const {data, renderAttr, buttonName, selectHandler} = props;
     const [show, setShow] = React.useState(false);
+
 
     return (<Container fluid style = {{position: "relative", marginBottom: "20px"}}>
         <Button onClick={()=>{setShow(!show)}}>{buttonName}</Button>
