@@ -99,9 +99,9 @@ const judgeStartTimerError = (name, timerDate, timerTime, errors) => {
            if (new Date(tryParseDate).getTime() < compareDate.getTime()){
              newErrors[name] = errorMessages('wrong time', name);
            }
-            else if(newErrors[name]){
-               delete newErrors[name];
-           }
+           //  else if(newErrors[name]){
+           //     delete newErrors[name];
+           // }
         }
     }
 
@@ -123,9 +123,9 @@ const judgeStartTimerError = (name, timerDate, timerTime, errors) => {
                     newErrors[name]  = errorMessages('wrong time', name);
                 }
             }
-            else if(newErrors[name]){
-                delete newErrors[name];
-            }
+            // else if(newErrors[name]){
+            //     delete newErrors[name];
+            // }
         }
     }
 
