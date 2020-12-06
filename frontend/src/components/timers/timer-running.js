@@ -1,7 +1,7 @@
 import React  from 'react';
 import { Container, Label, Header } from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
-import { DisplayTimer } from './timer-info';
+import DisplayTimer from './display-timer';
 import { formatTime, getcurRound, inBreak, getTimeLeft} from '../../utilities/timer-utilities';
 import './timer-running.css';
 

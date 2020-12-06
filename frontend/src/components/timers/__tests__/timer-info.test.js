@@ -5,7 +5,7 @@ import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import renderer from 'react-test-renderer';
 import { DataContext} from '../../../context/data-context';
-import {DisplayTimer} from '../../timers/timer-info';
+import DisplayTimer from '../display-timer';
 import {DisplayTimerArea} from '../../timers/timer-info';
 import {SingleTimer} from '../../timers/timer-info';
 import {mockRelatedTasksForTimer} from '../../../utilities/mockData';
@@ -26,9 +26,7 @@ jest.mock('../../../utilities/apiMethods', ()=>({
 jest.mock('../../timerpage/timer-form', ()=>()=><div/>);
 jest.mock('../../zoom/zoom-button', ()=>()=><div/>);
 jest.mock('../../timers/share-button', ()=>()=><div/>);
-jest.mock('../../timers/timer-info', ()=>({
-    DisplayTimer: () =>(<div/>),
-}));
+jest.mock('../display-timer', ()=>()=><div/>);
 
 
 
@@ -124,13 +122,15 @@ describe("test <DisplayTimerArea/>", () => {
 
     it("test editMode true ", async () => {
 
-        await act(async ()=>{wrapper=  mount(<Router><DataContext.Provider value = {{
-            updateTimerListState: updateTimerListState,
-            getRelatedTasksOfTimers: getRelatedTasksOfTimers,
-         }}>
-            <DisplayTimerArea timer = {mockTimer} changeAddedStatus = {changeAddedStatus}
-            editMode = {false} closeEditMode = {closeEditMode} openEditMode = {openEditMode} />
-        </DataContext.Provider></Router>)});
+        await act(async ()=>{wrapper=  mount(<Router>
+                <DataContext.Provider value = {{
+                updateTimerListState: updateTimerListState,
+                getRelatedTasksOfTimers: getRelatedTasksOfTimers,
+            }}>
+                <DisplayTimerArea timer = {mockTimer} changeAddedStatus = {changeAddedStatus}
+                editMode = {false} closeEditMode = {closeEditMode} openEditMode = {openEditMode} />
+            </DataContext.Provider>
+        </Router>)});
         expect(wrapper.find({name: 'clock outline'}).length).toEqual(1);
     });
 });
