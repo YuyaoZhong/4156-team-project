@@ -46,6 +46,18 @@ describe("test <AttachedTasks/>", ()=>{
 
         const removeIcon = wrapper.find({name: "close"});
         expect(removeIcon).toExist();
+    });
+
+    it('render empty list ', async ()=>{
+
+        wrapper = mount(<AttachedTasks
+            data = {[]}
+            noBorder = {false}
+            hideRemove = {false}
+            selectHandler = {jest.fn()}
+        />)
+        
+      expect(wrapper.find('List')).not.toExist();
     })
 
 

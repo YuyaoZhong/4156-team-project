@@ -11,7 +11,7 @@ import {
 
 } from 'semantic-ui-react'
 
-import { useGoogleAuth} from '../context/google-login-context';
+import { useGoogleAuth} from '../../context/google-login-context';
 
 const GoogleButton = () => {
     const {isSignedIn, signIn } = useGoogleAuth();

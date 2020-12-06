@@ -141,4 +141,151 @@ describe("test <TimerForm/> create", ()=>{
 
 });
 
+
+it("test invalid string and valid data for break time", async () => {
+
+    const attrName = "breakTime";
+    const invalid = "eeee";
+    const valid = 5;
+
+    const targetElement =  wrapper.find(`input[name="${attrName}"]`);
+    const errorLocator = {role: "alert"};
+    let errorDiv = wrapper.find(errorLocator);
+    expect(errorDiv).not.toExist(); 
+
+
+    await act(async ()=>{
+        await  targetElement.simulate('focus');
+        
+        await targetElement.simulate('change',{
+            target:{ 
+                name: attrName,
+                value: invalid,
+            }
+        }
+        );
+        
+        // targetElement.instance().value = pastDate;
+        await targetElement.simulate('blur');
+        
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find(errorLocator);
+    });
+
+   
+    expect(errorDiv.at(0).text()).toEqual(errorMessages('numeric error', attrName));
+
+    
+    
+    await act(async ()=>{
+        await  targetElement.simulate('focus');
+        await targetElement.simulate('change',{
+            target:{ 
+                name: attrName,
+                value: valid
+            }
+        }
+        );
+        
+        // targetElement.instance().value = futureDate;
+
+        await targetElement.simulate('blur')
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find(errorLocator);
+    });
+
+    expect(errorDiv).not.toExist(); 
+
+});
+
+
+
+it("test round error", async () => {
+
+    const attrName = "round";
+    const invalid = 0;
+    const valid = 5;
+
+    const targetElement =  wrapper.find(`input[name="${attrName}"]`);
+    const errorLocator = {role: "alert"};
+    let errorDiv = wrapper.find(errorLocator);
+    expect(errorDiv).not.toExist(); 
+
+
+    await act(async ()=>{
+        await  targetElement.simulate('focus');
+        
+        await targetElement.simulate('change',{
+            target:{ 
+                name: attrName,
+                value: invalid,
+            }
+        }
+        );
+        
+        // targetElement.instance().value = pastDate;
+        await targetElement.simulate('blur');
+        
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find(errorLocator);
+    });
+
+   
+    expect(errorDiv.at(0).text()).toEqual(errorMessages('non-positive number', attrName));
+
+    
+    
+    await act(async ()=>{
+        await  targetElement.simulate('focus');
+        await targetElement.simulate('change',{
+            target:{ 
+                name: attrName,
+                value: valid
+            }
+        }
+        );
+        
+        // targetElement.instance().value = futureDate;
+
+        await targetElement.simulate('blur')
+        wrapper = wrapper.update();
+        errorDiv = wrapper.find(errorLocator);
+    });
+
+    expect(errorDiv).not.toExist(); 
+
+});
+
+
+    it('test without sign in', async ()=>{
+        elementwithProvider = (<GoogleAuthContext.Provider
+            value={{
+                isSignedIn: false,
+                googleUser: {googleId: mockUserId},
+            }}
+           >
+               <DataContext.Provider value = {{
+                       handleCreateTimer: handleCreateTimer,
+                       tasks: mockTaskArray,
+                       tasklists: mockTaskListArray,
+                       getRelatedTasksOfTimers: ()=>{return mockRelatedTasksForTimer},
+                   }}
+                   >
+              <TimerForm editMode={false} closeEditMode={closeEditMode}/>
+           </DataContext.Provider>
+           </GoogleAuthContext.Provider>
+        )
+
+        wrapper = mount(elementwithProvider);
+        handleCreateTimer.mockResolvedValue();
+
+        await act(async ()=>{
+            await wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
+            wrapper = wrapper.update();
+         })
+ 
+         expect(closeEditMode).toHaveBeenCalled();
+
+    })
+
 });

@@ -300,11 +300,11 @@ const TimerForm = (props) => {
              </Form.Group>
              <label><strong>Attached Tasks</strong></label>
              <AttachedTasks 
-                data = {addedTasks ? addedTasks.filter(filterSelected) : []}
+                data = {addedTasks.filter(filterSelected)}
                 selectHandler = {toggleSelectTask}    
             />
              <AttachList 
-                data = {addedTasks ? addedTasks : []} 
+                data = {addedTasks} 
                 renderAttr = 'name'
                 buttonName = 'Attach Tasks To Timer'
                 selectHandler = {toggleSelectTask}
