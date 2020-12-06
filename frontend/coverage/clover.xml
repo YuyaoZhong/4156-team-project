@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607219094353" clover="3.2.0">
-  <project timestamp="1607219094354" name="All files">
-    <metrics statements="804" coveredstatements="530" conditionals="479" coveredconditionals="275" methods="222" coveredmethods="129" elements="1505" coveredelements="934" complexity="0" loc="804" ncloc="804" packages="12" files="35" classes="35"/>
+<coverage generated="1607219351623" clover="3.2.0">
+  <project timestamp="1607219351623" name="All files">
+    <metrics statements="804" coveredstatements="534" conditionals="479" coveredconditionals="279" methods="222" coveredmethods="130" elements="1505" coveredelements="943" complexity="0" loc="804" ncloc="804" packages="12" files="35" classes="35"/>
     <package name="src">
       <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="App.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\App.js">
@@ -349,7 +349,7 @@
       </file>
     </package>
     <package name="src.components.timers">
-      <metrics statements="117" coveredstatements="20" conditionals="86" coveredconditionals="16" methods="34" coveredmethods="5"/>
+      <metrics statements="117" coveredstatements="24" conditionals="86" coveredconditionals="20" methods="34" coveredmethods="6"/>
       <file name="share-button.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\share-button.js">
         <metrics statements="14" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="6" count="1" type="stmt"/>
@@ -437,11 +437,11 @@
         <line num="191" count="0" type="cond" truecount="0" falsecount="4"/>
       </file>
       <file name="timer-message.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\timer-message.js">
-        <metrics statements="4" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
       </file>
       <file name="timer-running.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\timer-running.js">
         <metrics statements="36" coveredstatements="0" conditionals="14" coveredconditionals="0" methods="10" coveredmethods="0"/>
@@ -515,21 +515,21 @@
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="constants.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\constants\constants.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="2" count="14" type="stmt"/>
-        <line num="3" count="14" type="stmt"/>
-        <line num="4" count="14" type="stmt"/>
-        <line num="5" count="14" type="stmt"/>
+        <line num="2" count="15" type="stmt"/>
+        <line num="3" count="15" type="stmt"/>
+        <line num="4" count="15" type="stmt"/>
+        <line num="5" count="15" type="stmt"/>
       </file>
     </package>
     <package name="src.context">
       <metrics statements="176" coveredstatements="66" conditionals="64" coveredconditionals="6" methods="53" coveredmethods="16"/>
       <file name="data-context.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\context\data-context.js">
         <metrics statements="171" coveredstatements="63" conditionals="64" coveredconditionals="6" methods="51" coveredmethods="15"/>
-        <line num="6" count="13" type="stmt"/>
+        <line num="6" count="14" type="stmt"/>
         <line num="9" count="21" type="stmt"/>
         <line num="10" count="18" type="stmt"/>
         <line num="12" count="18" type="stmt"/>
-        <line num="15" count="13" type="stmt"/>
+        <line num="15" count="14" type="stmt"/>
         <line num="16" count="9" type="stmt"/>
         <line num="17" count="9" type="stmt"/>
         <line num="18" count="9" type="stmt"/>
@@ -699,8 +699,8 @@
       </file>
       <file name="google-login-context.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\context\google-login-context.js">
         <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-        <line num="5" count="13" type="stmt"/>
-        <line num="8" count="13" type="stmt"/>
+        <line num="5" count="14" type="stmt"/>
+        <line num="8" count="14" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="18" count="50" type="stmt"/>
@@ -727,10 +727,10 @@
       <metrics statements="203" coveredstatements="184" conditionals="137" coveredconditionals="114" methods="35" coveredmethods="26"/>
       <file name="apiMethods.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\apiMethods.js">
         <metrics statements="6" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <line num="1" count="12" type="stmt"/>
+        <line num="1" count="13" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
-        <line num="12" count="12" type="stmt"/>
+        <line num="12" count="13" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
       </file>

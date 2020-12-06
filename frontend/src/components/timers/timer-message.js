@@ -12,7 +12,7 @@ const AddedTimerMessage = props => {
                 (messageStatus.success === false? (<Message negative  style={messageStyle}>
                     <Message.Header>Error</Message.Header>
                     <p>Request failed.</p>
-                </Message> ): "")
+                </Message> ): <p></p>)
         }
 
       </TransitionablePortal>)

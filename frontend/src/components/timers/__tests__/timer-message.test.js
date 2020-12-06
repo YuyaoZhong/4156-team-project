@@ -27,7 +27,7 @@ describe("test <AddedTimerMessage/>", () => {
 
     const messageStatus3 = {
         open: true,
-        success: ,
+        success: "",
     }
 
     beforeEach(() => {
@@ -36,25 +36,25 @@ describe("test <AddedTimerMessage/>", () => {
 
     it("test true ", async () => {
 
-        wrapper = mount(<DataContext.Provider value = {{}}>
-            <AddedTimerMessage handleClose = {handleClose} messageStatus = {messageStatus1} />
-        </DataContext.Provider>);
+        wrapper = mount(
+        <AddedTimerMessage handleClose = {handleClose} messageStatus = {messageStatus1} />
+            );
         expect(wrapper.find({className: "ui positive message scale animating in visible transition"}).length).toEqual(1);
     });
 
     it("test false ", async () => {
 
-        wrapper = mount(<DataContext.Provider value = {{}}>
+        wrapper = mount(
             <AddedTimerMessage handleClose = {handleClose} messageStatus = {messageStatus2} />
-        </DataContext.Provider>);
+            );
         expect(wrapper.find({className: "ui negative message scale animating in visible transition"}).length).toEqual(1);
     });
 
     it("test null ", async () => {
 
-        wrapper = mount(<DataContext.Provider value = {{}}>
+        wrapper = mount(
             <AddedTimerMessage handleClose = {handleClose} messageStatus = {messageStatus3} />
-        </DataContext.Provider>);
+        );
         expect(wrapper.find({className: "ui negative message scale animating in visible transition"}).length).toEqual(0);
         expect(wrapper.find({className: "ui positive message scale animating in visible transition"}).length).toEqual(0);
     });
