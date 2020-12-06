@@ -22,7 +22,7 @@ matrix:
         #- cd tests/
         - pwd
         - ls 
-        - pytest --cov tests/testTask.py
+        - pytest tests/testTask.py
         - pytest tests/testTimer.py
         - pytest tests/testTaskLists.py
         - pytest tests/testUtilities.py
