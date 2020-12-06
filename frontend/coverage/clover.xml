@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607214787384" clover="3.2.0">
-  <project timestamp="1607214787384" name="All files">
+<coverage generated="1607215222263" clover="3.2.0">
+  <project timestamp="1607215222263" name="All files">
     <metrics statements="804" coveredstatements="439" conditionals="477" coveredconditionals="227" methods="223" coveredmethods="117" elements="1504" coveredelements="783" complexity="0" loc="804" ncloc="804" packages="12" files="35" classes="35"/>
     <package name="src">
       <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
@@ -110,7 +110,7 @@
       <file name="task-div.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\taskList\task-div.js">
         <metrics statements="15" coveredstatements="15" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="6" count="4" type="stmt"/>
-        <line num="7" count="24" type="stmt"/>
+        <line num="7" count="22" type="stmt"/>
         <line num="11" count="22" type="stmt"/>
         <line num="12" count="22" type="stmt"/>
         <line num="14" count="22" type="stmt"/>
@@ -132,7 +132,7 @@
         <line num="11" count="1" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
         <line num="19" count="3" type="stmt"/>
-        <line num="24" count="14" type="stmt"/>
+        <line num="24" count="13" type="stmt"/>
         <line num="25" count="13" type="cond" truecount="4" falsecount="0"/>
         <line num="27" count="13" type="stmt"/>
         <line num="28" count="13" type="stmt"/>
@@ -147,7 +147,7 @@
       <file name="tasklist-card.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\taskList\tasklist-card.js">
         <metrics statements="12" coveredstatements="12" conditionals="10" coveredconditionals="10" methods="6" coveredmethods="6"/>
         <line num="7" count="3" type="stmt"/>
-        <line num="8" count="41" type="stmt"/>
+        <line num="8" count="39" type="stmt"/>
         <line num="10" count="39" type="stmt"/>
         <line num="13" count="39" type="stmt"/>
         <line num="15" count="39" type="stmt"/>
@@ -695,7 +695,7 @@
         <line num="295" count="0" type="stmt"/>
         <line num="296" count="0" type="stmt"/>
         <line num="301" count="9" type="stmt"/>
-        <line num="323" count="144" type="stmt"/>
+        <line num="323" count="143" type="stmt"/>
       </file>
       <file name="google-login-context.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\context\google-login-context.js">
         <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
