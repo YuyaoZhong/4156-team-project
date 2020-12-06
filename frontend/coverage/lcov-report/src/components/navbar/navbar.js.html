@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -131,12 +131,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,12 +144,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,10 +198,10 @@ import { useGoogleAuth } from '../../context/google-login-context';
 &nbsp;
 &nbsp;
 &nbsp;
-export const GoogleButton = () =&gt; {
- const {isSignedIn, signIn, signOut, googleUser} = useGoogleAuth();
+export const GoogleButton = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+ const {isSignedIn, signIn, signOut, googleUser} = <span class="cstat-no" title="statement not covered" >useGoogleAuth();</span>
 &nbsp;
- return isSignedIn? 
+<span class="cstat-no" title="statement not covered" > return isSignedIn? </span>
  (&lt;Menu.Item&gt;
    &lt;Image src = {googleUser.profileObj.imageUrl} avatar /&gt;
    &lt;span&gt;{googleUser.profileObj.name}&lt;/span&gt;
@@ -213,12 +213,12 @@ export const GoogleButton = () =&gt; {
 &nbsp;
 &nbsp;
 &nbsp;
-const NavBar = () =&gt; {
-   const [activeItem, setActiveItem] = React.useState('');
-   const handleItemClick = (e, {name}) =&gt; setActiveItem(name);
-   const {isSignedIn} = useGoogleAuth();
-   const style = !isSignedIn? {marginBottom: 0, borderRadius: 0} : {  borderRadius: 0 }
-   return (
+const NavBar = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+   const [activeItem, setActiveItem] = <span class="cstat-no" title="statement not covered" >React.useState('');</span>
+   const handleItemClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>, {name}) =&gt; <span class="cstat-no" title="statement not covered" >setActiveItem(name);</span></span>
+   const {isSignedIn} = <span class="cstat-no" title="statement not covered" >useGoogleAuth();</span>
+   const style = <span class="cstat-no" title="statement not covered" >!isSignedIn? {marginBottom: 0, borderRadius: 0} : {  borderRadius: 0 }</span>
+<span class="cstat-no" title="statement not covered" >   return (</span>
     &lt;Segment inverted style={ style}&gt;
          &lt;Menu inverted secondary size='massive'&gt;
               &lt;Menu.Item
@@ -265,7 +265,11 @@ export default NavBar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
+<<<<<<< HEAD
                 at Sat Dec 05 2020 18:20:24 GMT-0800 (GMT-08:00)
+=======
+                at Sat Dec 05 2020 21:27:14 GMT-0500 (GMT-05:00)
+>>>>>>> 886feefab4a40921a872f6cb470eade73131609e
             </div>
         </div>
         <script src="../../../prettify.js"></script>

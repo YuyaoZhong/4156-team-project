@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,12 +85,18 @@
 <a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
+=======
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+>>>>>>> 886feefab4a40921a872f6cb470eade73131609e
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -98,7 +104,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,12 +116,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Icon, List, Label} from 'semantic-ui-react';
 import './attach-list.css';
 &nbsp;
-const AttachedTasks =  props =&gt; {
-    const {data, selectHandler, hideRemove, noBorder} = props;
-    return (   &lt;List&gt;
+const AttachedTasks =  <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
+    const {data, selectHandler, hideRemove, noBorder} = <span class="cstat-no" title="statement not covered" >props;</span>
+<span class="cstat-no" title="statement not covered" >    return (   &lt;List&gt;</span>
         {
-           data.map((item, i)=&gt;{
-                return(&lt;List.Item key = {i}&gt;
+           data.map(<span class="fstat-no" title="function not covered" >(i</span>tem, i)=&gt;{
+<span class="cstat-no" title="statement not covered" >                return(&lt;List.Item key = {i}&gt;</span>
                     &lt;Label basic size = 'big' className ={noBorder? "no-border-label" : ""}&gt;
                     &lt;Label circular size = 'medium' style ={{marginRight: "5px"}}&gt;
                         {item.taskListName}
@@ -123,7 +129,7 @@ const AttachedTasks =  props =&gt; {
                     {item.name}
                     {
                         hideRemove? "":
-                        &lt;Icon name = 'close' color = 'red' onClick = {()=&gt;{selectHandler(item.key)}}/&gt;
+                        &lt;Icon name = 'close' color = 'red' onClick = {<span class="fstat-no" title="function not covered" >()</span>=&gt;{<span class="cstat-no" title="statement not covered" >selectHandler(item.key)}</span>}/&gt;
                     }
                     &lt;/Label&gt;
                 &lt;/List.Item&gt;)
@@ -139,7 +145,11 @@ export default AttachedTasks;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
+<<<<<<< HEAD
                 at Sat Dec 05 2020 18:20:24 GMT-0800 (GMT-08:00)
+=======
+                at Sat Dec 05 2020 21:27:14 GMT-0500 (GMT-05:00)
+>>>>>>> 886feefab4a40921a872f6cb470eade73131609e
             </div>
         </div>
         <script src="../../../prettify.js"></script>
