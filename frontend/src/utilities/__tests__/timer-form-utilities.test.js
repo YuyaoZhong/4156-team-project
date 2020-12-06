@@ -9,7 +9,7 @@ import {
     getDefaultTimer,
 } from "../timer-form-utilities"
 import {formatDate, formatTime} from "../utilities";
-import {mockTaskArray, mockTaskListArray} from "../mockData";
+import {mockTaskListArray} from "../mockData";
 
 describe("Timer form utilities tests", function () {
 
