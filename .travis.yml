@@ -1,11 +1,11 @@
-language: python
-python:
-  - "3.7"
+language: node_js
+node_js:
+  - "12.13"
 install:
   - cd frontend/
+  - npm install package.json
 script:
-  - pwd
-  - ls
-  #- npm run test -- --coverage --watchAll=false
-  
-  
+  npm run test -- --coverage --watchAll=false
+
+
+
