@@ -1,11 +1,13 @@
-language: node_js
-node_js:
-  - "12.13"
-install:
-  - cd frontend/
-  - npm install package.json
-script:
-  - npm run test -- --coverage --watchAll=false
-    
+matrix:
+  include:      
+    - language: node_js
+      node_js:
+        - "12.13"
+      install:
+        - cd frontend/
+        - npm install package.json
+      script:
+        - npm run test -- --coverage --watchAll=false
+
 
 
