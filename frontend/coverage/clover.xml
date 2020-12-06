@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607231999372" clover="3.2.0">
-  <project timestamp="1607231999372" name="All files">
-    <metrics statements="796" coveredstatements="577" conditionals="470" coveredconditionals="323" methods="222" coveredmethods="144" elements="1488" coveredelements="1044" complexity="0" loc="796" ncloc="796" packages="12" files="35" classes="35"/>
+<coverage generated="1607232119502" clover="3.2.0">
+  <project timestamp="1607232119502" name="All files">
+    <metrics statements="796" coveredstatements="578" conditionals="470" coveredconditionals="326" methods="222" coveredmethods="145" elements="1488" coveredelements="1049" complexity="0" loc="796" ncloc="796" packages="12" files="35" classes="35"/>
     <package name="src">
       <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="App.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\App.js">
@@ -511,10 +511,10 @@
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="constants.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\constants\constants.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="2" count="22" type="stmt"/>
-        <line num="3" count="22" type="stmt"/>
-        <line num="4" count="22" type="stmt"/>
-        <line num="5" count="22" type="stmt"/>
+        <line num="2" count="23" type="stmt"/>
+        <line num="3" count="23" type="stmt"/>
+        <line num="4" count="23" type="stmt"/>
+        <line num="5" count="23" type="stmt"/>
       </file>
     </package>
     <package name="src.context">
@@ -720,45 +720,45 @@
       </file>
     </package>
     <package name="src.utilities">
-      <metrics statements="199" coveredstatements="197" conditionals="133" coveredconditionals="126" methods="35" coveredmethods="29"/>
+      <metrics statements="199" coveredstatements="198" conditionals="133" coveredconditionals="129" methods="35" coveredmethods="30"/>
       <file name="apiMethods.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\apiMethods.js">
-        <metrics statements="6" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
-        <line num="1" count="17" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
+        <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <line num="1" count="18" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
-        <line num="12" count="17" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
+        <line num="12" count="18" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
       </file>
       <file name="mockData.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\mockData.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="13" type="stmt"/>
-        <line num="28" count="13" type="stmt"/>
-        <line num="44" count="13" type="stmt"/>
-        <line num="126" count="13" type="stmt"/>
-        <line num="140" count="13" type="stmt"/>
-        <line num="160" count="13" type="stmt"/>
-        <line num="161" count="2" type="stmt"/>
-        <line num="162" count="2" type="stmt"/>
-        <line num="163" count="340" type="stmt"/>
-        <line num="165" count="2" type="stmt"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="28" count="14" type="stmt"/>
+        <line num="44" count="14" type="stmt"/>
+        <line num="126" count="14" type="stmt"/>
+        <line num="140" count="14" type="stmt"/>
+        <line num="160" count="14" type="stmt"/>
+        <line num="161" count="3" type="stmt"/>
+        <line num="162" count="3" type="stmt"/>
+        <line num="163" count="390" type="stmt"/>
+        <line num="165" count="3" type="stmt"/>
       </file>
       <file name="tasklist-utilities.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\tasklist-utilities.js">
-        <metrics statements="14" coveredstatements="14" conditionals="15" coveredconditionals="11" methods="4" coveredmethods="4"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="18" type="stmt"/>
-        <line num="4" count="18" type="stmt"/>
-        <line num="5" count="18" type="stmt"/>
-        <line num="6" count="48" type="cond" truecount="2" falsecount="0"/>
-        <line num="7" count="18" type="cond" truecount="4" falsecount="0"/>
-        <line num="8" count="15" type="cond" truecount="1" falsecount="2"/>
-        <line num="10" count="18" type="stmt"/>
-        <line num="12" count="30" type="cond" truecount="3" falsecount="1"/>
-        <line num="13" count="30" type="cond" truecount="1" falsecount="1"/>
-        <line num="15" count="30" type="stmt"/>
-        <line num="17" count="48" type="stmt"/>
-        <line num="20" count="18" type="stmt"/>
+        <metrics statements="14" coveredstatements="14" conditionals="15" coveredconditionals="14" methods="4" coveredmethods="4"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="19" type="stmt"/>
+        <line num="4" count="19" type="stmt"/>
+        <line num="5" count="19" type="stmt"/>
+        <line num="6" count="50" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="19" type="cond" truecount="4" falsecount="0"/>
+        <line num="8" count="17" type="cond" truecount="3" falsecount="0"/>
+        <line num="10" count="19" type="stmt"/>
+        <line num="12" count="31" type="cond" truecount="3" falsecount="1"/>
+        <line num="13" count="32" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="31" type="stmt"/>
+        <line num="17" count="50" type="stmt"/>
+        <line num="20" count="19" type="stmt"/>
       </file>
       <file name="timer-form-utilities.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\timer-form-utilities.js">
         <metrics statements="82" coveredstatements="82" conditionals="80" coveredconditionals="77" methods="10" coveredmethods="10"/>
