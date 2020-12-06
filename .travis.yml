@@ -19,18 +19,18 @@ matrix:
       script:
         - pwd
         - ls
-        - cd tests/
+        #- cd tests/
         - pwd
         - ls 
-        - pytest --cov=backend testTask.py
-        - pytest testTimer.py
-        - pytest testTaskLists.py
-        - pytest testUtilities.py
-        - pytest testTasksToTimers.py
-        - pytest testTimerToUser.py
-        - pytest testBoundaryTaskLists.py
-        - pytest testBoundaryTasks.py
-        - pytest testBoundaryTasksToTimers.py
-        - pytest TestBoundaryTimer.py
-        - pytest testBoundaryTimerToUser.py
+        - pytest --cov=backend tests/testTask.py
+        - pytest tests/testTimer.py
+        - pytest tests/testTaskLists.py
+        - pytest tests/testUtilities.py
+        - pytest tests/testTasksToTimers.py
+        - pytest tests/testTimerToUser.py
+        - pytest tests/testBoundaryTaskLists.py
+        - pytest tests/testBoundaryTasks.py
+        - pytest tests/testBoundaryTasksToTimers.py
+        - pytest tests/TestBoundaryTimer.py
+        - pytest tests/testBoundaryTimerToUser.py
 
