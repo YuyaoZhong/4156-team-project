@@ -18,35 +18,32 @@ describe("test <NavBar/> ", ()=>{
     const mockUserId = "0";
     let wrapper;
 
-    beforeEach(() => {
-       const elementwithProvider = (<Router>
-           <GoogleAuthContext.Provider
-            value={{
-                isSignedIn: true,
-                signIn: jest.fn(),
-                signOut: jest.fn(),
-                googleUser: {
-                    googleId: mockUserId,
-                    profileObj:{
-                        imageUrl: ""
-                    }
-                },
-            }}
-           >
-               <NavBar/>
-           </GoogleAuthContext.Provider>
-       </Router>
-        )
-       
-
-        wrapper = mount(elementwithProvider);
-    
-    });
-
-
     it('test navbar change', async ()=>{
 
         // console.log(wrapper.debug());
+
+        const elementwithProvider = (<Router>
+            <GoogleAuthContext.Provider
+             value={{
+                 isSignedIn: true,
+                 signIn: jest.fn(),
+                 signOut: jest.fn(),
+                 googleUser: {
+                     googleId: mockUserId,
+                     profileObj:{
+                         imageUrl: ""
+                     }
+                 },
+             }}
+            >
+                <NavBar/>
+            </GoogleAuthContext.Provider>
+        </Router>
+         )
+        
+ 
+         wrapper = mount(elementwithProvider);
+
 
         const secondElement = wrapper.find('MenuItem').at(1);
         expect(secondElement.prop('active')).toEqual(false);
@@ -59,6 +56,42 @@ describe("test <NavBar/> ", ()=>{
         expect(secondElement.prop('active')).toEqual(false);
         
     });
+
+
+    
+    it('test without login', async ()=>{
+
+        // console.log(wrapper.debug());
+
+        const elementwithProvider = (<Router>
+            <GoogleAuthContext.Provider
+             value={{
+                 isSignedIn: false,
+                 signIn: jest.fn(),
+                 signOut: jest.fn(),
+                 googleUser: {
+                     googleId: mockUserId,
+                     profileObj:{
+                         imageUrl: ""
+                     }
+                 },
+             }}
+            >
+                <NavBar/>
+            </GoogleAuthContext.Provider>
+        </Router>
+         )
+        
+ 
+         wrapper = mount(elementwithProvider);
+        
+        //  console.log(wrapper.debug());
+        const googleLoginButton = wrapper.find('GoogleButton').find('button');
+        expect(googleLoginButton.text()).toEqual('Sign In');
+        
+    });
+
+    
 
     
 

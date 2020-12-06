@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607215222263" clover="3.2.0">
-  <project timestamp="1607215222263" name="All files">
-    <metrics statements="804" coveredstatements="439" conditionals="477" coveredconditionals="227" methods="223" coveredmethods="117" elements="1504" coveredelements="783" complexity="0" loc="804" ncloc="804" packages="12" files="35" classes="35"/>
+<coverage generated="1607216811041" clover="3.2.0">
+  <project timestamp="1607216811041" name="All files">
+    <metrics statements="804" coveredstatements="448" conditionals="477" coveredconditionals="229" methods="223" coveredmethods="120" elements="1504" coveredelements="797" complexity="0" loc="804" ncloc="804" packages="12" files="35" classes="35"/>
     <package name="src">
       <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="App.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\App.js">
@@ -37,18 +37,18 @@
       </file>
     </package>
     <package name="src.components.navbar">
-      <metrics statements="9" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="2" methods="3" coveredmethods="3"/>
       <file name="navbar.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\navbar\navbar.js">
-        <metrics statements="9" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="28" count="0" type="stmt"/>
+        <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="11" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="28" count="2" type="stmt"/>
       </file>
     </package>
     <package name="src.components.table">
@@ -515,21 +515,21 @@
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="constants.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\constants\constants.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="2" count="11" type="stmt"/>
-        <line num="3" count="11" type="stmt"/>
-        <line num="4" count="11" type="stmt"/>
-        <line num="5" count="11" type="stmt"/>
+        <line num="2" count="12" type="stmt"/>
+        <line num="3" count="12" type="stmt"/>
+        <line num="4" count="12" type="stmt"/>
+        <line num="5" count="12" type="stmt"/>
       </file>
     </package>
     <package name="src.context">
       <metrics statements="176" coveredstatements="66" conditionals="64" coveredconditionals="6" methods="53" coveredmethods="16"/>
       <file name="data-context.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\context\data-context.js">
         <metrics statements="171" coveredstatements="63" conditionals="64" coveredconditionals="6" methods="51" coveredmethods="15"/>
-        <line num="6" count="11" type="stmt"/>
+        <line num="6" count="12" type="stmt"/>
         <line num="9" count="21" type="stmt"/>
         <line num="10" count="18" type="stmt"/>
         <line num="12" count="18" type="stmt"/>
-        <line num="15" count="11" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
         <line num="16" count="9" type="stmt"/>
         <line num="17" count="9" type="stmt"/>
         <line num="18" count="9" type="stmt"/>
@@ -699,11 +699,11 @@
       </file>
       <file name="google-login-context.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\context\google-login-context.js">
         <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-        <line num="5" count="11" type="stmt"/>
-        <line num="8" count="11" type="stmt"/>
+        <line num="5" count="12" type="stmt"/>
+        <line num="8" count="12" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
-        <line num="18" count="44" type="stmt"/>
+        <line num="18" count="48" type="stmt"/>
       </file>
     </package>
     <package name="src.routes">
@@ -727,10 +727,10 @@
       <metrics statements="203" coveredstatements="116" conditionals="135" coveredconditionals="72" methods="36" coveredmethods="20"/>
       <file name="apiMethods.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\apiMethods.js">
         <metrics statements="6" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <line num="1" count="10" type="stmt"/>
+        <line num="1" count="11" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
-        <line num="12" count="10" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
       </file>
