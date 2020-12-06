@@ -11,7 +11,7 @@ script:
   - cd tests/
   - pwd
   - ls 
-  - pytest --cov=myproj testTask.py
+  - pytest --cov=../../ testTask.py
   - pytest testTimer.py
   - pytest testTaskLists.py
   - pytest testUtilities.py
