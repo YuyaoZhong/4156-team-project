@@ -6,6 +6,6 @@ install:
 script:
   - pwd
   - ls
-  - npm run test -- --coverage --watchAll=false
+  #- npm run test -- --coverage --watchAll=false
   
   
