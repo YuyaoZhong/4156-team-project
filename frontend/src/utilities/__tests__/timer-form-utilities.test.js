@@ -9,8 +9,38 @@ import {
     getDefaultTimer,
 } from "../timer-form-utilities"
 import {formatDate, formatTime} from "../utilities";
+import {mockTaskArray, mockTaskListArray} from "../mockData";
 
 describe("Timer form utilities tests", function () {
+
+    it("format task with tasklist test", function () {
+        let taskArray =  [
+            {
+                id: -1,
+                name: "Test Task 1",
+                status: 0,
+                taskListId: 0,
+                userId: "0"
+            },
+        ]
+
+        expect(formatTask(taskArray, [], mockTaskListArray)[0].taskListName).toEqual("Default")
+    })
+
+    it("format task with tasklist test", function () {
+        let taskArray =  [
+            {
+                id: -1,
+                name: "Test Task 1",
+                status: 0,
+                taskListId: -1,
+                userId: "0"
+            },
+        ]
+
+        expect(formatTask(taskArray, [], mockTaskListArray)[0].taskListName).toEqual("Test TaskList 1")
+    })
+
 
     it("Is numeric Attribute test", function () {
         expect(isNumericAttr("duration")).toEqual(true)
@@ -112,6 +142,10 @@ describe("Timer form utilities tests", function () {
     })
 
     it("Get default timer test", function () {
+        const delayMin = 5;
+        const curDefaultTime = new Date(new Date().getTime() + delayMin * 60000);
+        const minDate = formatDate(curDefaultTime);
+        const minTime = formatTime(curDefaultTime);
         expect(getDefaultTimer()).toEqual({
             'title': 'new timer',
             'description': '',
