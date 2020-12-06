@@ -239,30 +239,7 @@
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
 <a name='L182'></a><a href='#L182'>182</a>
-<a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a>
-<a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L183'></a><a href='#L183'>183</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,13 +259,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -378,23 +348,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -453,6 +406,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -495,13 +449,6 @@ const NotFoundTimer = <span class="cstat-no" title="statement not covered" ><spa
 };
 &nbsp;
 &nbsp;
-// const decodeSharingUrl = (sharingUrl)=&gt;{
-//     const paras = sharingUrl.split('/');
-// }
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 export const DisplayTimer = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
 &nbsp;
     const {timer, editMode} = <span class="cstat-no" title="statement not covered" >props;</span>
@@ -516,7 +463,7 @@ export const DisplayTimer = <span class="cstat-no" title="statement not covered"
         async function <span class="fstat-no" title="function not covered" >fetchData(</span>){
           const relatedTasks = <span class="cstat-no" title="statement not covered" >await getRelatedTasksOfTimers(timer.id);</span>
 <span class="cstat-no" title="statement not covered" >            setRelatedTaskLists(matchedTaskLists(relatedTasks, tasklists))</span>
-        }  
+        }
         // may change to edit state instead of
 <span class="cstat-no" title="statement not covered" >        if(editMode === false){</span>
 <span class="cstat-no" title="statement not covered" >            await fetchData();</span>
@@ -531,7 +478,7 @@ export const DisplayTimer = <span class="cstat-no" title="statement not covered"
 }
 &nbsp;
 export const DisplayTimerArea = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
-    const {timer, hideTitle, hideEdit, changeAddedStatus, 
+    const {timer, hideTitle, hideEdit, changeAddedStatus,
         editMode, closeEditMode, openEditMode,
     } = <span class="cstat-no" title="statement not covered" >props;</span>
 &nbsp;
@@ -541,7 +488,7 @@ export const DisplayTimerArea = <span class="cstat-no" title="statement not cove
 &nbsp;
 &nbsp;
     const handleAddTimer = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-      
+&nbsp;
         const addTimerRoute = <span class="cstat-no" title="statement not covered" >`${SERVER_URL}/timerToUser/`;</span>
         const addTimerData = <span class="cstat-no" title="statement not covered" >{</span>
             userId: timer.timerToUserId,
@@ -551,7 +498,7 @@ export const DisplayTimerArea = <span class="cstat-no" title="statement not cove
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        await upsertData(addTimerRoute, addTimerData, 'POST').then(<span class="fstat-no" title="function not covered" >re</span>s=&gt;{</span>
 <span class="cstat-no" title="statement not covered" >            if(res.code === 201 &amp;&amp; res.data){</span>
-         
+&nbsp;
                 const newTimer = <span class="cstat-no" title="statement not covered" >Object.assign({}, timer);</span>
 <span class="cstat-no" title="statement not covered" >                newTimer.added = true;</span>
 <span class="cstat-no" title="statement not covered" >                updateTimerListState(newTimer.id, newTimer, true);</span>
@@ -561,7 +508,7 @@ export const DisplayTimerArea = <span class="cstat-no" title="statement not cove
 &nbsp;
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return editMode? </span>
+<span class="cstat-no" title="statement not covered" >    return editMode?</span>
     (  &lt;TimerForm editTimer = {timer} editMode = {true} closeEditMode = {closeEditMode}/&gt; ):
       (&lt;Container&gt;
         &lt;Header as='h2' textAlign='center' icon&gt;
@@ -582,23 +529,6 @@ export const DisplayTimerArea = <span class="cstat-no" title="statement not cove
         }
    &lt;/Container&gt;)
 };
-&nbsp;
-// const AddedTimerMessage = props =&gt; {
-//     const {handleClose, messageStatus} = props;
-//     const messageStyle = { left: '40%', position: 'fixed', bottom: '20%', zIndex: 1000 };
-//     return(&lt;TransitionablePortal onClose={handleClose} open={messageStatus.open}&gt;
-//           {messageStatus.success? &lt;Message positive  style={messageStyle}&gt;
-//             &lt;Message.Header&gt;Success&lt;/Message.Header&gt;
-//                 &lt;p&gt;Sucessfuly Added!&lt;/p&gt;
-//             &lt;/Message&gt; :  
-//                 (messageStatus.success === false? (&lt;Message negative  style={messageStyle}&gt;
-//                     &lt;Message.Header&gt;Error&lt;/Message.Header&gt;
-//                     &lt;p&gt;Request failed.&lt;/p&gt;
-//                 &lt;/Message&gt; ): "")
-//         }   
-     
-//       &lt;/TransitionablePortal&gt;)
-// }
 &nbsp;
 const SingleTimer = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
     const {
@@ -621,13 +551,13 @@ const SingleTimer = <span class="cstat-no" title="statement not covered" ><span 
             const newTimer = <span class="cstat-no" title="statement not covered" >Object.assign({}, displayTimer);</span>
 <span class="cstat-no" title="statement not covered" >            newTimer.added = added;</span>
 <span class="cstat-no" title="statement not covered" >            setDisplayTimer(newTimer);</span>
-            
+&nbsp;
         }
 <span class="cstat-no" title="statement not covered" >        setPopupstatus({open: true, success:success});</span>
 <span class="cstat-no" title="statement not covered" >        setTimeout(<span class="fstat-no" title="function not covered" >()</span>=&gt;<span class="cstat-no" title="statement not covered" >setPopupstatus({open:false, success:success}),</span> 2500);</span>
     }
 <span class="cstat-no" title="statement not covered" >    React.useEffect(<span class="fstat-no" title="function not covered" >()</span>=&gt;{</span>
-        
+&nbsp;
 &nbsp;
         async function <span class="fstat-no" title="function not covered" >fetchData(</span>){
            const parseTimerid = <span class="cstat-no" title="statement not covered" >getTimerId(timerid);</span>
@@ -650,36 +580,37 @@ const SingleTimer = <span class="cstat-no" title="statement not covered" ><span 
 <span class="cstat-no" title="statement not covered" >        fetchData();</span>
 &nbsp;
     }, [timerid, userId, editMode])
-   
- 
-    // find the user created timer =&gt; may need to change fetch
-    // const targetTimer = getTimerById(timerid); 
 &nbsp;
-   
+&nbsp;
+    // find the user created timer =&gt; may need to change fetch
+    // const targetTimer = getTimerById(timerid);
+&nbsp;
+&nbsp;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return !displayTimer || Object.keys(displayTimer).length === 0 ? (</span>
         &lt;NotFoundTimer/&gt;
     ):(
        &lt;&gt;
-        &lt;DisplayTimerArea  
-            editMode={editMode} 
-            closeEditMode={closeEditMode} 
-            openEditMode = {openEditMode} 
-            timer = {displayTimer} 
+        &lt;DisplayTimerArea
+            editMode={editMode}
+            closeEditMode={closeEditMode}
+            openEditMode = {openEditMode}
+            timer = {displayTimer}
             changeAddedStatus= {changeAddedStatus} /&gt;
         &lt;AddedTimerMessage handleClose = {handleMessageClose} messageStatus = {popupStatus} /&gt;
        &lt;/&gt;
     )
 };
 &nbsp;
-export default SingleTimer;</pre></td></tr></table></pre>
+export default SingleTimer;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 05 2020 18:31:18 GMT-0800 (GMT-08:00)
+                at Sun Dec 06 2020 00:31:40 GMT-0500 (GMT-05:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

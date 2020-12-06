@@ -55,22 +55,49 @@ describe("test <TimerDetailInfo/>", () => {
         userId: "-1",
         zoomLink: "None"
     }
+
+    const mockTimer2 = {
+        breakTime: 5,
+        description: "test!!!",
+        duration: 25,
+        id: -4,
+        isCreator: false,
+        round: 1,
+        startTime: new Date(),
+        timerToUserId: "0",
+        title: "test shared timer",
+        userId: "-1",
+        zoomLink: "None"
+    }
     const relatedTasks = mockRelatedTasksForTimer
 
     it("test normal ", async () => {
 
         wrapper = mount(
-            <TimerDetailInfo 
-                timer = {mockTimer} 
+            <TimerDetailInfo
+                timer = {mockTimer}
                 relatedTasklists = {relatedTasks}
-                attrNameSize='medium' 
-                contentSize='medium' 
-                hideTasks = {false} 
+                attrNameSize='medium'
+                contentSize='medium'
+                hideTasks = {false}
                 color = 'red'/>
          );
-       
-       
+
+
             expect(wrapper.find({name: "Related Tasks"}).length).toEqual(1);
+    });
+
+    it("test hide mode ", async () => {
+
+        wrapper = mount(
+            <TimerDetailInfo
+                timer = {mockTimer2}
+                relatedTasklists = {relatedTasks}
+                hideTasks = {true}/>
+         );
+
+
+            expect(wrapper.find({name: "Related Tasks"}).length).toEqual(0);
     });
 
 
