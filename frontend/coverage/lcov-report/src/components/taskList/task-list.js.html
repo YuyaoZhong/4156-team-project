@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">11.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>2/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>2/16</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -126,39 +126,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,7 +170,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -187,39 +187,39 @@ import TasklistCard from './tasklist-card';
 import { matchedTaskLists } from '../../utilities/tasklist-utilities';
 &nbsp;
 &nbsp;
-export const TaskListArea = props =&gt; {
-    const {curTaskLists, hideEdit} = props;
-    return ( &lt;Card.Group itemsPerRow = {3}&gt;
-        {curTaskLists.map((item, i)=&gt;{
-            return(&lt;TasklistCard key = {i} tasklist = {item} hideEdit = {hideEdit}/&gt;)
+export const TaskListArea = <span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {
+    const {curTaskLists, hideEdit} = <span class="cstat-no" title="statement not covered" >props;</span>
+<span class="cstat-no" title="statement not covered" >    return ( &lt;Card.Group itemsPerRow = {3}&gt;</span>
+        {curTaskLists.map(<span class="fstat-no" title="function not covered" >(i</span>tem, i)=&gt;{
+<span class="cstat-no" title="statement not covered" >            return(&lt;TasklistCard key = {i} tasklist = {item} hideEdit = {hideEdit}/&gt;)</span>
         })}
         &lt;/Card.Group&gt;)
 };
 &nbsp;
 &nbsp;
-const AllTaskLists = () =&gt;{
+const AllTaskLists = <span class="fstat-no" title="function not covered" >()</span> =&gt;{
     const {
         tasks,
         tasklists,
         loading,
-    } = useDataContext();
-    const [curTaskLists, setCurTaskLists] = React.useState(matchedTaskLists(tasks || [], tasklists || []));
+    } = <span class="cstat-no" title="statement not covered" >useDataContext();</span>
+    const [curTaskLists, setCurTaskLists] = <span class="cstat-no" title="statement not covered" >React.useState(matchedTaskLists(tasks || [], tasklists || []));</span>
      // console.log(curTaskLists, setCurTaskLists)
-    const [addTaskListMode, setAddTaskListMode] = React.useState(false);
-    const handleAddTaskListMode = (status) =&gt; setAddTaskListMode(status);
-    const closeAddTaskListMode = () =&gt; setAddTaskListMode(false);
-    const defaultNewList = {id: 0, name: "Default", tasks: Array(0)}
+    const [addTaskListMode, setAddTaskListMode] = <span class="cstat-no" title="statement not covered" >React.useState(false);</span>
+    const handleAddTaskListMode = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tatus) =&gt; <span class="cstat-no" title="statement not covered" >setAddTaskListMode(status);</span></span>
+    const closeAddTaskListMode = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setAddTaskListMode(false);</span></span>
+    const defaultNewList = <span class="cstat-no" title="statement not covered" >{id: 0, name: "Default", tasks: Array(0)}</span>
 &nbsp;
 &nbsp;
-    React.useEffect(()=&gt;{
-        setCurTaskLists(matchedTaskLists(tasks || [], tasklists || []));
+<span class="cstat-no" title="statement not covered" >    React.useEffect(<span class="fstat-no" title="function not covered" >()</span>=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        setCurTaskLists(matchedTaskLists(tasks || [], tasklists || []));</span>
     }, [tasks, tasklists, loading]);
 &nbsp;
-    return loading? "":(&lt;Container&gt;
+<span class="cstat-no" title="statement not covered" >    return loading? "":(&lt;Container&gt;</span>
         &lt;Header as='h1' textAlign='center'&gt;
             {/* &lt;Icon name='tasks'/&gt; */}
             Tasks
-            &lt;Button color = 'black' floated='right' onClick={()=&gt;handleAddTaskListMode(!addTaskListMode)}&gt;{
+            &lt;Button color = 'black' floated='right' onClick={<span class="fstat-no" title="function not covered" >()</span>=&gt;<span class="cstat-no" title="statement not covered" >handleAddTaskListMode(!addTaskListMode)}</span>&gt;{
                 !addTaskListMode? (&lt;&gt;
                 &lt;Icon name='plus'/&gt; Add Task List
                 &lt;/&gt;) : ("Cancel Add")
@@ -229,9 +229,9 @@ const AllTaskLists = () =&gt;{
 &nbsp;
 &nbsp;
        &lt;Card.Group itemsPerRow = {3}&gt;
-       {curTaskLists.map((item, i)=&gt;{
+       {curTaskLists.map(<span class="fstat-no" title="function not covered" >(i</span>tem, i)=&gt;{
 &nbsp;
-           return(&lt;TasklistCard key = {i} tasklist = {item}/&gt;)
+<span class="cstat-no" title="statement not covered" >           return(&lt;TasklistCard key = {i} tasklist = {item}/&gt;)</span>
        })}
        {addTaskListMode?&lt;NewTasklistCard tasklist = {defaultNewList} closeAddTaskListMode = {closeAddTaskListMode}/&gt;:&lt;h4&gt;&lt;/h4&gt;}
        &lt;/Card.Group&gt;
@@ -247,7 +247,7 @@ export default AllTaskLists;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 05 2020 17:49:11 GMT-0800 (GMT-08:00)
+                at Sat Dec 05 2020 21:27:14 GMT-0500 (GMT-05:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
