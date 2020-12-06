@@ -83,6 +83,25 @@ class TestTaskLists(TestCase):
         resp = json.loads(response.data)
         self.assertEqual(resp['code'], 400)
 
+        response = self.testApp.put("/tasklists/" + "NotAnInteger", json={})
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 400)
+
+        response = self.testApp.put('/tasklists/' + str(taskListId), json={
+            "name": "Put task list",
+            "notAUserId": '2'
+        })
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 400)
+
+        response = self.testApp.put('/tasklists/' + str(9999), json={
+            "name": "Put task list",
+            "userId": '2'
+        })
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 404)
+
+
 
     def testDeleteTaskLists(self):
         """test to delete a task list"""

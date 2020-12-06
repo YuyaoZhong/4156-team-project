@@ -47,7 +47,7 @@ export const DisplayTimer = props => {
         async function fetchData(){
           const relatedTasks = await getRelatedTasksOfTimers(timer.id);
             setRelatedTaskLists(matchedTaskLists(relatedTasks, tasklists))
-        }  
+        }
         // may change to edit state instead of
         if(editMode === false){
             await fetchData();
@@ -62,7 +62,7 @@ export const DisplayTimer = props => {
 }
 
 export const DisplayTimerArea = props => {
-    const {timer, hideTitle, hideEdit, changeAddedStatus, 
+    const {timer, hideTitle, hideEdit, changeAddedStatus,
         editMode, closeEditMode, openEditMode,
     } = props;
 
@@ -72,7 +72,7 @@ export const DisplayTimerArea = props => {
 
 
     const handleAddTimer = async () => {
-      
+
         const addTimerRoute = `${SERVER_URL}/timerToUser/`;
         const addTimerData = {
             userId: timer.timerToUserId,
@@ -82,7 +82,7 @@ export const DisplayTimerArea = props => {
 
         await upsertData(addTimerRoute, addTimerData, 'POST').then(res=>{
             if(res.code === 201 && res.data){
-         
+
                 const newTimer = Object.assign({}, timer);
                 newTimer.added = true;
                 updateTimerListState(newTimer.id, newTimer, true);
@@ -92,7 +92,7 @@ export const DisplayTimerArea = props => {
 
     }
 
-    return editMode? 
+    return editMode?
     (  <TimerForm editTimer = {timer} editMode = {true} closeEditMode = {closeEditMode}/> ):
       (<Container>
         <Header as='h2' textAlign='center' icon>
@@ -113,23 +113,6 @@ export const DisplayTimerArea = props => {
         }
    </Container>)
 };
-
-// const AddedTimerMessage = props => {
-//     const {handleClose, messageStatus} = props;
-//     const messageStyle = { left: '40%', position: 'fixed', bottom: '20%', zIndex: 1000 };
-//     return(<TransitionablePortal onClose={handleClose} open={messageStatus.open}>
-//           {messageStatus.success? <Message positive  style={messageStyle}>
-//             <Message.Header>Success</Message.Header>
-//                 <p>Sucessfuly Added!</p>
-//             </Message> :  
-//                 (messageStatus.success === false? (<Message negative  style={messageStyle}>
-//                     <Message.Header>Error</Message.Header>
-//                     <p>Request failed.</p>
-//                 </Message> ): "")
-//         }   
-     
-//       </TransitionablePortal>)
-// }
 
 const SingleTimer = props => {
     const {
@@ -152,13 +135,13 @@ const SingleTimer = props => {
             const newTimer = Object.assign({}, displayTimer);
             newTimer.added = added;
             setDisplayTimer(newTimer);
-            
+
         }
         setPopupstatus({open: true, success:success});
         setTimeout(()=>setPopupstatus({open:false, success:success}), 2500);
     }
     React.useEffect(()=>{
-        
+
 
         async function fetchData(){
            const parseTimerid = getTimerId(timerid);
@@ -181,22 +164,22 @@ const SingleTimer = props => {
         fetchData();
 
     }, [timerid, userId, editMode])
-   
- 
-    // find the user created timer => may need to change fetch
-    // const targetTimer = getTimerById(timerid); 
 
-   
+
+    // find the user created timer => may need to change fetch
+    // const targetTimer = getTimerById(timerid);
+
+
 
     return !displayTimer || Object.keys(displayTimer).length === 0 ? (
         <NotFoundTimer/>
     ):(
        <>
-        <DisplayTimerArea  
-            editMode={editMode} 
-            closeEditMode={closeEditMode} 
-            openEditMode = {openEditMode} 
-            timer = {displayTimer} 
+        <DisplayTimerArea
+            editMode={editMode}
+            closeEditMode={closeEditMode}
+            openEditMode = {openEditMode}
+            timer = {displayTimer}
             changeAddedStatus= {changeAddedStatus} />
         <AddedTimerMessage handleClose = {handleMessageClose} messageStatus = {popupStatus} />
        </>

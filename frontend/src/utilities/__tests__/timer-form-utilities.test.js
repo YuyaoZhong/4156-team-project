@@ -8,8 +8,39 @@ import {
     judgeStartTimerError,
     getDefaultTimer,
 } from "../timer-form-utilities"
+import {formatDate, formatTime} from "../utilities";
+import {mockTaskArray, mockTaskListArray} from "../mockData";
 
 describe("Timer form utilities tests", function () {
+
+    it("format task with tasklist test", function () {
+        let taskArray =  [
+            {
+                id: -1,
+                name: "Test Task 1",
+                status: 0,
+                taskListId: 0,
+                userId: "0"
+            },
+        ]
+
+        expect(formatTask(taskArray, [], mockTaskListArray)[0].taskListName).toEqual("Default")
+    })
+
+    it("format task with tasklist test", function () {
+        let taskArray =  [
+            {
+                id: -1,
+                name: "Test Task 1",
+                status: 0,
+                taskListId: -1,
+                userId: "0"
+            },
+        ]
+
+        expect(formatTask(taskArray, [], mockTaskListArray)[0].taskListName).toEqual("Test TaskList 1")
+    })
+
 
     it("Is numeric Attribute test", function () {
         expect(isNumericAttr("duration")).toEqual(true)
@@ -37,5 +68,92 @@ describe("Timer form utilities tests", function () {
         expect(checkTimeValid("19:05")).toEqual(true)
     })
 
-    
+    it("Judge Input No Error test", function () {
+        expect(judgeInputError("justAnotherAttr", "justAnotherValue")).toEqual({})
+        expect(judgeInputError("description", "")).toEqual({})
+        expect(judgeInputError("duration", "15")).toEqual({})
+    })
+
+    it("Judge Input Empty Error test", function () {
+        expect(judgeInputError("justAnotherAttr", "")).toEqual({
+            "justAnotherAttr": "justAnotherAttr can not be empty!"
+        })
+    })
+
+    it("Judge Input numeric Error test", function () {
+        expect(judgeInputError("duration", "NotANumber")).toEqual({
+            "duration": "duration must be number value"
+        })
+    })
+
+    it("Judge Input non-positive Error test", function () {
+        expect(judgeInputError("duration", "-15")).toEqual({
+            "duration": "duration value can not be negative!"
+        })
+    })
+
+    it("Judge start timer empty date error test", function () {
+        expect(judgeStartTimerError("date", "")).toEqual({
+            "date": "date can not be empty!"
+        })
+    })
+
+    it("Judge start timer not a date error test", function () {
+        expect(judgeStartTimerError("date", "not a date")).toEqual({
+            "date": "date format error"
+        })
+    })
+
+    it("Judge start timer date earlier than current error test", function () {
+        expect(judgeStartTimerError("date", "1969-10-26")).toEqual({
+            "date": "Start time can not be later than current time!"
+        })
+    })
+
+    it("Judge start timer time empty error test", function () {
+        expect(judgeStartTimerError("time", "")).toEqual({
+            "time": "time can not be empty!"
+        })
+    })
+
+    it("Judge start timer time invalid error test", function () {
+        expect(judgeStartTimerError("time", "", "20:91")).toEqual({
+            "time": "time format error"
+        })
+    })
+
+    it("Judge start timer wrong time error test", function () {
+        let date = formatDate(new Date())
+        let time = formatTime(new Date(new Date().getTime() - 15 * 60000))
+        expect(judgeStartTimerError("time", date, time, {})).toEqual({
+            "time": "Start time can not be later than current time!"
+        })
+    })
+
+    it("Judge start timer no date error test", function (){
+        expect(judgeStartTimerError("date", "2051-10-26")).toEqual({})
+    })
+
+
+    it("Judge start timer no time error test", function () {
+        let date = formatDate(new Date())
+        let time = formatTime(new Date(new Date().getTime() + 15 * 60000))
+        expect(judgeStartTimerError("time", date, time, {})).toEqual({})
+    })
+
+    it("Get default timer test", function () {
+        const delayMin = 5;
+        const curDefaultTime = new Date(new Date().getTime() + delayMin * 60000);
+        const minDate = formatDate(curDefaultTime);
+        const minTime = formatTime(curDefaultTime);
+        expect(getDefaultTimer()).toEqual({
+            'title': 'new timer',
+            'description': '',
+            'breakTime': 5,
+            'duration': 25,
+            'round': 1,
+            'date': minDate,
+            'time': minTime,
+        })
+    })
 })
