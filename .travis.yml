@@ -4,13 +4,14 @@ python:
 install:
   - cd backend/
   - pip install -r requirements.txt
+  - pip install codecov==2.0.15
 script:
   - pwd
   - ls
   - cd tests/
   - pwd
   - ls 
-  - pytest testTask.py
+  - pytest --cov=myproj testTask.py
   - pytest testTimer.py
   - pytest testTaskLists.py
   - pytest testUtilities.py
@@ -21,5 +22,4 @@ script:
   - pytest testBoundaryTasksToTimers.py
   - pytest TestBoundaryTimer.py
   - pytest testBoundaryTimerToUser.py
-after_success:
-  - codecov # submit coverage
+
