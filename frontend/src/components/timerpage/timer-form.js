@@ -50,7 +50,8 @@ const TimerForm = (props) => {
               newState[targetIdx].alterSelected = !newState[targetIdx].alterSelected;
           }
           return newState
-      })
+      });
+   
     }
 
  
@@ -165,21 +166,22 @@ const TimerForm = (props) => {
         const userId = isSignedIn ? googleUser.googleId : ""
         const toAddTasks = addedTasks.filter(filterToAdd);
         const addRoute = `${SERVER_URL}/task_timers/`
-        const toAddDataPromises = toAddTasks ? toAddTasks.map(item=>{
+        const toAddDataPromises = toAddTasks.map(item=>{
             const data = {
                 userId: userId,
                 taskId: item.id,
                 timerId: timerId
             };
             return upsertData(addRoute, data, 'POST');
-        }): []
+        })
     
        const toDeleteTasks = addedTasks.filter(filterToDelete);
-       const toDeletePromises = toDeleteTasks ? toDeleteTasks.map(item=>{
+    //    console.log('to delete', toDeleteTasks, addedTasks);
+       const toDeletePromises = toDeleteTasks.map(item=>{
            const deleteRoute = `${SERVER_URL}/task_timers/${item.relId}`;
-           console.log(deleteRoute);
+        //    console.log(deleteRoute);
            return deleteData(deleteRoute);
-       }) : [];
+       });
 
 
        await Promise.all(toAddDataPromises).then((results)=> {

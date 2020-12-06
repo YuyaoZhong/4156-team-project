@@ -12,7 +12,7 @@ import { DataContext} from '../../../context/data-context';
 import { GoogleAuthContext } from '../../../context/google-login-context';
 import TimerForm from '../timer-form';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
-
+import { upsertData, deleteData} from '../../../utilities/apiMethods';
 configure({ adapter: new Adapter() });
 
 
@@ -21,6 +21,13 @@ jest.mock('semantic-ui-calendar-react', ()=>({
     DateInput: ({name, value, onChange, onFocus, onBlur, ...rest}) =>(<input name={name} value = {value} onChange={onChange} onFocus={onFocus} onBlur = {onBlur}/>),
     TimeInput: ({name, value, onChange, onFocus, onBlur, ...rest}) =>(<input name={name} value = {value} onChange={onChange} onFocus={onFocus} onBlur = {onBlur}/>),
 }));
+
+jest.mock('../../../utilities/apiMethods', ()=>({
+    upsertData: jest.fn(),
+    deleteData: jest.fn()
+}));
+
+
 
 describe("test <TimerForm/> edit ( including boundary )", ()=>{
     const setState = jest.fn();
@@ -73,8 +80,10 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
     
    it("test create timer with default value", async () => {
         handleCreateTimer.mockResolvedValue(mockNewTimerId);
-        act(()=>{
-            wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
+        await act(async ()=>{
+            await wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
+            wrapper = wrapper.update();
+        
         })
         expect(handleCreateTimer).toHaveBeenCalled();
 
@@ -83,7 +92,7 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
 
         
    it("test attach task to timer", async () => {
-
+        handleCreateTimer.mockResolvedValue(mockNewTimerId);
         let attachedTaskElement = wrapper.find('AttachedTasks');
         // console.log(attachedTaskElement.debug());
         expect(attachedTaskElement.find('ListItem')).not.toExist();
@@ -92,7 +101,7 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
         await act(async ()=>{
             await findElement.find("button").simulate('click');
             findElement = findElement.update()
-            let findTaskToAdd = findElement.find('AttachList').find('ListItem').at(0);
+            let findTaskToAdd = findElement.find('AttachList').find('ListItem').at(2);
             await findTaskToAdd.simulate('click');
             findTaskToAdd = findTaskToAdd.update();
             attachedTaskElement = findTaskToAdd.find('AttachedTasks');
@@ -112,6 +121,7 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
 
 
    it("test delete attached tasks", async () => {
+    handleCreateTimer.mockResolvedValue(mockNewTimerId);
     getRelatedTasksOfTimers.mockResolvedValue(mockRelatedTasksForTimer);
 
     act(()=>{
@@ -119,8 +129,10 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
     });
     let attachedTaskElement = wrapper.find('AttachedTasks');
     expect(attachedTaskElement.find('ListItem')).toHaveLength(mockRelatedTasksForTimer.length);
-    let toDeleteTask = attachedTaskElement.find('ListItem').at(0).find({name: "close"});
-    console.log(toDeleteTask.debug());
+    let toDeleteTask = attachedTaskElement.find('ListItem').at(0).find({name:"close", color:"red"});
+    // console.log(toDeleteTask.debug());
+    // console.log(attachedTaskElement.find('ListItem').debug());
+
     await act(async ()=>{
 
         await toDeleteTask.simulate('click');
@@ -128,12 +140,13 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
         attachedTaskElement = wrapper.find('AttachedTasks');
     
     });
+
     // test whether element has been deleted
     expect(attachedTaskElement.find('ListItem')).toHaveLength(mockRelatedTasksForTimer.length - 1);
     // expect(attachedTaskElement.find('ListItem')).toExist();
 
     await act(async()=>{
-        wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
+        await wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
     });
 
     expect(handleCreateTimer).toHaveBeenCalled();
@@ -144,7 +157,7 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
 
    // boundary tests;
 it("test title with empty check", async () => {
-    handleCreateTimer.mockResolvedValue(mockNewTimerId);
+    // await handleCreateTimer.mockResolvedValue(mockNewTimerId);
     const attrName = "title";
     const titleEmpty = "";
     const normalName = "New Timer";

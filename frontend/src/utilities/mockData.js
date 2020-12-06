@@ -140,7 +140,7 @@ const mockEditTimer =  {
 const mockRelatedTasksForTimer = [
         {
             id: -1,
-            relId: -1,
+            relId: -100,
             name: "Test Task 1",
             status: 0,
             taskListId: 0,

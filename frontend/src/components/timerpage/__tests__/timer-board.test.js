@@ -42,7 +42,7 @@ describe("test <TimelineBoard/>", ()=>{
         act(()=>{
             wrapper =mount(<Router>
                     <DataContext.Provider value = {{
-                    incomingTimers: mockTimerArray
+                    incomingTimers: onBoundaryArray
                 }}
             >
                 <TimelineBoard/>
@@ -50,7 +50,7 @@ describe("test <TimelineBoard/>", ()=>{
             </Router>)
         });
             // console.log(wrapper.debug())
-       expect(wrapper.find('Card')).toHaveLength(5);
+       expect(wrapper.find('Card')).toHaveLength(onBoundaryArray.length);
     });
 
 

@@ -30,7 +30,7 @@ const dateFormatter = ({cell}) =>{
 const linkFormatter = ({row, cell}) => {
     const {value } = cell;
     const {values} = row;
-    const timerId = values ? values.id : 0;
+    const timerId = values.id || 0;
     return (
       <>
          

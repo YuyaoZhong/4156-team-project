@@ -6,8 +6,12 @@ import { ZOOM_LINK_URL, CLIENT_URL, SERVER_URL } from '../../constants/constants
 import { useParams, Link} from 'react-router-dom'
 import TimerDetailInfo  from './timer-detail-info';
 import TimerForm from '../timerpage/timer-form';
+import AddedTimerMessage from './timer-message';
+import ZoomButton from '../zoom/zoom-button';
+import ShareButton from './share-button';
 import { matchedTaskLists } from '../../utilities/tasklist-utilities';
 import { upsertData } from '../../utilities/apiMethods';
+import { getSharingUrl,  getTimerId} from '../../utilities/timer-utilities';
 // import { isCompositeComponent } from 'react-dom/cjs/react-dom-test-utils.production.min';
 
 // this.props.match.params.number
@@ -21,88 +25,12 @@ const NotFoundTimer = () => {
     </Container>)
 };
 
-const ZoomButton = props => {
-    const {link, timerId} = props
-    const zoomUrl = ZOOM_LINK_URL +  `&state=${timerId}`;
-    return link && link !== "None"?
-    (<a href={link} target='_blank'><Button primary floated='right' size = 'big'>Join Zoom Meeting</Button></a>)
-    :(<a href={zoomUrl} ><Button floated='right' color='grey' size = 'big'>Add a Zoom Session</Button></a>);
-}
 
-// todo: move to utilts
-const getSharingUrl = (timerId, userId) =>{
-
-    const toEncodeString = `timerId=${timerId}&creator=${userId}`;
-    const encodedString = btoa(toEncodeString)
-    const sharingUrl = `${CLIENT_URL}/timer/${encodedString}`
-    return sharingUrl;
-}
-
-const getTimerId = (paramTimerId) => {
-    
-    let tryParseInt = parseInt(paramTimerId, 10);
-    if (isNaN(tryParseInt)) {
-      const decodeString = atob(paramTimerId);
-      const params = decodeString.split('&')
-      const paraObject = {};
-      for(var i = 0; i < params.length; i++){
-          if(params[i].includes('=')){
-              const paramsAttr = params[i].split('=')
-              if(paramsAttr.length == 2){
-                  paraObject[paramsAttr[0]] = paramsAttr[1];
-              }
-          }
-        }
-    
-        tryParseInt = parseInt(paraObject.timerId);
-        if(isNaN(tryParseInt)){
-           tryParseInt = -1;
-        }
-    } 
-
-    return tryParseInt;
-
-
-}
 // const decodeSharingUrl = (sharingUrl)=>{
 //     const paras = sharingUrl.split('/');
 // }
 
 
-const ShareButton = props => {
-    const {timerId, userId} = props;
-    const [open, setOpen] = React.useState(false);
-    const buttonRef = React.useRef();
-    const POPUP_LAST_SEC = 2500;
-    const sharingUrl = getSharingUrl(timerId, userId);
-    let timeout;
-    const toggleButton = () => {
-        if(!open){
-            setOpen(true);
-            timeout = setTimeout(()=>{
-                setOpen(false);
-            }, POPUP_LAST_SEC);
-        } else {
-            setOpen(false);
-            clearTimeout(timeout);
-        }
-    }
-
-   return( <div>
-            <CopyToClipboard text={sharingUrl}>
-                <Button  onClick={toggleButton} floated='right' color='grey' size = 'big'> Sharing Timer </Button>
-            </CopyToClipboard>
-            <div ref={buttonRef} style = {{minHeight: "50px"}}>
-                <Popup
-                    context={buttonRef}
-                    content= {`Link copied! ${sharingUrl}`}
-                    on='click'
-                    open={open}
-                    position = 'bottom center'
-                />
-            </div>
-   </div>)
-}
 
 
 export const DisplayTimer = props => {
@@ -137,13 +65,11 @@ export const DisplayTimerArea = props => {
     const {timer, hideTitle, hideEdit, changeAddedStatus, 
         editMode, closeEditMode, openEditMode,
     } = props;
-    // const [editMode, setEditMode] = React.useState(false);
 
     const {
         updateTimerListState,
     } = useDataContext();
 
-    // const closeEditMode = ()=> setEditMode(false);
 
     const handleAddTimer = async () => {
       
@@ -188,22 +114,22 @@ export const DisplayTimerArea = props => {
    </Container>)
 };
 
-const AddedTimerMessage = props => {
-    const {handleClose, messageStatus} = props;
-    const messageStyle = { left: '40%', position: 'fixed', bottom: '20%', zIndex: 1000 };
-    return(<TransitionablePortal onClose={handleClose} open={messageStatus.open}>
-          {messageStatus.success? <Message positive  style={messageStyle}>
-            <Message.Header>Success</Message.Header>
-                <p>Sucessfuly Added!</p>
-            </Message> :  
-                (messageStatus.success === false? (<Message negative  style={messageStyle}>
-                    <Message.Header>Error</Message.Header>
-                    <p>Request failed.</p>
-                </Message> ): "")
-        }   
+// const AddedTimerMessage = props => {
+//     const {handleClose, messageStatus} = props;
+//     const messageStyle = { left: '40%', position: 'fixed', bottom: '20%', zIndex: 1000 };
+//     return(<TransitionablePortal onClose={handleClose} open={messageStatus.open}>
+//           {messageStatus.success? <Message positive  style={messageStyle}>
+//             <Message.Header>Success</Message.Header>
+//                 <p>Sucessfuly Added!</p>
+//             </Message> :  
+//                 (messageStatus.success === false? (<Message negative  style={messageStyle}>
+//                     <Message.Header>Error</Message.Header>
+//                     <p>Request failed.</p>
+//                 </Message> ): "")
+//         }   
      
-      </TransitionablePortal>)
-}
+//       </TransitionablePortal>)
+// }
 
 const SingleTimer = props => {
     const {

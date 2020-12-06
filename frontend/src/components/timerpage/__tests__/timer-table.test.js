@@ -73,6 +73,27 @@ describe("test <TimerTable/>", ()=>{
 
     });
 
+
+    it('render special input', async ()=>{
+       
+
+        const newMockArray = mockTimerArray.slice(0, 1);
+        newMockArray[0].startTime = null;
+        newMockArray[0].id = null;
+
+        wrapper = mount(<Router>
+            <DataContext.Provider value = {{
+                timerList: newMockArray,
+                handleDeleteTimer: handleDeleteTimer,
+        }}
+         >
+            <TimerTable/>
+        </DataContext.Provider>
+        </Router>)
+
+        expect(wrapper.find('table')).toExist();
+    });
+
     
 
 });

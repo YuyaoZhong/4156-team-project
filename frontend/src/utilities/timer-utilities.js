@@ -1,3 +1,6 @@
+import { CLIENT_URL } from '../constants/constants';
+
+
 const formatTime = (timeLeftInSecond) => {
     let hour = Math.floor(timeLeftInSecond / (60 * 60));
     let hourDisplay = hour < 10 ? '0' + hour : hour;
@@ -51,9 +54,48 @@ const formatTime = (timeLeftInSecond) => {
   };
 
 
+  // todo: move to utilts
+const getSharingUrl = (timerId, userId) =>{
+
+    const toEncodeString = `timerId=${timerId}&creator=${userId}`;
+    const encodedString = btoa(toEncodeString)
+    const sharingUrl = `${CLIENT_URL}/timer/${encodedString}`
+    return sharingUrl;
+}
+
+const getTimerId = (paramTimerId) => {
+    
+    let tryParseInt = parseInt(paramTimerId, 10);
+    if (isNaN(tryParseInt)) {
+      const decodeString = atob(paramTimerId);
+      const params = decodeString.split('&')
+      const paraObject = {};
+      for(var i = 0; i < params.length; i++){
+          if(params[i].includes('=')){
+              const paramsAttr = params[i].split('=')
+              if(paramsAttr.length == 2){
+                  paraObject[paramsAttr[0]] = paramsAttr[1];
+              }
+          }
+        }
+    
+        tryParseInt = parseInt(paraObject.timerId);
+        if(isNaN(tryParseInt)){
+           tryParseInt = -1;
+        }
+    } 
+
+    return tryParseInt;
+
+
+}
+
   export {
       formatTime,
       getcurRound,
       inBreak,
       getTimeLeft,
+      getSharingUrl,
+      getTimerId
+
   }
