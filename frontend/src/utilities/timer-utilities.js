@@ -25,7 +25,7 @@ const formatTime = (timeLeftInSecond) => {
        curRound += 1;
        curStartTime = new Date(curStartTime.getTime() + minutes * 60000);
      }
-     return curRound;
+     return curRound > timer.round ? -1 : curRound;
   
   };
   
@@ -67,7 +67,13 @@ const getTimerId = (paramTimerId) => {
     
     let tryParseInt = parseInt(paramTimerId, 10);
     if (isNaN(tryParseInt)) {
-      const decodeString = atob(paramTimerId);
+      let decodeString = ""
+      try{
+        decodeString = atob(paramTimerId);
+      }
+      catch (err) {
+          return -1
+      }
       const params = decodeString.split('&')
       const paraObject = {};
       for(var i = 0; i < params.length; i++){
