@@ -13,6 +13,8 @@ import { GoogleAuthContext } from '../../../context/google-login-context';
 import TimerForm from '../timer-form';
 import { DateInput, TimeInput } from 'semantic-ui-calendar-react';
 import { upsertData, deleteData} from '../../../utilities/apiMethods';
+
+
 configure({ adapter: new Adapter() });
 
 
@@ -26,7 +28,6 @@ jest.mock('../../../utilities/apiMethods', ()=>({
     upsertData: jest.fn(),
     deleteData: jest.fn()
 }));
-
 
 
 describe("test <TimerForm/> edit ( including boundary )", ()=>{
@@ -78,14 +79,17 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
 
 
     
-   it("test create timer with default value", async () => {
+   it("test edit timer form", async () => {
         handleCreateTimer.mockResolvedValue(mockNewTimerId);
         await act(async ()=>{
             await wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
             wrapper = wrapper.update();
-        
         })
+
+        // console.log(wrapper.debug());
         expect(handleCreateTimer).toHaveBeenCalled();
+
+
 
     });
 
@@ -147,6 +151,7 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
 
     await act(async()=>{
         await wrapper.find({floated:"right", type: "button"}).at(1).simulate('click');
+        wrapper = wrapper.update();
     });
 
     expect(handleCreateTimer).toHaveBeenCalled();
@@ -195,7 +200,7 @@ it("test title with empty check", async () => {
     // clear errors
     await act(async ()=>{
         await targetTitleElement.simulate('focus');
-
+        wrapper = wrapper.update(); 
         await targetTitleElement.simulate('change', {
             name: attrName,
             value: normalName,
@@ -255,7 +260,6 @@ it("test past start date", async () => {
     
     await act(async ()=>{
         await  targetElement.simulate('focus');
-        
         await targetElement.simulate('change',{
             target:{ 
                 name: attrName,

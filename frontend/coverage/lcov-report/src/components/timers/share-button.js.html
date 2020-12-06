@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -103,26 +103,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,26 +144,26 @@ import { Button, Popup} from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getSharingUrl } from '../../utilities/timer-utilities';
 &nbsp;
-const ShareButton = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
-    const {timerId, userId} = <span class="cstat-no" title="statement not covered" >props;</span>
-    const [open, setOpen] = <span class="cstat-no" title="statement not covered" >React.useState(false);</span>
-    const buttonRef = <span class="cstat-no" title="statement not covered" >React.useRef();</span>
-    const POPUP_LAST_SEC = <span class="cstat-no" title="statement not covered" >2500;</span>
-    const sharingUrl = <span class="cstat-no" title="statement not covered" >getSharingUrl(timerId, userId);</span>
+const ShareButton = props =&gt; {
+    const {timerId, userId} = props;
+    const [open, setOpen] = React.useState(false);
+    const buttonRef = React.useRef();
+    const POPUP_LAST_SEC = 2500;
+    const sharingUrl = getSharingUrl(timerId, userId);
     let timeout;
-    const toggleButton = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if(!open){</span>
-<span class="cstat-no" title="statement not covered" >            setOpen(true);</span>
-<span class="cstat-no" title="statement not covered" >            timeout = setTimeout(<span class="fstat-no" title="function not covered" >()</span>=&gt;{</span>
-<span class="cstat-no" title="statement not covered" >                setOpen(false);</span>
+    const toggleButton = () =&gt; {
+        if(!open){
+            setOpen(true);
+            timeout = setTimeout(()=&gt;{
+                setOpen(false);
             }, POPUP_LAST_SEC);
         } else {
-<span class="cstat-no" title="statement not covered" >            setOpen(false);</span>
-<span class="cstat-no" title="statement not covered" >            clearTimeout(timeout);</span>
+            setOpen(false);
+            clearTimeout(timeout);
         }
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >   return( &lt;div&gt;</span>
+   return( &lt;div&gt;
             &lt;CopyToClipboard text={sharingUrl}&gt;
                 &lt;Button  onClick={toggleButton} floated='right' color='grey' size = 'big'&gt; Sharing Timer &lt;/Button&gt;
             &lt;/CopyToClipboard&gt;
@@ -187,7 +187,7 @@ export default ShareButton;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 05 2020 21:27:14 GMT-0500 (GMT-05:00)
+                at Sat Dec 05 2020 18:31:18 GMT-0800 (GMT-08:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

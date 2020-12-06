@@ -83,6 +83,11 @@ class TestTaskLists(TestCase):
         resp = json.loads(response.data)
         self.assertEqual(resp['code'], 400)
 
+        response = self.testApp.put("/tasklists/" + "NotAnInteger", json={})
+        resp = json.loads(response.data)
+        self.assertEqual(resp['code'], 400)
+
+
 
     def testDeleteTaskLists(self):
         """test to delete a task list"""
