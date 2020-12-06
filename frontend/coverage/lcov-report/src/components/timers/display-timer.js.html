@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/timerpage/display-attached-tasks.js</title>
+    <title>Code coverage report for src/components/timers/display-timer.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/timerpage</a> display-attached-tasks.js</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/timers</a> display-timer.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -82,57 +82,84 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">50x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Icon, List, Label} from 'semantic-ui-react';
-import './attach-list.css';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { useDataContext } from '../../context/data-context';
+import TimerDetailInfo  from './timer-detail-info';
+import { matchedTaskLists } from '../../utilities/tasklist-utilities';
 &nbsp;
-const AttachedTasks =  props =&gt; {
-    const {data, selectHandler, hideRemove, noBorder} = props;
-    return  data &amp;&amp; data.length &gt; 0 ? (   &lt;List&gt;
-         {
-                data.map((item, i)=&gt;{
-                        return(&lt;List.Item key = {i}&gt;
-                            &lt;Label basic size = 'big' className ={noBorder? "no-border-label" : ""}&gt;
-                            &lt;Label circular size = 'medium' style ={{marginRight: "5px"}}&gt;
-                                {item.taskListName}
-                            &lt;/Label&gt;
-                            {item.name}
-                            {
-                                hideRemove? "":
-                                &lt;Icon name = 'close' color = 'red' onClick = {()=&gt;{selectHandler(item.key)}}/&gt;
-                            }
-                            &lt;/Label&gt;
-                        &lt;/List.Item&gt;)
-                    })
-                }
-    &lt;/List&gt;):""
-};
+const DisplayTimer = props =&gt; {
 &nbsp;
-export default AttachedTasks;</pre></td></tr></table></pre>
+    const {timer, editMode} = props;
+    const {
+        getRelatedTasksOfTimers,
+        tasklists,
+    } = useDataContext();
+&nbsp;
+    const [relatedTaskLists, setRelatedTaskLists] = React.useState([]);
+&nbsp;
+    React.useEffect(async ()=&gt;{
+        async function fetchData(){
+          const relatedTasks = await getRelatedTasksOfTimers(timer.id);
+            setRelatedTaskLists(matchedTaskLists(relatedTasks, tasklists))
+        }
+        // may change to edit state instead of
+        if(editMode === false){
+            await fetchData();
+        }
+    }, [editMode]);
+&nbsp;
+    const displayTasklist = relatedTaskLists &amp;&amp; relatedTaskLists.length &gt; 0?
+    relatedTaskLists.filter(item=&gt;(item.tasks &amp;&amp; item.tasks.length &gt; 0)) : [];
+&nbsp;
+    return ( &lt;TimerDetailInfo timer = {timer} relatedTasklists = {displayTasklist} /&gt;)
+&nbsp;
+}
+&nbsp;
+&nbsp;
+export default DisplayTimer;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
