@@ -21,5 +21,8 @@ script:
   - pytest testBoundaryTasksToTimers.py
   - pytest TestBoundaryTimer.py
   - pytest testBoundaryTimerToUser.py
+script:
+  - cd ../frontend/
+  - npm run test -- --coverage --watchAll=false
   
   
