@@ -5,7 +5,7 @@ install:
   - cd frontend/
   - npm install package.json
 script:
-  npm run test -- --coverage --watchAll=false
+  - npm run test -- --coverage --watchAll=false
 
 
 
