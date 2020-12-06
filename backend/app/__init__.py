@@ -18,7 +18,6 @@ from app.routes.tasksToTimers import *
 from app.routes.timerToUser import *
 from app.routes.zoom import *
 
-
 class MyJSONEncoder(json.JSONEncoder):
     """ JSON Encoder for possible decimal data"""
     def default(self, obj):
