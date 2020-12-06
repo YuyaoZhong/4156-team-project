@@ -1,24 +1,13 @@
-language: python
-python:
- - "3.7"
-install:
- - cd ../backend
- - pip install -r requirements.txt
-script:
- - pwd
- - ls
- - cd tests/
- - pwd
- - ls 
- - pytest testTask.py
- - pytest testTimer.py
- - pytest testTaskLists.py
- - pytest testUtilities.py
- - pytest testTasksToTimers.py
- - pytest testTimerToUser.py
- - pytest testBoundaryTaskLists.py
- - pytest testBoundaryTasks.py
- - pytest testBoundaryTasksToTimers.py
- - pytest TestBoundaryTimer.py
- - pytest testBoundaryTimerToUser.py
+jobs:
+  include:
+    -language: node_js
+     node_js:
+       - "12.13"
+     install:
+       - cd frontend/
+       - npm install package.json
+     script:
+       - npm run test -- --coverage --watchAll=false
+    
+
 
