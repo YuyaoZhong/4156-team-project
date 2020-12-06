@@ -38,11 +38,11 @@ const AllTaskLists = () =>{
         <Header as='h1' textAlign='center'>
             {/* <Icon name='tasks'/> */}
             Tasks
-    <Button color = 'black' floated='right' onClick={()=>handleAddTaskListMode(!addTaskListMode)}>{
-        !addTaskListMode? (<>
-        <Icon name='plus'/> Add Task List
-        </>) : ("Cancel Add")
-    }</Button>
+            <Button color = 'black' floated='right' onClick={()=>handleAddTaskListMode(!addTaskListMode)}>{
+                !addTaskListMode? (<>
+                <Icon name='plus'/> Add Task List
+                </>) : ("Cancel Add")
+            }</Button>
         </Header>
 
 

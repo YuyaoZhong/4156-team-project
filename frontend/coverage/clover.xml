@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607218994380" clover="3.2.0">
-  <project timestamp="1607218994380" name="All files">
-    <metrics statements="804" coveredstatements="0" conditionals="477" coveredconditionals="0" methods="223" coveredmethods="0" elements="1504" coveredelements="0" complexity="0" loc="804" ncloc="804" packages="12" files="35" classes="35"/>
+<coverage generated="1607219017853" clover="3.2.0">
+  <project timestamp="1607219017853" name="All files">
+    <metrics statements="804" coveredstatements="0" conditionals="479" coveredconditionals="0" methods="222" coveredmethods="0" elements="1505" coveredelements="0" complexity="0" loc="804" ncloc="804" packages="12" files="35" classes="35"/>
     <package name="src">
       <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="App.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\App.js">
@@ -724,7 +724,7 @@
       </file>
     </package>
     <package name="src.utilities">
-      <metrics statements="203" coveredstatements="0" conditionals="135" coveredconditionals="0" methods="36" coveredmethods="0"/>
+      <metrics statements="203" coveredstatements="0" conditionals="137" coveredconditionals="0" methods="35" coveredmethods="0"/>
       <file name="apiMethods.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\apiMethods.js">
         <metrics statements="6" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
@@ -854,7 +854,7 @@
         <line num="152" count="0" type="stmt"/>
       </file>
       <file name="timer-utilities.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\timer-utilities.js">
-        <metrics statements="52" coveredstatements="0" conditionals="26" coveredconditionals="0" methods="6" coveredmethods="0"/>
+        <metrics statements="55" coveredstatements="0" conditionals="28" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="4" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -873,7 +873,7 @@
         <line num="23" count="0" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
+        <line num="28" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="33" count="0" type="stmt"/>
         <line num="34" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="35" count="0" type="stmt"/>
@@ -898,18 +898,21 @@
         <line num="70" count="0" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="75" count="0" type="stmt"/>
-        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="77" count="0" type="stmt"/>
-        <line num="82" count="0" type="stmt"/>
-        <line num="83" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="84" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="80" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="82" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="83" count="0" type="stmt"/>
         <line num="88" count="0" type="stmt"/>
+        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
       </file>
       <file name="utilities.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\utilities.js">
-        <metrics statements="35" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="11" coveredmethods="0"/>
+        <metrics statements="32" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="10" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="4" count="0" type="stmt"/>
@@ -922,9 +925,6 @@
         <line num="13" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
