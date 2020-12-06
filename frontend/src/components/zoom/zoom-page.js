@@ -22,7 +22,7 @@ const CreateZoomPage = () => {
             // console.log(createZoomUrl);
             await upsertData(createZoomUrl, {}, 'PUT').then(res=>{
                 console.log(res);
-                if(res.code == 200){
+                if(res.code === 200){
                     const timerData = res.data.timer;
                     updateTimerListState(timerData.id, timerData, true);
                     setRedirect(`/timer/${timerData.id}`)

@@ -3,7 +3,6 @@ import {Route, Redirect} from 'react-router-dom';
 import { useGoogleAuth } from "../context/google-login-context";
 
 const PrivateRoute = ({component: Component, path, ...rest}) => {
-
     const { isSignedIn } = useGoogleAuth();
 
     return (

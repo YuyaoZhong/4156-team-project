@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -106,40 +106,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,40 +149,40 @@ import { useLocation, Redirect} from 'react-router-dom'
 import { upsertData } from '../../utilities/apiMethods';
 import { useDataContext } from '../../context/data-context';
 &nbsp;
-const CreateZoomPage = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+const CreateZoomPage = () =&gt; {
 &nbsp;
     // const [creating, setCreating ] = React.useState(true);
     // console.log(useLocation())
-    const { updateTimerListState } = <span class="cstat-no" title="statement not covered" >useDataContext();</span>
-    const [redirect, setRedirect] = <span class="cstat-no" title="statement not covered" >React.useState(null);</span>
+    const { updateTimerListState } = useDataContext();
+    const [redirect, setRedirect] = React.useState(null);
     
-    const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
-    const path = <span class="cstat-no" title="statement not covered" >location.pathname.slice(0);</span>
+    const location = useLocation();
+    const path = location.pathname.slice(0);
     
-<span class="cstat-no" title="statement not covered" >    React.useEffect(<span class="fstat-no" title="function not covered" >()</span>=&gt;{</span>
+    React.useEffect(()=&gt;{
 &nbsp;
-        async function <span class="fstat-no" title="function not covered" >createZoom(</span>){
+        async function createZoom(){
         
-            const createZoomUrl =  <span class="cstat-no" title="statement not covered" >`${SERVER_URL}${path}${location.search}`;</span>
+            const createZoomUrl =  `${SERVER_URL}${path}${location.search}`;
             // console.log(createZoomUrl);
-<span class="cstat-no" title="statement not covered" >            await upsertData(createZoomUrl, {}, 'PUT').then(<span class="fstat-no" title="function not covered" >re</span>s=&gt;{</span>
-<span class="cstat-no" title="statement not covered" >                console.log(res);</span>
-<span class="cstat-no" title="statement not covered" >                if(res.code == 200){</span>
-                    const timerData = <span class="cstat-no" title="statement not covered" >res.data.timer;</span>
-<span class="cstat-no" title="statement not covered" >                    updateTimerListState(timerData.id, timerData, true);</span>
-<span class="cstat-no" title="statement not covered" >                    setRedirect(`/timer/${timerData.id}`)</span>
+            await upsertData(createZoomUrl, {}, 'PUT').then(res=&gt;{
+                console.log(res);
+                if(res.code === 200){
+                    const timerData = res.data.timer;
+                    updateTimerListState(timerData.id, timerData, true);
+                    setRedirect(`/timer/${timerData.id}`)
                 }
 &nbsp;
             })
 &nbsp;
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        createZoom();</span>
+        createZoom();
 &nbsp;
     }, [])
 &nbsp;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return redirect &amp;&amp; redirect.length &gt; 0 ? (&lt;Redirect push to = {redirect} /&gt; ) : (&lt;div&gt;Creating...&lt;/div&gt;)</span>
+    return redirect &amp;&amp; redirect.length &gt; 0 ? (&lt;Redirect push to = {redirect} /&gt; ) : (&lt;div&gt;Creating...&lt;/div&gt;)
 }
 &nbsp;
 &nbsp;
@@ -193,7 +193,7 @@ export default CreateZoomPage;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 05 2020 19:29:10 GMT-0800 (GMT-08:00)
+                at Sat Dec 05 2020 21:19:59 GMT-0800 (GMT-08:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
