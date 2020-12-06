@@ -23,9 +23,15 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
+<<<<<<< HEAD
                 <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>5/6</span>
+=======
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/6</span>
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
             </div>
         
             
@@ -37,16 +43,28 @@
         
             
             <div class='fl pad1y space-right2'>
+<<<<<<< HEAD
                 <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>3/4</span>
+=======
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/4</span>
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
             </div>
         
             
             <div class='fl pad1y space-right2'>
+<<<<<<< HEAD
                 <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>5/6</span>
+=======
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/6</span>
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
             </div>
         
             
@@ -55,7 +73,11 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
+<<<<<<< HEAD
     <div class='status-line high'></div>
+=======
+    <div class='status-line low'></div>
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -81,19 +103,29 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
+<<<<<<< HEAD
 <a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">4x</span>
+=======
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">1x</span>
+=======
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -105,19 +137,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const upsertData = (route, data, method) =&gt; {
-    return fetch(route, {
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const upsertData = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(r</span>oute, data, method) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return fetch(route, {</span>
         method: method,
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-    }).then(r=&gt;r.json())
+    }).then(<span class="fstat-no" title="function not covered" >r=</span>&gt;<span class="cstat-no" title="statement not covered" >r.json())</span>
 };
 &nbsp;
+<<<<<<< HEAD
 const deleteData = (route) =&gt; {
     return fetch(route, {
+=======
+const deleteData = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(r</span>oute) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return fetch(route, {</span>
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
         method: "DELETE",
         mode: 'cors'
     }).then(<span class="fstat-no" title="function not covered" >r=</span>&gt;<span class="cstat-no" title="statement not covered" >r.json())</span>
@@ -136,7 +173,11 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
+<<<<<<< HEAD
                 at Sat Dec 05 2020 21:21:59 GMT-0800 (GMT-08:00)
+=======
+                at Sun Dec 06 2020 00:36:27 GMT-0500 (GMT-05:00)
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
             </div>
         </div>
         <script src="../../prettify.js"></script>

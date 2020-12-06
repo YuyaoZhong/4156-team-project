@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.62% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/29</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -122,18 +122,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">43x</span>
-<span class="cline-any cline-yes">43x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,42 +182,42 @@ import { Label, List  } from 'semantic-ui-react';
 import { TaskListArea } from '../taskList/task-list';
 import { formatDateAndTime } from '../../utilities/utilities';
 &nbsp;
-export const TimerDetailAttr = props =&gt;{
-    const {name, size} = props;
-    return (  
+export const TimerDetailAttr = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt;{</span>
+    const {name, size} = <span class="cstat-no" title="statement not covered" >props;</span>
+<span class="cstat-no" title="statement not covered" >    return (  </span>
     &lt;Label  size = {size || 'huge'} &gt;
      {name}
  &lt;/Label&gt;)
 }
 &nbsp;
-const TimerDetailInfo = props =&gt; {
-    const {timer, relatedTasklists,  attrNameSize, contentSize, hideTasks, color } = props;
+const TimerDetailInfo = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {</span>
+    const {timer, relatedTasklists,  attrNameSize, contentSize, hideTasks, color } = <span class="cstat-no" title="statement not covered" >props;</span>
     
-    return (  &lt;List divided&gt;
+<span class="cstat-no" title="statement not covered" >    return (  &lt;List divided&gt;</span>
            &lt;List.Item&gt;
-          &lt;TimerDetailAttr size ={ attrNameSize || <span class="branch-1 cbranch-no" title="branch not covered" >'huge'}</span> name = 'Configuration'/&gt;
-          &lt;Label circular  color = { color  || <span class="branch-1 cbranch-no" title="branch not covered" >'red'}</span> size = {contentSize || <span class="branch-1 cbranch-no" title="branch not covered" >'large'}</span> &gt;
+          &lt;TimerDetailAttr size ={ attrNameSize || 'huge'} name = 'Configuration'/&gt;
+          &lt;Label circular  color = { color  || 'red'} size = {contentSize || 'large'} &gt;
                {timer.round} rounds
           &lt;/Label&gt;
-          &lt;Label circular color = { color  || <span class="branch-1 cbranch-no" title="branch not covered" >'orange'}</span> size = {contentSize || <span class="branch-1 cbranch-no" title="branch not covered" >'large'}</span> &gt;
+          &lt;Label circular color = { color  || 'orange'} size = {contentSize || 'large'} &gt;
                {timer.duration} min 
           &lt;/Label&gt;
   
-          &lt;Label circular color = {color || <span class="branch-1 cbranch-no" title="branch not covered" >'yellow'}</span> size = {contentSize || <span class="branch-1 cbranch-no" title="branch not covered" >'large'}</span> &gt;
+          &lt;Label circular color = {color || 'yellow'} size = {contentSize || 'large'} &gt;
                {timer.breakTime} min break
           &lt;/Label&gt;
        &lt;/List.Item&gt;
       &lt;List.Item&gt;
-      &lt;TimerDetailAttr size ={ attrNameSize || <span class="branch-1 cbranch-no" title="branch not covered" >'huge'}</span> name = 'Start Time'/&gt;
+      &lt;TimerDetailAttr size ={ attrNameSize || 'huge'} name = 'Start Time'/&gt;
            &lt;span style={{"margin": "20px"}}&gt;
            { formatDateAndTime(new Date(timer.startTime))}
            &lt;/span&gt;
        &lt;/List.Item&gt;
   
       {
-          timer.description &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >timer.description.length &gt; 0 </span>?
+          timer.description &amp;&amp; timer.description.length &gt; 0 ?
 &nbsp;
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;List.Item&gt;</span>
+          &lt;List.Item&gt;
             &lt;TimerDetailAttr size ={ attrNameSize || 'huge'} name = 'Description'/&gt;
                 &lt;span style={{"margin": "20px"}}&gt;
                 {timer.description}
@@ -244,7 +244,11 @@ export default TimerDetailInfo;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
+<<<<<<< HEAD
                 at Sat Dec 05 2020 21:21:59 GMT-0800 (GMT-08:00)
+=======
+                at Sun Dec 06 2020 00:36:27 GMT-0500 (GMT-05:00)
+>>>>>>> d791f9e3cb61f5ce5639198662a894db8cd83d2e
             </div>
         </div>
         <script src="../../../prettify.js"></script>

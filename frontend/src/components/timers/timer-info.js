@@ -26,13 +26,6 @@ const NotFoundTimer = () => {
 };
 
 
-// const decodeSharingUrl = (sharingUrl)=>{
-//     const paras = sharingUrl.split('/');
-// }
-
-
-
-
 export const DisplayTimer = props => {
 
     const {timer, editMode} = props;
