@@ -3,11 +3,8 @@ import 'jest-enzyme';
 import Enzyme, { shallow, mount} from 'enzyme'
 import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import renderer from 'react-test-renderer';
 import { DataContext} from '../../../context/data-context';
-import DisplayTimer from '../display-timer';
-import {DisplayTimerArea} from '../timer-info';
-import {SingleTimer} from '../timer-info';
+import DisplayTimerArea from '../display-timer-area';
 import {mockRelatedTasksForTimer} from '../../../utilities/mockData';
 import {act} from "react-dom/cjs/react-dom-test-utils.development";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
