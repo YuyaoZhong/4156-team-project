@@ -5,27 +5,21 @@ import './timer-board-style.css';
 
 const Timeline = props => {
     const {
-        direction, icon, title, time, description, linkRoute="/",
-       tags, labelColor, lineHeight = 4, lineColor = 'grey', color = 'grey'
+        direction, icon,  time, description, linkRoute="/",
+       lineHeight = 4, lineColor = 'grey', color = 'grey'
       } = props;
-      const textAlign = direction === 'left' ? 'right' : 'left';
+      const textDir = direction === 'left' ? 'right' : 'left';
       const card = (
           <Card fluid raised color={color}>
             <Card.Content>
              <Card.Header>
-             <Label pointing={textAlign} color={color} attached="top" style={{ marginLeft: '0', fontSize: '14px'}}>
+             <Label pointing={textDir} color={color} attached="top" style={{ marginLeft: '0', fontSize: '14px'}}>
                 {time}
               </Label>
              </Card.Header>
            </Card.Content>
            <Card.Content style = {{marginTop: "10px"}}>
              {description}
-              {/* <Card.Header>
-                {title}
-              </Card.Header> */}
-              {/* <Card.Description>
-                {description}
-              </Card.Description> */}
               <Divider />
               <Link to = {linkRoute}>
                   <Button inverted color = {color} floated='right'>Details</Button>

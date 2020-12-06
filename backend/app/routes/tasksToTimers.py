@@ -8,14 +8,20 @@ from app.ext import db
 from app.routes import routes
 from app.models import Task, TaskToTimer, Timer
 from app.utls.apiStatus import apiStatus
-from app.utls.utilities import judgeKeysExist
+from app.utls.utilities import judgeKeysExist, judgeInputValid, judgeIntValid
 
 
 @routes.route('/task_timers/<taskTimerId>', methods=['GET', 'DELETE'])
 def handleTaskTimer(taskTimerId):
     """This function is used to handle GET / DELETE requests for handle task timer"""
+
+    if not judgeIntValid(taskTimerId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
     getCode, getMsg, targetTaskTimer = getTaskTimer(int(taskTimerId))
     result = {"code": getCode, "message": getMsg, "data": None}
+
     if request.method == "GET":
         if targetTaskTimer:
             result["data"] = targetTaskTimer.toDict()
@@ -34,11 +40,14 @@ def handleTaskTimer(taskTimerId):
 
 def getTaskTimer(taskTimerId):
     """This function is used to handle retrieve task from database"""
+    if not judgeIntValid(taskTimerId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return code, msg, None
+
     try:
         targetTaskTimer = TaskToTimer.query.get(taskTimerId)
     except:
-        code, msg = 500, apiStatus.getResponseMsg(500)
-        return code, msg, None
+        return 500, apiStatus.getResponseMsg(500), None
     if not targetTaskTimer:
         code, msg = 404, apiStatus.getResponseMsg(404)
     else:
@@ -52,7 +61,14 @@ def handleQueryTasksOrTimers():
     taskId = request.args.get('taskId', None)
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None) # for verification
-    if (taskId and timerId):
+    # judge input
+    if not judgeInputValid({"userId": userId}) or \
+            (taskId and not judgeIntValid(taskId)) or \
+            (timerId and not judgeIntValid(timerId)):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
+    if (taskId and timerId) or not userId:
         code, msg = 500, apiStatus.getResponseMsg(500)
         return jsonify({"code": code, "message": msg, "data":[]})
 
@@ -62,9 +78,12 @@ def handleQueryTasksOrTimers():
         # retrieve by user
         result['data'] = []  # should also return an empty list
         targetRels = TaskToTimer.query.filter_by(userId=userId).all()
-        for rel in targetRels:
-            result['data'].append(rel.toDict())
-        code, msg = 200, apiStatus.getResponseMsg(200)
+        if not targetRels:
+            code, msg = 404, apiStatus.getResponseMsg(404)
+        else:
+            for rel in targetRels:
+                result['data'].append(rel.toDict())
+            code, msg = 200, apiStatus.getResponseMsg(200)
 
     elif timerId:
         targetTimer = Timer.query.get(timerId)
@@ -90,6 +109,10 @@ def handleQueryTasksOrTimers():
 
 def getTasksByTimerid(timerId):
     """get lists of tasks by timer id"""
+    if not judgeIntValid(timerId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return code, msg, None
+
     try:
         # disable no member since it is setted flask function
         # may think about change to join query
@@ -110,15 +133,17 @@ def getTasksByTimerid(timerId):
         # tasksData = [task.toDict() for task in tasks]
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
-        code, msg = 500, apiStatus.getResponseMsg(500)
-        tasksData = []
-    print(tasksData)
+        return 500, apiStatus.getResponseMsg(500), []
     return code, msg, tasksData
 
 # def getDataByUserId(userId):
 
 def getTimersByTaskid(taskId):
     """get lists of timers by task id"""
+    if not judgeIntValid(taskId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return code, msg, None
+
     try:
         relatedTasks = db.session.query(TaskToTimer.timerId.label('timerId')).filter( # pylint: disable=maybe-no-member
             TaskToTimer.taskId == taskId).subquery() # pylint: disable=maybe-no-member
@@ -126,8 +151,7 @@ def getTimersByTaskid(taskId):
         timersData = [timer.toDict() for timer in timers]
         code, msg = 200, apiStatus.getResponseMsg(200)
     except:
-        code, msg = 500, apiStatus.getResponseMsg(500)
-        timersData = []
+        return 500, apiStatus.getResponseMsg(500), []
     return code, msg, timersData
 
 
@@ -135,6 +159,11 @@ def getTimersByTaskid(taskId):
 def createTaskTimer():
     """This function is used to create a new relation"""
     data =  request.get_json()
+
+    if not judgeInputValid(data):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        return jsonify({"code": code, "message": msg, "data": None})
+
     postAttrs = ['taskId', 'timerId', 'userId']
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysExist(data, postAttrs):
@@ -145,9 +174,6 @@ def createTaskTimer():
         specifiedId = data['id'] if 'id' in data else None
         if not targetTask or not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
-        elif str(data['userId']) != str(targetTask.userId) \
-                or str(data['userId']) != str(targetTimer.userId):
-            code, msg = 401, apiStatus.getResponseMsg(401)
         else:
             try:
                 newTaskToTimer = TaskToTimer(taskId=str(targetTask.id), timerId=str(targetTimer.id), userId=str(data['userId']))
@@ -164,5 +190,4 @@ def createTaskTimer():
 
     result["code"] = code
     result["message"] = msg
-    # print(result)
     return jsonify(result)

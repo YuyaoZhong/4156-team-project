@@ -15,8 +15,20 @@ const directions = ['left', 'right']
 const TimelineBoard = () => {
     const { incomingTimers } = useDataContext();
     const MAX_DISPLAY_CNT = 5;
-    const displayTimerList = incomingTimers && incomingTimers.length > MAX_DISPLAY_CNT?
-       incomingTimers.slice(0, MAX_DISPLAY_CNT) : incomingTimers.slice(0)
+    const getDisplayTimers = (incomingTimers) => {
+      if( incomingTimers && incomingTimers.length > MAX_DISPLAY_CNT){
+       return incomingTimers.slice(0, MAX_DISPLAY_CNT)
+     }
+       return incomingTimers.slice(0)
+    }
+    // const displayTimerList =getDisplayTimers(incomingTimers)
+    const [displayTimerList, setDisplayTimers] = React.useState(getDisplayTimers(incomingTimers));
+
+    React.useEffect(()=>{
+      setDisplayTimers(getDisplayTimers(incomingTimers));
+    }, [incomingTimers])
+
+
     return (<Container className='Timeline-container'>
             <div className='Timeline-title'>
                     <Label size ='massive' color = 'grey' pointing= 'below'>Incoming Timers </Label>
@@ -27,7 +39,7 @@ const TimelineBoard = () => {
                 const color = colors[i % colors.length];
                 const detail = <TimerDetailInfo attrNameSize='medium' contentSize='medium' timer = {timer} color = {color} />
                 return(<Timeline
-                key = {i}
+                  key = {i}
                   icon = "clock"
                   direction = {directions[i % directions.length]}
                   color = {color}

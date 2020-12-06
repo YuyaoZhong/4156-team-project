@@ -16,15 +16,13 @@ from app.routes.timers import *
 from app.routes.tasklists import *
 from app.routes.tasksToTimers import *
 from app.routes.timerToUser import *
-
+from app.routes.zoom import *
 
 class MyJSONEncoder(json.JSONEncoder):
     """ JSON Encoder for possible decimal data"""
     def default(self, obj):
         if isinstance(obj, decimal.Decimal):
-            # Convert decimal instances to strings.
             return str(obj)
-        # return super(MyJSONEncoder, self).default(obj)
         return super().__init__()
 
 def createApp(configObject):
@@ -47,10 +45,6 @@ def createMysqlOrm(app):
     with app.app_context():
         db.init_app(app)
         app.register_blueprint(routes)
-        # db.create_all()
-        # db.session.commit()
-
-
 app = createApp(DevConfig)
 # createMysqlOrm(app)
 db.app = app

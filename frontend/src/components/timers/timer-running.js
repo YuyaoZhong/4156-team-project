@@ -1,73 +1,15 @@
 import React  from 'react';
-import { Container, Label, List, Header } from 'semantic-ui-react';
+import { Container, Label, Header } from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
-import { DisplayTimer } from './timer-info';
-import TimerDetailInfo from './timer-detail-info';
+import DisplayTimer from './display-timer';
+import { formatTime, getcurRound, inBreak, getTimeLeft} from '../../utilities/timer-utilities';
 import './timer-running.css';
 
-const formatTime = (timeLeftInSecond) => {
-  let hour = Math.floor(timeLeftInSecond / (60 * 60));
-  let hourDisplay = hour < 10 ? '0' + hour : hour;
-  let minutesLeftInSecond = timeLeftInSecond - hour * 60 * 60;
-  let minute = Math.floor(minutesLeftInSecond / 60);
-  if (minute < 10) minute = '0' + minute;
-
-  let second = minutesLeftInSecond- 60 * minute;
-  if (second < 10) second = '0' + second;
-
-  return hour > 0? `${hourDisplay}:${minute}:${second}`:`${minute}:${second}`;
-}
-
-const getcurRound = (timer) =>{
-   let curStartTime = new Date(timer.startTime);
-   let curRound = 0;
-   const minutes = timer.duration + timer.breakTime;
-   while (new Date().getTime() - curStartTime.getTime() >= 0){
-     if(curRound > timer.round) {
-         return -1;
-     }
-     curRound += 1;
-     curStartTime = new Date(curStartTime.getTime() + minutes * 60000);
-   }
-   return curRound;
-
-};
-
-
-const inBreak = (timer, curRound) => {
-    if (curRound < 0){
-        return false;
-    }
-    const timePast =  (curRound - 1)*(timer.duration + timer.breakTime) + timer.duration
-    const shouldEnd = new Date(new Date(timer.startTime).getTime() + timePast * 60000);
-    return new Date().getTime() > shouldEnd.getTime();
-}
-
-const getTimeLeft = (timer, curRound, isBreak) => {
-
-    // const timePast =  curRound*(timer.duration + timer.breakTime);
-    if (curRound < 0 || curRound > timer.round){
-      return 0;
-    }
-
-    const timeWillPast = (curRound - 1) *(timer.duration + timer.breakTime) + timer.duration + (isBreak? timer.breakTime : 0);
-    const willEndAtTime = new Date(new Date(timer.startTime).getTime() + timeWillPast * 60000);
-    const timeLeft = Math.round((willEndAtTime.getTime() - new Date().getTime()) / 1000);
-    return Math.max(timeLeft, 0);
-
-};
 
 // todo: write no timer
 const NoTimer = () => {
     return (<div>There is no timer, to create one</div>)
 }
-// const IncomingTimer = () => {
-//  const { timerList } = useDataContext();
-
-//   return timerList && timerList.length > 0 ? (
-//       <DisplayTimer timer = {timerList[0]} />
-//   ): (<NoTimer/>);
-// }
 
 const getTimerState = (timer) => {
     const curRound = getcurRound(timer);
@@ -130,17 +72,12 @@ const TimerLabel = props => {
 
  
 const RunningTimer = () => {
-    const { timerRun, timerList } = useDataContext();
+    const { timerRun} = useDataContext();
     const defaultState = getTimerState(timerRun);
     const curTimeLeft =  getTimeLeft(timerRun, defaultState.curRound, defaultState.isBreak);
     const [timeLeft, setTimeLeft] = React.useState(curTimeLeft);
     const [curTimerStatus, setCurTimer] = React.useState(defaultState);
 
-    // React.useEffect(()=>{
-    //     console.log('timer list')
-    //     console.log(timerRun);
-    
-    // }, [timerList])
 
     React.useEffect(()=>{
         setCurTimer(getTimerState(timerRun));
@@ -172,7 +109,7 @@ const RunningTimer = () => {
                 </div>
                 </div>
         </TimerLabel>
-        <DisplayTimer timer = {timerRun} hideTitle={true} hideEdit={true} />
+        <DisplayTimer timer = {timerRun} editMode = {false} />
       </Container>
       )
 }

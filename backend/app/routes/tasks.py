@@ -6,6 +6,8 @@ from app.ext import db
 from app.models import Task
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysCorrect
+from app.utls.utilities import judgeInputValid
+from app.utls.utilities import judgeIntValid
 
 
 #@routes.route('/tasks')
@@ -18,6 +20,13 @@ def getTasks():
     code, msg, result = 0, "", {"data": None}
     taskId = request.args.get('taskId', None)
     userId = request.args.get('userId', None)
+
+    if not judgeInputValid({"taskId":taskId}):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     if taskId is not None :
         targetTask= Task.query.get(taskId)  # query by primary key
         if not targetTask:
@@ -50,6 +59,13 @@ def getTasks():
 def getTask(taskId):
     """get task from the database"""
     code, msg, result = 0, '', {'data': None}
+
+    if not judgeIntValid(taskId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     targetTask = Task.query.get(taskId)
     if not targetTask:
         code, msg = 404, apiStatus.getResponseMsg(404)
@@ -64,6 +80,13 @@ def getTask(taskId):
 def deleteTask(taskId):
     """delete task from database"""
     code, msg, result = 0, '', {"data": None}
+
+    if not judgeIntValid(taskId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     targetTask = Task.query.get(taskId)
     if not targetTask:
         code, msg = 404, apiStatus.getResponseMsg(404)
@@ -83,8 +106,16 @@ def deleteTask(taskId):
 def createTasks():
     """create a task and save to database"""
     data = request.get_json()
-    postAttrs = ['userId', 'taskListId', 'name', 'status' ]
+    postAttrs = ['userId', 'taskListId', 'name', 'status', 'relId']
     code, msg, result = 0, '', {'data': None}
+
+    if not judgeInputValid(data):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
+
     if not data:
         code, msg = 400, apiStatus.getResponseMsg(400)
     elif not judgeKeysCorrect(data, postAttrs):
@@ -113,6 +144,19 @@ def putTask(taskId):
     data = request.get_json()
     postAttrs = ['id', 'userId', 'taskListId', 'name', 'status' ]
     code, msg, result = 0, "", {'data': None}
+
+    if not judgeIntValid(taskId):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
+    if not judgeInputValid(data):
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
+
     if not data:
         code, msg = 400, apiStatus.getResponseMsg(400)
     elif not judgeKeysCorrect(data, postAttrs):

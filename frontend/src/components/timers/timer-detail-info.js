@@ -14,7 +14,7 @@ export const TimerDetailAttr = props =>{
 const TimerDetailInfo = props => {
     const {timer, relatedTasklists,  attrNameSize, contentSize, hideTasks, color } = props;
     
-    return (  <List divided textAlign="center" >
+    return (  <List divided>
            <List.Item>
           <TimerDetailAttr size ={ attrNameSize || 'huge'} name = 'Configuration'/>
           <Label circular  color = { color  || 'red'} size = {contentSize || 'large'} >

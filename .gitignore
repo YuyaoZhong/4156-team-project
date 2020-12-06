@@ -8,7 +8,11 @@ backend/app/__pycache__
 backend/app/routes/__pycache__
 backend/app/utls/__pycache__
 backend/tests/__pycache__
-
+backend/server.crt
+backend/server.csr
+backend/server.key
+backend/server.key.org
+backend/COMS-cert.cer
 
 # frontend
 # dependencies
@@ -16,6 +20,12 @@ backend/tests/__pycache__
 frontend/node_modules
 frontend/.pnp
 frontend/.pnp.js
+frontend/server.crt
+frontend/server.csr
+frontend/server.key
+frontend/server.key.org
+frontend/COMS-cert.cer
+
 
 # misc
 frontend/.DS_Store

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Container, Header, Icon, Button} from 'semantic-ui-react';
+import { Container, Header, Icon } from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
-import { useParams} from 'react-router-dom'
-import TimerDetailInfo  from './timer-detail-info';
-import TimerForm from '../timerpage/timer-form';
-import { matchedTaskLists } from '../../utilities/tasklist-utilities';
-
-// this.props.match.params.number
+import { SERVER_URL } from '../../constants/constants';
+import { useParams } from 'react-router-dom'
+import AddedTimerMessage from './timer-message';
+import {  getTimerId} from '../../utilities/timer-utilities';
+import DisplayTimerArea from './display-timer-area';
 
 const NotFoundTimer = () => {
     return(<Container>
@@ -17,65 +16,77 @@ const NotFoundTimer = () => {
     </Container>)
 };
 
-export const DisplayTimer = props => {
-    const {timer, hideTitle, hideEdit} = props;
-    const [editMode, setEditMode] = React.useState(false);
 
-    const {
-        getRelatedTasksOfTimers,
-        tasklists,
-    } = useDataContext();
-    const [relatedTaskLists, setRelatedTaskLists] = React.useState([]);
-
-    React.useEffect(async ()=>{
-        async function fetchData(){
-          const relatedTasks = await getRelatedTasksOfTimers(timer.id);
-        //   console.log(relatedTasks);
-            setRelatedTaskLists(matchedTaskLists(relatedTasks, tasklists))
-        }  
-        // may change to edit state instead of
-        if(editMode === false){
-            await fetchData();
-        }
-    }, [editMode]);
-
-    const closeEditMode = ()=> setEditMode(false);
-    const displayTasklist = relatedTaskLists && relatedTaskLists.length > 0?
-        relatedTaskLists.filter(item=>(item.tasks && item.tasks.length > 0)) : [];
-
-    return editMode? (  <TimerForm editTimer = {timer} editMode = {true} closeEditMode = {closeEditMode}/> ):
-      (<Container>
-       {
-           hideTitle?"":<Header as='h2' textAlign='center' icon>
-           <Icon name='clock outline'/>
-              {timer.title}
-          </Header>
-       }
-        <TimerDetailInfo timer = {timer} relatedTasklists = {displayTasklist} />
-        {
-            hideEdit? "":  <Button floated='right' primary size = 'big' onClick = {()=>setEditMode(true)}>Edit</Button>
-        }
-   </Container>)
-};
-
-const SingleTimer = () => {
+const SingleTimer = props => {
     const {
         // timers
-        getTimerById,
+        // getTimerById,
+        userId,
     } = useDataContext();
 
     const {timerid} = useParams();
+    const [displayTimer, setDisplayTimer] = React.useState({});
+    const [popupStatus, setPopupstatus] = React.useState({open: false})
 
-   
- 
+    const handleMessageClose = () => setPopupstatus({open: false});
+    const [editMode, setEditMode] = React.useState(false);
+    const closeEditMode = ()=> setEditMode(false);
+    const openEditMode = () => setEditMode(true);
+
+    const changeAddedStatus = (success, added) => {
+        if(success){
+            const newTimer = Object.assign({}, displayTimer);
+            newTimer.added = added;
+            setDisplayTimer(newTimer);
+
+        }
+        setPopupstatus({open: true, success:success});
+        setTimeout(()=>setPopupstatus({open:false, success:success}), 2500);
+    }
+    React.useEffect(()=>{
+
+
+        async function fetchData(){
+           const parseTimerid = getTimerId(timerid);
+           const isSharingUrl = isNaN(parseInt(timerid, 10));
+           if(parseTimerid < 0 || userId === "" || !userId){
+               setDisplayTimer({});
+               return;
+           }
+           const queryTimerUrl = `${SERVER_URL}/timerToUser/?timerId=${parseTimerid}&userId=${userId}`;
+        
+           await fetch(queryTimerUrl).then(r=>r.json()).then(res=>{
+            //    console.log('fetch Timer', res);
+               if(res.code === 200 && res.data && (res.data.added || isSharingUrl)){
+                    setDisplayTimer(res.data);
+               } else{
+                   setDisplayTimer({});
+               }
+           })
+        }
+
+        fetchData();
+
+    }, [timerid, userId, editMode])
+
+
     // find the user created timer => may need to change fetch
-    const targetTimer = getTimerById(timerid); 
+    // const targetTimer = getTimerById(timerid);
 
 
-    return !targetTimer || Object.keys(targetTimer) === 0 ? (
+
+    return !displayTimer || Object.keys(displayTimer).length === 0 ? (
         <NotFoundTimer/>
     ):(
-        <DisplayTimer timer = {targetTimer}/>
+       <>
+        <DisplayTimerArea
+            editMode={editMode}
+            closeEditMode={closeEditMode}
+            openEditMode = {openEditMode}
+            timer = {displayTimer}
+            changeAddedStatus= {changeAddedStatus} />
+        <AddedTimerMessage handleClose = {handleMessageClose} messageStatus = {popupStatus} />
+       </>
     )
 };
 

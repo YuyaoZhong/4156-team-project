@@ -8,11 +8,12 @@ from dateutil import parser
 from flask import request, jsonify
 from app.ext import db
 from app.routes import routes
-from app.models import Timer
+from app.models import Timer, TimerToUser
 from app.utls.apiStatus import apiStatus
 from app.utls.utilities import judgeKeysExist
 from app.utls.utilities import judgeKeysCorrect
-
+from app.utls.utilities import judgeInputValid
+from app.utls.utilities import judgeIntValid
 
 # @routes.route('/timers')
 # def testTimers():
@@ -26,11 +27,16 @@ def getTimers():
     timerId = request.args.get('timerId', None)
     userId = request.args.get('userId', None)
     if timerId is not None :
+        if not judgeIntValid(timerId) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         targetTimer = Timer.query.get(timerId)  # query by primary key
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
         else:
-            result["data"] = targetTimer.toDict(True)
+            result["data"] = targetTimer.toDict()
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
@@ -43,7 +49,7 @@ def getTimers():
         else:
             # result['data'] = []
             for timer in targetTimer :
-                result['data'].append(timer.toDict(True)) # to iso format
+                result['data'].append(timer.toDict()) # to iso format
             code, msg = 200, apiStatus.getResponseMsg(200)
         result["code"] = code
         result["message"] = msg
@@ -58,6 +64,11 @@ def getTimers():
 def deleteTimers(timerId):
     """This function is for the server to delete timers"""
     code, msg, result = 0, "", {"data": None}
+    if not judgeIntValid(timerId) :
+        code, msg = 400, apiStatus.getResponseMsg(400)
+        result["code"] = code
+        result["message"] = msg
+        return jsonify(result)
     targetTimer = Timer.query.get(timerId)  # query by primary key
     if not targetTimer:
         code, msg = 404, apiStatus.getResponseMsg(404)
@@ -84,6 +95,11 @@ def createTimers():
     if not judgeKeysExist(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
     else:
+        if not judgeInputValid(data) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         userId = data['userId']
         title = data['title']
         description = data['description'] if 'description' in data else None
@@ -123,9 +139,19 @@ def createTimers():
                              startTime=startTime, duration=str(duration),
                              breakTime=str(breakTime), round=str(round))
             db.session.add(newTimer)
+            newTimerTwo = Timer.query.filter_by(userId=userId).all()
+            # print(newTimerTwo)
+
+            newTimerToUser = TimerToUser(timerId=newTimer.id, userId=userId, status=1)
+            db.session.add(newTimerToUser)
             db.session.commit()
-            result["data"] = newTimer.toDict()
-            result["data"]["startTime"] = startTime # remain to be string for the frontend consistent, or change to utcstring
+
+            result["data"] = newTimer.toDict({
+                "added": True,
+                "isCreator": True,
+                "timerToUserId": userId,
+            })
+            # result["data"]["startTime"] = startTime # remain to be string for the frontend consistent, or change to utcstring
             code, msg = 201, apiStatus.getResponseMsg(201)
         except:
             code, msg = 500, apiStatus.getResponseMsg(500)
@@ -139,11 +165,17 @@ def putTimers(timerId):
     """This function is for the server to update timers"""
     data =  request.get_json()
     postAttrs = ['id', 'userId', 'title', 'startTime', 'duration',
-                 'breakTime', 'round', 'description', 'zoomLink']
+                 'breakTime', 'round', 'description', 'zoomLink',
+                 'isCreator', 'timerToUserId', 'added']
     code, msg, result = 0, "", {"data": None}
     if not judgeKeysCorrect(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
     else:
+        if not judgeInputValid(data) :
+            code, msg = 400, apiStatus.getResponseMsg(400)
+            result["code"] = code
+            result["message"] = msg
+            return jsonify(result)
         targetTimer = Timer.query.get(timerId)
         if not targetTimer:
             code, msg = 404, apiStatus.getResponseMsg(404)
@@ -151,7 +183,11 @@ def putTimers(timerId):
             try:
                 targetTimer.update(data)
                 db.session.commit()
-                result["data"] = targetTimer.toDict()
+                result["data"] = targetTimer.toDict({
+                    "added": data["added"] if "added" in data else True,
+                    "isCreator": data["isCreator"] if "isCreator" in data else True,
+                    "timerToUserId": data["timerToUserId"] if "timerToUserId" in data else targetTimer.userId,
+                })
                 code, msg = 201, apiStatus.getResponseMsg(201)
             except:
                 code, msg = 500, apiStatus.getResponseMsg(500)

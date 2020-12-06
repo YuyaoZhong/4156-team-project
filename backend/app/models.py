@@ -71,7 +71,7 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
     breakTime = db.Column(db.Integer, nullable=False, default=5)
     round = db.Column(db.Integer, nullable=False, default=1)
 
-    def toDict(self, dateToIsoStr = False):
+    def toDict(self, otherAttrs = None):
         """this function is for the server to turn Timer class into dic in python"""
         timer = {
             "id": self.id,
@@ -84,6 +84,8 @@ class Timer(db.Model):  #pylint: disable=too-few-public-methods
             "breakTime": self.breakTime,
             "round": self.round
         }
+        if otherAttrs and len(otherAttrs) != 0 and isinstance(otherAttrs, dict):
+            timer.update(otherAttrs)
         return timer
     def update(self,data):
         """this function is for the server to update the Timer class"""
@@ -116,12 +118,12 @@ class TaskToTimer(db.Model):  # pylint: disable=too-few-public-methods
     def update(self, data):
         """this function is for the server to update the relation class"""
         for key, value in data.items():
-            if key == "id":
-                self.id = value
+            if key == "timerId":
+                self.timerId = value
             elif key == "taskId":
                 self.taskId = value
-            elif key == "timerId":
-                self.timerId = value
+            elif key == "id":
+                self.id = value
 
     def toDict(self):
         """Change the object to dictionary"""
@@ -139,22 +141,14 @@ class TimerToUser(db.Model):  # pylint: disable=too-few-public-methods
     userId = db.Column(db.String(256), nullable=False, primary_key=True)
     status = db.Column(db.Boolean, nullable=False)
 
-    def update(self, data):
-        """this function is for the server to update the relation class"""
-        for key, value in data.items():
-            if key == "timerId":
-                self.timerId = value
-            elif key == "userId":
-                self.userId = value
-            elif key == "status":
-                self.status = value
-
-    def toDict(self):
+    def toDict(self, otherAttrs = None):
         """Change the object to dictionary"""
         timerToUser = {
             "timerId": self.timerId,
             "userId": self.userId,
             "status": self.status
         }
-        return timerToUser
 
+        if otherAttrs and len(otherAttrs) != 0 and isinstance(otherAttrs, dict):
+            timerToUser.update(otherAttrs)
+        return timerToUser

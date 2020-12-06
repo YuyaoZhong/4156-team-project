@@ -21,5 +21,6 @@ const matchedTaskLists = (tasks, tasklists) => {
 }
 
 export {
+    defaultTaskList,
     matchedTaskLists,
 };

@@ -6,7 +6,9 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "jest-enzyme": "^7.1.2",
     "react": "^17.0.1",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
@@ -20,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test":  "react-scripts test --watchAll=false --coverage --collectCoverageFrom=!src/context/*.js --collectCoverageFrom=!src/components/table/*.js --collectCoverageFrom=!src/*.js --collectCoverageFrom=!src/components/**/__tests__/__snapshots__/*.js.snap",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -40,5 +42,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.3.2",
+    "enzyme": "^3.11.0",
+    "fetch-mock": "^9.11.0",
+    "fetch-mock-jest": "^1.5.1",
+    "jest": "26.6.0",
+    "node-fetch": "^2.6.1"
   }
 }

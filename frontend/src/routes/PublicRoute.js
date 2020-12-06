@@ -5,7 +5,6 @@ import { useGoogleAuth } from "../context/google-login-context";
 const PublicRouter = ({component: Component, ...rest}) => {
 
     const { isSignedIn } = useGoogleAuth();
-
     return (
         <div>
             <Route {...rest} render={props => (
