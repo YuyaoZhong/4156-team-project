@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607235332503" clover="3.2.0">
-  <project timestamp="1607235332503" name="All files">
-    <metrics statements="796" coveredstatements="123" conditionals="470" coveredconditionals="48" methods="222" coveredmethods="20" elements="1488" coveredelements="191" complexity="0" loc="796" ncloc="796" packages="12" files="37" classes="37"/>
+<coverage generated="1607241792254" clover="3.2.0">
+  <project timestamp="1607241792254" name="All files">
+    <metrics statements="796" coveredstatements="112" conditionals="470" coveredconditionals="34" methods="222" coveredmethods="14" elements="1488" coveredelements="160" complexity="0" loc="796" ncloc="796" packages="12" files="37" classes="37"/>
     <package name="src">
       <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="App.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\App.js">
@@ -345,7 +345,7 @@
       </file>
     </package>
     <package name="src.components.timers">
-      <metrics statements="117" coveredstatements="44" conditionals="86" coveredconditionals="35" methods="34" coveredmethods="11"/>
+      <metrics statements="117" coveredstatements="38" conditionals="86" coveredconditionals="14" methods="34" coveredmethods="9"/>
       <file name="display-timer-area.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\display-timer-area.js">
         <metrics statements="13" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="13" count="0" type="stmt"/>
@@ -363,19 +363,19 @@
         <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
       <file name="display-timer.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\display-timer.js">
-        <metrics statements="12" coveredstatements="10" conditionals="8" coveredconditionals="4" methods="4" coveredmethods="3"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
+        <metrics statements="12" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="22" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="27" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="28" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="30" count="2" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
       </file>
       <file name="share-button.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\share-button.js">
         <metrics statements="14" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
@@ -395,13 +395,13 @@
         <line num="25" count="0" type="stmt"/>
       </file>
       <file name="timer-detail-info.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\timer-detail-info.js">
-        <metrics statements="6" coveredstatements="6" conditionals="29" coveredconditionals="23" methods="2" coveredmethods="2"/>
+        <metrics statements="6" coveredstatements="2" conditionals="29" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
       </file>
       <file name="timer-info.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\timer-info.js">
         <metrics statements="32" coveredstatements="0" conditionals="17" coveredconditionals="0" methods="11" coveredmethods="0"/>
@@ -446,43 +446,43 @@
         <line num="7" count="0" type="stmt"/>
       </file>
       <file name="timer-running.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\timer-running.js">
-        <metrics statements="36" coveredstatements="28" conditionals="14" coveredconditionals="8" methods="10" coveredmethods="6"/>
+        <metrics statements="36" coveredstatements="36" conditionals="14" coveredconditionals="14" methods="10" coveredmethods="9"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
-        <line num="17" count="3" type="stmt"/>
-        <line num="22" count="3" type="stmt"/>
+        <line num="15" count="24" type="stmt"/>
+        <line num="16" count="24" type="stmt"/>
+        <line num="17" count="24" type="stmt"/>
+        <line num="22" count="24" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
-        <line num="27" count="2" type="cond" truecount="2" falsecount="2"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="38" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="39" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="55" count="2" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
+        <line num="26" count="15" type="stmt"/>
+        <line num="27" count="15" type="cond" truecount="4" falsecount="0"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="38" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="55" count="4" type="stmt"/>
+        <line num="68" count="7" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
-        <line num="75" count="3" type="stmt"/>
-        <line num="76" count="2" type="stmt"/>
-        <line num="77" count="2" type="stmt"/>
-        <line num="78" count="2" type="stmt"/>
-        <line num="79" count="2" type="stmt"/>
-        <line num="82" count="2" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
-        <line num="84" count="1" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="91" count="2" type="stmt"/>
-        <line num="92" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="95" count="0" type="stmt"/>
-        <line num="99" count="2" type="stmt"/>
+        <line num="75" count="16" type="stmt"/>
+        <line num="76" count="15" type="stmt"/>
+        <line num="77" count="15" type="stmt"/>
+        <line num="78" count="15" type="stmt"/>
+        <line num="79" count="15" type="stmt"/>
+        <line num="82" count="15" type="stmt"/>
+        <line num="83" count="5" type="stmt"/>
+        <line num="84" count="5" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
+        <line num="87" count="5" type="stmt"/>
+        <line num="91" count="15" type="stmt"/>
+        <line num="92" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="93" count="4" type="stmt"/>
+        <line num="94" count="4" type="stmt"/>
+        <line num="95" count="4" type="stmt"/>
+        <line num="99" count="15" type="stmt"/>
         <line num="118" count="1" type="stmt"/>
-        <line num="119" count="2" type="stmt"/>
-        <line num="120" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="119" count="7" type="stmt"/>
+        <line num="120" count="6" type="cond" truecount="4" falsecount="0"/>
       </file>
     </package>
     <package name="src.components.zoom">
@@ -697,7 +697,7 @@
         <line num="295" count="0" type="stmt"/>
         <line num="296" count="0" type="stmt"/>
         <line num="301" count="0" type="stmt"/>
-        <line num="323" count="7" type="stmt"/>
+        <line num="323" count="23" type="stmt"/>
       </file>
       <file name="google-login-context.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\context\google-login-context.js">
         <metrics statements="5" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
@@ -726,7 +726,7 @@
       </file>
     </package>
     <package name="src.utilities">
-      <metrics statements="199" coveredstatements="60" conditionals="133" coveredconditionals="13" methods="35" coveredmethods="8"/>
+      <metrics statements="199" coveredstatements="55" conditionals="133" coveredconditionals="20" methods="35" coveredmethods="4"/>
       <file name="apiMethods.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\apiMethods.js">
         <metrics statements="6" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -852,39 +852,39 @@
         <line num="152" count="0" type="stmt"/>
       </file>
       <file name="timer-utilities.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\timer-utilities.js">
-        <metrics statements="55" coveredstatements="31" conditionals="28" coveredconditionals="11" methods="6" coveredmethods="4"/>
+        <metrics statements="55" coveredstatements="34" conditionals="28" coveredconditionals="20" methods="6" coveredmethods="4"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="6" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="9" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="12" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="14" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="5" count="15" type="stmt"/>
+        <line num="6" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="15" type="stmt"/>
+        <line num="8" count="15" type="stmt"/>
+        <line num="9" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="15" type="stmt"/>
+        <line num="12" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="15" type="cond" truecount="2" falsecount="0"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="3" type="stmt"/>
-        <line num="19" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
-        <line num="21" count="3" type="stmt"/>
-        <line num="22" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="25" count="3" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="28" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="24" type="stmt"/>
+        <line num="19" count="24" type="stmt"/>
+        <line num="20" count="24" type="stmt"/>
+        <line num="21" count="24" type="stmt"/>
+        <line num="22" count="39" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="9" type="stmt"/>
+        <line num="25" count="30" type="stmt"/>
+        <line num="26" count="30" type="stmt"/>
+        <line num="28" count="15" type="cond" truecount="2" falsecount="0"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="34" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="37" count="3" type="stmt"/>
-        <line num="38" count="3" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
+        <line num="34" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="13" type="stmt"/>
+        <line num="37" count="11" type="stmt"/>
+        <line num="38" count="11" type="stmt"/>
+        <line num="39" count="11" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
-        <line num="45" count="2" type="cond" truecount="3" falsecount="1"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="49" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
+        <line num="45" count="19" type="cond" truecount="4" falsecount="0"/>
+        <line num="46" count="11" type="stmt"/>
+        <line num="49" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="8" type="stmt"/>
+        <line num="51" count="8" type="stmt"/>
+        <line num="52" count="8" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
@@ -910,19 +910,19 @@
         <line num="94" count="0" type="stmt"/>
       </file>
       <file name="utilities.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\utilities.js">
-        <metrics statements="32" coveredstatements="19" conditionals="10" coveredconditionals="2" methods="10" coveredmethods="4"/>
+        <metrics statements="32" coveredstatements="11" conditionals="10" coveredconditionals="0" methods="10" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="2" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="13" count="2" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
