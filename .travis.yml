@@ -11,7 +11,7 @@ script:
   - cd tests/
   - pwd
   - ls 
-  - pytest --cov=../ testTask.py
+  - pytest testTask.py
   - pytest testTimer.py
   - pytest testTaskLists.py
   - pytest testUtilities.py
@@ -22,4 +22,13 @@ script:
   - pytest testBoundaryTasksToTimers.py
   - pytest TestBoundaryTimer.py
   - pytest testBoundaryTimerToUser.py
+
+language: node_js
+node_js:
+  - "12.13"
+install:
+  - cd frontend/
+  - npm install package.json
+script:
+  - npm run test -- --coverage --watchAll=false
 
