@@ -15,13 +15,14 @@ matrix:
       install:
         - cd backend/
         - pip install -r requirements.txt
+        - pip install pytest-cov
       script:
         - pwd
         - ls
         - cd tests/
         - pwd
         - ls 
-        - pytest --cov=../backend testTask.py
+        - pytest --cov=tests testTask.py
         - pytest testTimer.py
         - pytest testTaskLists.py
         - pytest testUtilities.py
