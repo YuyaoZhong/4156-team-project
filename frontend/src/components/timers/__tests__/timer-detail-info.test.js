@@ -5,14 +5,18 @@ import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import renderer from 'react-test-renderer';
 import { DataContext} from '../../../context/data-context';
-import {TimerDetailAttr} from '../../timers/timer-detail-info';
-import {TimerDetailInfo} from '../../timers/timer-detail-info';
+// import {TimerDetailAttr} from '../../timers/timer-detail-info';
+import { TaskListArea } from '../../taskList/task-list';
+import TimerDetailInfo from '../../timers/timer-detail-info';
 import {mockRelatedTasksForTimer} from '../../../utilities/mockData';
 import {mockEditTimer} from '../../../utilities/mockData';
 
 
 configure({ adapter: new Adapter() });
 
+jest.mock('../../taskList/task-list', ()=>({
+TaskListArea: ()=>(<div>Task List Area</div>)
+}));
 // describe("test <TimerDetailAttr/>", () => {
 //     // mockTimerDetail;
 //     let wrapper;
@@ -45,7 +49,7 @@ describe("test <TimerDetailInfo/>", () => {
         id: -4,
         isCreator: false,
         round: 1,
-        startTime: "2023-12-03T20:50:00.000Z",
+        startTime: new Date(),
         timerToUserId: "0",
         title: "test shared timer",
         userId: "-1",
@@ -56,9 +60,17 @@ describe("test <TimerDetailInfo/>", () => {
     it("test normal ", async () => {
 
         wrapper = mount(
-            <TimerDetailInfo timer = {mockTimer} relatedTasklists = {relatedTasks}
-            attrNameSize = {"huge"} contentSize = {"large"} hideTasks = {false} color = {"red"}/>);
-        expect(wrapper.find({name: "Related Tasks"}).length).toEqual(1);
+            <TimerDetailInfo 
+                timer = {mockTimer} 
+                relatedTasklists = {relatedTasks}
+                attrNameSize='medium' 
+                contentSize='medium' 
+                hideTasks = {false} 
+                color = 'red'/>
+         );
+       
+       
+            expect(wrapper.find({name: "Related Tasks"}).length).toEqual(1);
     });
 
 

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,40 +123,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,40 +182,40 @@ import TimerDetailInfo  from '../timers/timer-detail-info';
 import Timeline from './time-line';
 import './timer-board-style.css';
 &nbsp;
-const colors = <span class="cstat-no" title="statement not covered" >['red', 'orange', 'yellow',</span>
+const colors = ['red', 'orange', 'yellow',
 'olive', 'green', 'teal', 'blue', 'violet',
 'purple', 'pink', 'brown', 
 ]
 &nbsp;
-const directions = <span class="cstat-no" title="statement not covered" >['left', 'right']</span>
+const directions = ['left', 'right']
 &nbsp;
-const TimelineBoard = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-    const { incomingTimers } = <span class="cstat-no" title="statement not covered" >useDataContext();</span>
-    const MAX_DISPLAY_CNT = <span class="cstat-no" title="statement not covered" >5;</span>
-    const getDisplayTimers = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>ncomingTimers) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if( incomingTimers &amp;&amp; incomingTimers.length &gt; MAX_DISPLAY_CNT){</span>
-<span class="cstat-no" title="statement not covered" >       return incomingTimers.slice(0, MAX_DISPLAY_CNT)</span>
+const TimelineBoard = () =&gt; {
+    const { incomingTimers } = useDataContext();
+    const MAX_DISPLAY_CNT = 5;
+    const getDisplayTimers = (incomingTimers) =&gt; {
+      if( incomingTimers &amp;&amp; incomingTimers.length &gt; MAX_DISPLAY_CNT){
+       return incomingTimers.slice(0, MAX_DISPLAY_CNT)
      }
-<span class="cstat-no" title="statement not covered" >       return incomingTimers.slice(0)</span>
+       return incomingTimers.slice(0)
     }
     // const displayTimerList =getDisplayTimers(incomingTimers)
-    const [displayTimerList, setDisplayTimers] = <span class="cstat-no" title="statement not covered" >React.useState(getDisplayTimers(incomingTimers));</span>
+    const [displayTimerList, setDisplayTimers] = React.useState(getDisplayTimers(incomingTimers));
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    React.useEffect(<span class="fstat-no" title="function not covered" >()</span>=&gt;{</span>
-<span class="cstat-no" title="statement not covered" >      setDisplayTimers(getDisplayTimers(incomingTimers));</span>
+    React.useEffect(()=&gt;{
+      setDisplayTimers(getDisplayTimers(incomingTimers));
     }, [incomingTimers])
 &nbsp;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return (&lt;Container className='Timeline-container'&gt;</span>
+    return (&lt;Container className='Timeline-container'&gt;
             &lt;div className='Timeline-title'&gt;
                     &lt;Label size ='massive' color = 'grey' pointing= 'below'&gt;Incoming Timers &lt;/Label&gt;
             &lt;/div&gt;
        {
-            displayTimerList.map(<span class="fstat-no" title="function not covered" >(t</span>imer, i) =&gt; {
+            displayTimerList.map((timer, i) =&gt; {
                 // attrNameSize, contentSize, hideTasks
-                const color = <span class="cstat-no" title="statement not covered" >colors[i % colors.length];</span>
-                const detail = <span class="cstat-no" title="statement not covered" >&lt;TimerDetailInfo attrNameSize='medium' contentSize='medium' timer = {timer} color = {color} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >                return(&lt;Timeline</span>
+                const color = colors[i % colors.length];
+                const detail = &lt;TimerDetailInfo attrNameSize='medium' contentSize='medium' timer = {timer} color = {color} /&gt;
+                return(&lt;Timeline
                   key = {i}
                   icon = "clock"
                   direction = {directions[i % directions.length]}
@@ -241,11 +241,7 @@ export default TimelineBoard;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-<<<<<<< HEAD
-                at Sat Dec 05 2020 18:20:24 GMT-0800 (GMT-08:00)
-=======
-                at Sat Dec 05 2020 21:27:14 GMT-0500 (GMT-05:00)
->>>>>>> 886feefab4a40921a872f6cb470eade73131609e
+                at Sat Dec 05 2020 18:31:18 GMT-0800 (GMT-08:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

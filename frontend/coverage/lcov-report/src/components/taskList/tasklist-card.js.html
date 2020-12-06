@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -127,22 +127,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,7 +167,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,7 +179,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,22 +191,22 @@ import { useDataContext } from '../../context/data-context';
 import TaskDiv from './task-div';
 import EditTaskDiv from './edit-task-div';
 &nbsp;
-const TasklistCard  = <span class="fstat-no" title="function not covered" >pr</span>ops =&gt; {
-    const {tasklist, hideEdit} = <span class="cstat-no" title="statement not covered" >props;</span>
+const TasklistCard  = props =&gt; {
+    const {tasklist, hideEdit} = props;
 &nbsp;
-    const [addTaskMode, setAddTaskMode] = <span class="cstat-no" title="statement not covered" >React.useState(false);</span>
+    const [addTaskMode, setAddTaskMode] = React.useState(false);
     const {
         handleDeleteTaskList,
-     } = <span class="cstat-no" title="statement not covered" >useDataContext();</span>
+     } = useDataContext();
 &nbsp;
-    const deleteTaskList = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt;{</span>
-        const deletedTaskList = <span class="cstat-no" title="statement not covered" >Object.assign({}, tasklist);</span>
-<span class="cstat-no" title="statement not covered" >        handleDeleteTaskList(deletedTaskList);</span>
+    const deleteTaskList = () =&gt;{
+        const deletedTaskList = Object.assign({}, tasklist);
+        handleDeleteTaskList(deletedTaskList);
     }
 &nbsp;
-    const handleAddTaskMode = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tatus) =&gt; <span class="cstat-no" title="statement not covered" >setAddTaskMode(status);</span></span>
-    const closeAddTaskMode = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setAddTaskMode(false);</span></span>
-<span class="cstat-no" title="statement not covered" >    return(&lt;Card&gt;</span>
+    const handleAddTaskMode = (status) =&gt; setAddTaskMode(status);
+    const closeAddTaskMode = () =&gt; setAddTaskMode(false);
+    return(&lt;Card&gt;
         &lt;Card.Content extra style={{alignItems:"center"}}&gt;
             &lt;Card.Header&gt;
             {tasklist.name}
@@ -230,8 +230,8 @@ const TasklistCard  = <span class="fstat-no" title="function not covered" >pr</s
         &lt;Card.Content&gt;
         &lt;List divided relaxed&gt;
             {tasklist.tasks &amp;&amp; tasklist.tasks.length &gt; 0 ?
-              tasklist.tasks.map(<span class="fstat-no" title="function not covered" >(t</span>ask, i) =&gt; {
-<span class="cstat-no" title="statement not covered" >                  return(&lt;TaskDiv key = {i} task = {task} hideEdit={hideEdit}/&gt;)</span>
+              tasklist.tasks.map((task, i) =&gt; {
+                  return(&lt;TaskDiv key = {i} task = {task} hideEdit={hideEdit}/&gt;)
               })
             :""}
         &lt;/List&gt;
@@ -243,7 +243,7 @@ const TasklistCard  = <span class="fstat-no" title="function not covered" >pr</s
         {addTaskMode? &lt;EditTaskDiv
               taskListId = {tasklist.id}
               closeAddTaskMode = {closeAddTaskMode}
-            /&gt;: &lt;Button color='grey' fluid onClick={<span class="fstat-no" title="function not covered" >()</span>=&gt;<span class="cstat-no" title="statement not covered" >handleAddTaskMode(true)}</span>&gt;&lt;Icon name="plus"/&gt;&lt;/Button&gt;}
+            /&gt;: &lt;Button color='grey' fluid onClick={()=&gt;handleAddTaskMode(true)}&gt;&lt;Icon name="plus"/&gt;&lt;/Button&gt;}
         &lt;/Card.Content&gt;
       }
     &lt;/Card&gt;)
@@ -256,11 +256,7 @@ export default TasklistCard;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-<<<<<<< HEAD
-                at Sat Dec 05 2020 18:20:24 GMT-0800 (GMT-08:00)
-=======
-                at Sat Dec 05 2020 21:27:14 GMT-0500 (GMT-05:00)
->>>>>>> 886feefab4a40921a872f6cb470eade73131609e
+                at Sat Dec 05 2020 18:31:18 GMT-0800 (GMT-08:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
