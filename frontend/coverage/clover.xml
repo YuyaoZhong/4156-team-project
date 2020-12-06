@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607248418009" clover="3.2.0">
-  <project timestamp="1607248418009" name="All files">
+<coverage generated="1607292420624" clover="3.2.0">
+  <project timestamp="1607292420624" name="All files">
     <metrics statements="589" coveredstatements="588" conditionals="390" coveredconditionals="379" methods="155" coveredmethods="146" elements="1134" coveredelements="1113" complexity="0" loc="589" ncloc="589" packages="9" files="31" classes="31"/>
     <package name="components.homepage">
       <metrics statements="5" coveredstatements="5" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
-      <file name="homepage.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\homepage\homepage.js">
+      <file name="homepage.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\homepage\homepage.js">
         <metrics statements="5" coveredstatements="5" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="3" type="stmt"/>
@@ -15,7 +15,7 @@
     </package>
     <package name="components.navbar">
       <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
-      <file name="navbar.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\navbar\navbar.js">
+      <file name="navbar.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\navbar\navbar.js">
         <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
@@ -30,7 +30,7 @@
     </package>
     <package name="components.taskList">
       <metrics statements="65" coveredstatements="65" conditionals="32" coveredconditionals="32" methods="23" coveredmethods="23"/>
-      <file name="edit-task-div.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\taskList\edit-task-div.js">
+      <file name="edit-task-div.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\taskList\edit-task-div.js">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="5" count="6" type="stmt"/>
         <line num="6" count="11" type="stmt"/>
@@ -44,7 +44,7 @@
         <line num="19" count="1" type="stmt"/>
         <line num="21" count="11" type="stmt"/>
       </file>
-      <file name="new-tasklist-card.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\taskList\new-tasklist-card.js">
+      <file name="new-tasklist-card.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\taskList\new-tasklist-card.js">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="6" count="6" type="stmt"/>
         <line num="7" count="11" type="stmt"/>
@@ -58,7 +58,7 @@
         <line num="20" count="1" type="stmt"/>
         <line num="22" count="11" type="stmt"/>
       </file>
-      <file name="task-div.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\taskList\task-div.js">
+      <file name="task-div.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\taskList\task-div.js">
         <metrics statements="15" coveredstatements="15" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="6" count="6" type="stmt"/>
         <line num="7" count="24" type="stmt"/>
@@ -76,7 +76,7 @@
         <line num="26" count="24" type="cond" truecount="2" falsecount="0"/>
         <line num="27" count="24" type="stmt"/>
       </file>
-      <file name="task-list.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\taskList\task-list.js">
+      <file name="task-list.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\taskList\task-list.js">
         <metrics statements="16" coveredstatements="16" conditionals="14" coveredconditionals="14" methods="8" coveredmethods="8"/>
         <line num="9" count="5" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
@@ -95,7 +95,7 @@
         <line num="41" count="2" type="stmt"/>
         <line num="53" count="29" type="stmt"/>
       </file>
-      <file name="tasklist-card.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\taskList\tasklist-card.js">
+      <file name="tasklist-card.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\taskList\tasklist-card.js">
         <metrics statements="12" coveredstatements="12" conditionals="10" coveredconditionals="10" methods="6" coveredmethods="6"/>
         <line num="7" count="5" type="stmt"/>
         <line num="8" count="40" type="stmt"/>
@@ -113,7 +113,7 @@
     </package>
     <package name="components.timerpage">
       <metrics statements="163" coveredstatements="163" conditionals="111" coveredconditionals="104" methods="49" coveredmethods="48"/>
-      <file name="attach-list.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timerpage\attach-list.js">
+      <file name="attach-list.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\attach-list.js">
         <metrics statements="6" coveredstatements="6" conditionals="7" coveredconditionals="7" methods="4" coveredmethods="4"/>
         <line num="7" count="4" type="stmt"/>
         <line num="9" count="62" type="stmt"/>
@@ -122,7 +122,7 @@
         <line num="15" count="2" type="stmt"/>
         <line num="20" count="8" type="stmt"/>
       </file>
-      <file name="display-attached-tasks.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timerpage\display-attached-tasks.js">
+      <file name="display-attached-tasks.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\display-attached-tasks.js">
         <metrics statements="5" coveredstatements="5" conditionals="8" coveredconditionals="8" methods="3" coveredmethods="3"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="62" type="stmt"/>
@@ -130,7 +130,7 @@
         <line num="9" count="56" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
       </file>
-      <file name="time-line.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timerpage\time-line.js">
+      <file name="time-line.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\time-line.js">
         <metrics statements="10" coveredstatements="10" conditionals="14" coveredconditionals="14" methods="1" coveredmethods="1"/>
         <line num="6" count="2" type="stmt"/>
         <line num="10" count="22" type="stmt"/>
@@ -143,7 +143,7 @@
         <line num="36" count="22" type="cond" truecount="2" falsecount="0"/>
         <line num="38" count="22" type="stmt"/>
       </file>
-      <file name="timer-board.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timerpage\timer-board.js">
+      <file name="timer-board.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\timer-board.js">
         <metrics statements="16" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
         <line num="8" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
@@ -162,7 +162,7 @@
         <line num="40" count="20" type="stmt"/>
         <line num="41" count="20" type="stmt"/>
       </file>
-      <file name="timer-form.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timerpage\timer-form.js">
+      <file name="timer-form.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\timer-form.js">
         <metrics statements="90" coveredstatements="90" conditionals="64" coveredconditionals="57" methods="25" coveredmethods="25"/>
         <line num="15" count="177" type="stmt"/>
         <line num="16" count="15" type="cond" truecount="3" falsecount="0"/>
@@ -255,7 +255,7 @@
         <line num="257" count="2" type="stmt"/>
         <line num="258" count="2" type="stmt"/>
       </file>
-      <file name="timers-table.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timerpage\timers-table.js">
+      <file name="timers-table.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\timers-table.js">
         <metrics statements="36" coveredstatements="36" conditionals="14" coveredconditionals="14" methods="12" coveredmethods="11"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="49" type="stmt"/>
@@ -297,7 +297,7 @@
     </package>
     <package name="components.timers">
       <metrics statements="117" coveredstatements="117" conditionals="86" coveredconditionals="86" methods="34" coveredmethods="31"/>
-      <file name="display-timer-area.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\display-timer-area.js">
+      <file name="display-timer-area.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\display-timer-area.js">
         <metrics statements="14" coveredstatements="14" conditionals="12" coveredconditionals="12" methods="3" coveredmethods="3"/>
         <line num="13" count="2" type="stmt"/>
         <line num="16" count="16" type="stmt"/>
@@ -314,7 +314,7 @@
         <line num="40" count="2" type="stmt"/>
         <line num="46" count="16" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="display-timer.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\display-timer.js">
+      <file name="display-timer.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\display-timer.js">
         <metrics statements="12" coveredstatements="12" conditionals="8" coveredconditionals="8" methods="4" coveredmethods="4"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
@@ -329,7 +329,7 @@
         <line num="28" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="30" count="4" type="stmt"/>
       </file>
-      <file name="share-button.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\share-button.js">
+      <file name="share-button.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\share-button.js">
         <metrics statements="14" coveredstatements="14" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="6" type="stmt"/>
@@ -346,7 +346,7 @@
         <line num="21" count="1" type="stmt"/>
         <line num="25" count="6" type="stmt"/>
       </file>
-      <file name="timer-detail-info.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\timer-detail-info.js">
+      <file name="timer-detail-info.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\timer-detail-info.js">
         <metrics statements="6" coveredstatements="6" conditionals="29" coveredconditionals="29" methods="2" coveredmethods="2"/>
         <line num="6" count="4" type="stmt"/>
         <line num="7" count="57" type="stmt"/>
@@ -355,7 +355,7 @@
         <line num="15" count="26" type="stmt"/>
         <line num="17" count="26" type="stmt"/>
       </file>
-      <file name="timer-info.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\timer-info.js">
+      <file name="timer-info.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\timer-info.js">
         <metrics statements="31" coveredstatements="31" conditionals="17" coveredconditionals="17" methods="11" coveredmethods="9"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="8" type="stmt"/>
@@ -389,14 +389,14 @@
         <line num="68" count="8" type="stmt"/>
         <line num="78" count="19" type="cond" truecount="4" falsecount="0"/>
       </file>
-      <file name="timer-message.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\timer-message.js">
+      <file name="timer-message.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\timer-message.js">
         <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="14" type="stmt"/>
         <line num="6" count="14" type="stmt"/>
         <line num="7" count="14" type="stmt"/>
       </file>
-      <file name="timer-running.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\timers\timer-running.js">
+      <file name="timer-running.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timers\timer-running.js">
         <metrics statements="36" coveredstatements="36" conditionals="14" coveredconditionals="14" methods="10" coveredmethods="9"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -438,14 +438,14 @@
     </package>
     <package name="components.zoom">
       <metrics statements="19" coveredstatements="19" conditionals="10" coveredconditionals="10" methods="5" coveredmethods="5"/>
-      <file name="zoom-button.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\zoom\zoom-button.js">
+      <file name="zoom-button.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\zoom\zoom-button.js">
         <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
         <line num="8" count="2" type="cond" truecount="4" falsecount="0"/>
       </file>
-      <file name="zoom-page.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\components\zoom\zoom-page.js">
+      <file name="zoom-page.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\zoom\zoom-page.js">
         <metrics statements="15" coveredstatements="15" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
         <line num="7" count="1" type="stmt"/>
         <line num="11" count="6" type="stmt"/>
@@ -466,7 +466,7 @@
     </package>
     <package name="constants">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="constants.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\constants\constants.js">
+      <file name="constants.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\constants\constants.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="27" type="stmt"/>
         <line num="3" count="27" type="stmt"/>
@@ -476,14 +476,14 @@
     </package>
     <package name="routes">
       <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
-      <file name="PrivateRoute.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\routes\PrivateRoute.js">
+      <file name="PrivateRoute.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\routes\PrivateRoute.js">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
         <line num="11" count="2" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="PublicRoute.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\routes\PublicRoute.js">
+      <file name="PublicRoute.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\routes\PublicRoute.js">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="5" count="1" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
@@ -493,7 +493,7 @@
     </package>
     <package name="utilities">
       <metrics statements="199" coveredstatements="198" conditionals="133" coveredconditionals="129" methods="35" coveredmethods="30"/>
-      <file name="apiMethods.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\apiMethods.js">
+      <file name="apiMethods.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\apiMethods.js">
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="1" count="21" type="stmt"/>
         <line num="2" count="8" type="stmt"/>
@@ -502,7 +502,7 @@
         <line num="13" count="1" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
       </file>
-      <file name="mockData.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\mockData.js">
+      <file name="mockData.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\mockData.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="18" type="stmt"/>
         <line num="28" count="18" type="stmt"/>
@@ -515,7 +515,7 @@
         <line num="163" count="390" type="stmt"/>
         <line num="165" count="3" type="stmt"/>
       </file>
-      <file name="tasklist-utilities.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\tasklist-utilities.js">
+      <file name="tasklist-utilities.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\tasklist-utilities.js">
         <metrics statements="14" coveredstatements="14" conditionals="15" coveredconditionals="14" methods="4" coveredmethods="4"/>
         <line num="1" count="6" type="stmt"/>
         <line num="2" count="6" type="stmt"/>
@@ -532,7 +532,7 @@
         <line num="17" count="53" type="stmt"/>
         <line num="20" count="20" type="stmt"/>
       </file>
-      <file name="timer-form-utilities.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\timer-form-utilities.js">
+      <file name="timer-form-utilities.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\timer-form-utilities.js">
         <metrics statements="82" coveredstatements="82" conditionals="80" coveredconditionals="77" methods="10" coveredmethods="10"/>
         <line num="3" count="4" type="stmt"/>
         <line num="5" count="68" type="stmt"/>
@@ -617,7 +617,7 @@
         <line num="143" count="15" type="stmt"/>
         <line num="152" count="15" type="stmt"/>
       </file>
-      <file name="timer-utilities.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\timer-utilities.js">
+      <file name="timer-utilities.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\timer-utilities.js">
         <metrics statements="55" coveredstatements="55" conditionals="28" coveredconditionals="28" methods="6" coveredmethods="6"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="18" type="stmt"/>
@@ -675,7 +675,7 @@
         <line num="90" count="3" type="stmt"/>
         <line num="94" count="13" type="stmt"/>
       </file>
-      <file name="utilities.js" path="C:\asD\_2020 SDE\2020 Fall Columbia\Adv SE\4156-team-project\frontend\src\utilities\utilities.js">
+      <file name="utilities.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\utilities\utilities.js">
         <metrics statements="32" coveredstatements="32" conditionals="10" coveredconditionals="10" methods="10" coveredmethods="6"/>
         <line num="1" count="10" type="stmt"/>
         <line num="2" count="774" type="cond" truecount="2" falsecount="0"/>
