@@ -103,9 +103,9 @@ const TimerForm = (props) => {
         const value = formatValueToBeInBoundary(e.target.value);
       
         let newErrors = judgeInputError(attrName, value);
-        if(!newErrors[attrName] && originErrors[attrName]){
-            delete originErrors[attrName];
-        }
+        // if(!newErrors[attrName] && originErrors[attrName]){
+        //     delete originErrors[attrName];
+        // }
 
         newErrors = {...originErrors, ...newErrors}
         setErrors(newErrors);
@@ -117,37 +117,14 @@ const TimerForm = (props) => {
         const curTime = (attrName === 'time' && value !== undefined)? value: timerData.time;
         const originErrors = Object.assign({}, errors);
         let newErrors = judgeStartTimerError(attrName, curDate, curTime, originErrors);
-        if(!newErrors[attrName] && originErrors[attrName]){
-            delete originErrors[attrName];
-        }
+        // if(!newErrors[attrName] && originErrors[attrName]){
+        //     delete originErrors[attrName];
+        // }
         newErrors = {...originErrors, ...newErrors}
         setErrors(newErrors);
        
     }
 
- 
-    // const validateStartTime = (attrName) => {
-    //     const originErrors = Object.assign({}, errors);
-    //     let newErrors = judgeStartTimerError(attrName, timerData.date, timerData.time, originErrors);
-    //     if(!newErrors[attrName] && originErrors[attrName]){
-    //         delete originErrors[attrName];
-    //     }
-    //     newErrors = {...originErrors, ...newErrors}
-    //     setErrors(newErrors);
-       
-    // }
-
-    // const setErrorCallback = (errors) =>{
-    //     const newErrors = Object.assign({}, errors);
-    //     delete newErrors[name];
-    //     return newErrors;
-    // }
-
-    // const deleteError = (e) => setErrors(errors=>{
-    //     const newErrors = Object.assign({}, errors);
-    //     delete newErrors[e.target.name];
-    //     return newErrors;
-    // })
 
     const deleteStartTimeError = (name)=>{
         const newErrors = Object.assign({}, errors);
