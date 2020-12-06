@@ -67,7 +67,7 @@ describe("test <TimerForm/> edit ( including boundary )", ()=>{
         )
        
 
-        await act(async ()=>{wrapper= mount(elementwithProvider)}); // for use effect changes
+        await act(async ()=>{wrapper = mount(elementwithProvider)}); // for use effect changes
         originalTimer = getDefaultTimer();
     
     });

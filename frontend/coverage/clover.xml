@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1607232701032" clover="3.2.0">
-  <project timestamp="1607232701032" name="All files">
-    <metrics statements="796" coveredstatements="19" conditionals="467" coveredconditionals="0" methods="222" coveredmethods="0" elements="1485" coveredelements="19" complexity="0" loc="796" ncloc="796" packages="12" files="35" classes="35"/>
+<coverage generated="1607232988127" clover="3.2.0">
+  <project timestamp="1607232988127" name="All files">
+    <metrics statements="791" coveredstatements="19" conditionals="460" coveredconditionals="0" methods="220" coveredmethods="0" elements="1471" coveredelements="19" complexity="0" loc="791" ncloc="791" packages="11" files="34" classes="34"/>
     <package name="src">
       <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
       <file name="App.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\App.js">
@@ -23,17 +23,6 @@
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="src.components">
-      <metrics statements="5" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="homepage.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\homepage.js">
-        <metrics statements="5" coveredstatements="0" conditionals="10" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.components.navbar">
@@ -161,21 +150,21 @@
       </file>
     </package>
     <package name="src.components.timerpage">
-      <metrics statements="163" coveredstatements="0" conditionals="108" coveredconditionals="0" methods="49" coveredmethods="0"/>
+      <metrics statements="163" coveredstatements="0" conditionals="111" coveredconditionals="0" methods="49" coveredmethods="0"/>
       <file name="attach-list.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\attach-list.js">
-        <metrics statements="6" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <metrics statements="6" coveredstatements="0" conditionals="7" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="7" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
       </file>
       <file name="display-attached-tasks.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\display-attached-tasks.js">
-        <metrics statements="5" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <metrics statements="5" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="4" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <line num="6" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="9" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
       </file>
@@ -212,7 +201,7 @@
         <line num="41" count="0" type="stmt"/>
       </file>
       <file name="timer-form.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\components\timerpage\timer-form.js">
-        <metrics statements="90" coveredstatements="0" conditionals="68" coveredconditionals="0" methods="25" coveredmethods="0"/>
+        <metrics statements="90" coveredstatements="0" conditionals="64" coveredconditionals="0" methods="25" coveredmethods="0"/>
         <line num="15" count="0" type="stmt"/>
         <line num="16" count="0" type="cond" truecount="0" falsecount="3"/>
         <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -707,9 +696,9 @@
       <file name="PrivateRoute.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\routes\PrivateRoute.js">
         <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="5" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="12" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
       <file name="PublicRoute.js" path="F:\4156 team\4156-team-tests\4156-team-project\frontend\src\routes\PublicRoute.js">
         <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>

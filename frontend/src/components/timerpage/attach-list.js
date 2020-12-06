@@ -9,10 +9,11 @@ const AttachList = props => {
     const {data, renderAttr, buttonName, selectHandler} = props;
     const [show, setShow] = React.useState(false);
 
+    // console.log('in attach list', data);
 
     return (<Container fluid style = {{position: "relative", marginBottom: "20px"}}>
         <Button onClick={()=>{setShow(!show)}}>{buttonName}</Button>
-        {show ? <Card style = {{padding: "10px", position: "absolute", left: "0", zIndex: 1000}}>
+        {show && data && data.length > 0? <Card style = {{padding: "10px", position: "absolute", left: "0", zIndex: 1000}}>
                     <List divided>
                         {
                             data.map((item, i)=>{

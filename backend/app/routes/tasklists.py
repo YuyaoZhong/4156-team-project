@@ -81,9 +81,7 @@ def putTaskList(taskListId):
         result["message"] = msg
         return jsonify(result)
 
-    if not data:
-        code, msg = 400, apiStatus.getResponseMsg(400)
-    elif not judgeKeysCorrect(data, postAttrs):
+    if not judgeKeysCorrect(data, postAttrs):
         code, msg = 400, apiStatus.getResponseMsg(400)
     else:
         targetTaskList = TaskList.query.get(taskListId)
