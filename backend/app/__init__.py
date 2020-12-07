@@ -46,6 +46,6 @@ def createMysqlOrm(app):
     with app.app_context():
         db.init_app(app)
         app.register_blueprint(routes)
-app = createApp(DevConfig)
+application = app = createApp(DevConfig)
 # createMysqlOrm(app)
 db.app = app
