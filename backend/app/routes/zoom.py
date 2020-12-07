@@ -10,6 +10,7 @@ import os
 from base64 import b64encode
 
 ZOOM_CREDENTIALS = os.environ.get("ZOOM_APP_CREDENTIALS")
+ENV = os.environ.get("FLASK_ENV", "development")
 
 @routes.route("/zoom", methods=["PUT"])
 def zoomIntegration():
@@ -20,7 +21,7 @@ def zoomIntegration():
     params = {
         "grant_type": "authorization_code",
         "code": code,
-        "redirect_uri": "https://localhost:3000/zoom"
+        "redirect_uri": "https://localhost:3000/zoom" if ENV != "production" else "https://copomodoro.com/zoom"
     }
     headers = {
         "Authorization": "Basic" + " " + b64encode(ZOOM_CREDENTIALS.encode("utf-8")).decode("utf-8")
