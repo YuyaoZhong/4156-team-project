@@ -63,6 +63,7 @@ def zoomIntegration():
         timer = targetTimer.toDict()
         data["topic"] = timer["title"]
         data["start_time"] = timer["startTime"]
+        data["timezone"] = "UTC"
 
     r = requests.post("https://api.zoom.us/v2/users/me/meetings", headers=headers, data=json.dumps(data))
 
