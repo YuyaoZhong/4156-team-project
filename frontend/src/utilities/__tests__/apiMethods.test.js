@@ -32,27 +32,7 @@ describe("Api Methods Tests", function () {
 
     });
 
-    // const waitUntil=  (fnWait) => {
-    //     return new Promise((resolve, reject)=>{
-    //         let count = 0;
-    //         const check = () => {
-    //             if (++count > 20){
-    //                 reject(new TypeError('Timeout'));
-    //                 return;
-    //             }
-    //             if(fnWait()){
-    //                 resolve();
-    //             }
-    //             setTimeout(check, 10);
-    //         }
-    //         check();
-    //     });
-    // }
 
-    // const waitForFetch = async (fetchMock) =>{
-    //     await waitUntil(()=>fetchMock.called());
-    //     await fetchMock.flush();
-    // }
     it("Upsert Data test",  async ()=> {
         let route = `${SERVER_URL}/tasklists/`
         let body = {
