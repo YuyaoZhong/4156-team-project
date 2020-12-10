@@ -32,13 +32,18 @@ const getTimerState = (timer) => {
 }
 
 const TimerLabel = props => {
-    const {timerStatus, timer, children} = props;
+    const {timerStatus, timer, children, days} = props;
     if(!timerStatus.isStart && timerStatus.curRound === 0){
         return (<Container>
             <Header textAlign='center'>
-                <Label color='teal' pointing= 'below' size ='huge'>
+                <Label color='teal' size ='huge'>
                 Incoming 
                 </Label>
+                {days && days > 0 ? 
+
+                <Label as='span' size = 'huge'> {days} Days</Label>
+               
+            :""}
             </Header>
             {children}
         </Container>)
@@ -52,7 +57,14 @@ const TimerLabel = props => {
                         Break
                     </Label>
                     {children}
-                        <Header textAlign='center'>
+
+                    <Header textAlign='center'>
+                    {
+                        days && days > 0 ? (<>
+                        <Label as='span' color='black'  size = 'massive'> {days} Days</Label></>):""
+                    }
+                    </Header>
+                    <Header textAlign='center'>
                     Session Left 
                     <Label as='span' circular color = 'yellow' size = 'huge'>{Math.max(timer.round - timerStatus.curRound, 0)}</Label>
                     </Header>
@@ -65,8 +77,17 @@ const TimerLabel = props => {
             
                 <Label as='span' size = 'huge'>Session</Label>
                 <Label as='span' color = 'blue' size = 'huge'>{timerStatus.curRound}</Label>
+               
                 {children}
+
                 <Header textAlign='center'>
+                {
+                    days && days > 0 ? (<>
+                    <Label as='span' color='black'  size = 'massive'> {days} Days</Label></>):""
+                }
+                </Header>
+                <Header textAlign='center'>
+               
                 Session Left
                 <Label as='span' circular color = 'teal' size = 'huge'>{Math.max(timer.round - timerStatus.curRound, 0)}</Label>
                 </Header>
@@ -105,16 +126,19 @@ const RunningTimer = () => {
        }
     }, [timeLeft])
 
+    const secondToDays = 60 * 60 * 24;
+    const days =  Math.floor(timeLeft / secondToDays);
     return (
       <Container large>
-          <Header as = "h1" textAlign='center'>
+          <Header as = "h1" textAlign='center' style ={{fontSize: "28px"}}>
               {timerRun.title}
-              
+        
           </Header>
-          <TimerLabel timer = {timerRun} timerStatus = {curTimerStatus}>
+          <TimerLabel timer = {timerRun} timerStatus = {curTimerStatus} days={days}>
+          
              <div className="times">
                 <div className="times-content">
-                    <span id="time-left">{formatTime(timeLeft)}</span>
+                    <span id="time-left">{formatTime(timeLeft - days * secondToDays)}</span>
                 </div>
                 </div>
         </TimerLabel>

@@ -24,7 +24,7 @@ const TasklistCard  = props => {
             <Card.Header>
             {tasklist.name}
             {
-                hideEdit?"": 
+                (hideEdit || tasklist.id ===0) ?"": 
                 <Button floated = 'right'  color ='grey'  animated>
                     <Button.Content  visible>Delete</Button.Content>
                     <Button.Content onClick = {deleteTaskList} hidden>

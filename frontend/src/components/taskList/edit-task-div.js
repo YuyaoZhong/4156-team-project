@@ -34,7 +34,7 @@ const EditTaskDiv = props => {
     }
      return loading? (<div>Creating...</div>):( <Form size = 'large'>
                    <Form.Field
-                        name = 'task name' label = 'name' control = 'input' type = 'text'
+                        name = 'task name' label = 'Task Name' control = 'input' type = 'text'
                         value = {taskName}
                         // defaultValue = {taskName}
                         maxLength =  {MAX_TITTLE_LENGTH }

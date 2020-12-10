@@ -49,7 +49,7 @@ const TimelineBoard = () => {
                   description = {detail}
                   linkRoute = {`/timer/${timer.id}`}
                   tags = {[]}
-                  lineHeight = {2}
+                  lineHeight = {3}
                 />
                 )
             })

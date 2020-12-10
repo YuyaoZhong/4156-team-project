@@ -36,6 +36,8 @@ const errorMessages =(type, attrName) => {
             return `${attrName} format error`;
         case 'numeric error':
             return `${attrName} must be number value`;
+        case 'too large number':
+            return `Please choose a smaller value for ${attrName}`;
         default:
             return 'Error!';
     }
@@ -78,6 +80,8 @@ const judgeInputError = (attrName, value) => {
         }
         else if(tryParseInt <= 0){
             newErrors[attrName] = errorMessages('non-positive number', attrName);
+        } else if (tryParseInt > 65535){
+            newErrors[attrName] = errorMessages('too large number', attrName);
         }
     }
     return newErrors;
