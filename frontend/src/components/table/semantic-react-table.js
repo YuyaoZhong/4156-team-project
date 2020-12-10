@@ -48,7 +48,7 @@ const ReactSemanticTable = ({columns,  data, selectedRows, onSelectedRowsChange}
             defaultColumn,
             initialState: { 
               hiddenColumns: hiddenColumns,
-              selectedRowIds: selectedRows, 
+              selectedRowIds: [], 
               pageIndex: 0, 
               pageSize: 10 }
         },
@@ -63,7 +63,7 @@ const ReactSemanticTable = ({columns,  data, selectedRows, onSelectedRowsChange}
 
 
         useMountedLayoutEffect(() => {
-          // console.log("SELECTED ROWS CHANGED", selectedFlatRows);
+          // console.log("SELECTED ROWS CHANGED", selectedFlatRows, selectedRows);
           const selectedTimerIds = selectedFlatRows.map(d=>({
             timerId: d.values.id,
             isCreator: d.values.isCreator,

@@ -45,7 +45,7 @@ export const DataContextProvider = props => {
              //.then(r=>JSON.parse(r)));
             try {
                 await Promise.all(promises).then(res=>{
-                    console.log(res);
+                    // console.log(res);
                     const timers = res[0]["data"].sort(timerSort);
                     setIncomingTimers(getIncomingTimer(timers));
                     setTimerList(timers);
@@ -79,7 +79,7 @@ export const DataContextProvider = props => {
             
             // const incomingTimerList = timerList.filter(item=>getEndTime(item).getTime() - new Date().getTime() > 0).sort(timerSort);
             const firstTimer = Object.assign({}, incomingTimerList[0]);
-            console.log(firstTimer);
+            // console.log(firstTimer);
             const nextStartTime = new Date(firstTimer.startTime);
             const differTime = nextStartTime.getTime() - curTime.getTime(); // millseconds
       
@@ -237,7 +237,7 @@ export const DataContextProvider = props => {
                 if(res.code === 200){
                     relatedTasks = res.data;
                 }
-                console.log(res);
+                // console.log(res);
             })
         return relatedTasks;
     }
@@ -247,7 +247,7 @@ export const DataContextProvider = props => {
         const route = `${SERVER_URL}/tasks/${taskData.id}`;
         const method = 'DELETE';
         await upsertData(route, taskData, method).then(res=>{
-            console.log('in upsert task', res)
+            // console.log('in upsert task', res)
          if(res.code === 201){
              setTasks(state=>{
                  // todo: sort default by incomplete / compete

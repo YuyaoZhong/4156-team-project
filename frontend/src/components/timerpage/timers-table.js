@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import {  Container, Button, Label, Segment} from 'semantic-ui-react';
+import {  Container, Button, Icon, Modal, Header} from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 import ReactSemanticTable from '../table/semantic-react-table';
 import { formatDateAndTime } from '../../utilities/utilities';
 import TimerForm from './timer-form';
 import './timer-table.css';
+
 
 const dateFormatter = ({cell}) =>{
     const {value} = cell;
@@ -126,6 +127,86 @@ const timerTableColumns = [
     },
 ]
 
+
+const DeleteConfirmModal = props => {
+  // const [open, setOpen] = React.useState(false)
+  const {open, handleOpen, handleClose, handleDelete, num} = props;
+  const [deleting, setDeleting] = React.useState(false);
+
+  // React.useEffect(()=>{
+
+  //   let timeOut;
+  //   if(deleting){
+  //     timeOut = setTimeout(()=>{
+  //       setDeleting(false);
+  //       handleClose();
+      
+  //     }, 100);
+  //   }
+
+  //   return ()=>clearTimeout(timeOut);
+  // },[]);
+
+  return (
+    <Modal
+      basic
+      onClose={handleClose}
+      onOpen={handleOpen}
+      open={open}
+      size='small'
+      // trigger={<Button>Basic Modal</Button>}
+    >
+      <Header icon>
+        <Icon name='archive' />
+        Confirm To Delete Timers
+      </Header>
+     {
+       (!num || num === 0 && !deleting)?(<Modal.Content>
+         <p>
+           No timers to delete.
+         </p>
+       </Modal.Content>):(<>
+        
+        <Modal.Content>
+        <p>
+          {!deleting?
+            `Are you sure to delete selected ${num} timers ?`:"Successfully Deleted!"
+          }
+        </p>
+      </Modal.Content>
+     </>)
+     }
+
+      <Modal.Actions>
+        {
+          (deleting || !num || num === 0 )?(<>
+         
+        <Button color='green' inverted onClick={()=>{
+          setDeleting(false);
+          handleClose();
+        }}>
+          <Icon name='checkmark' /> OK
+        </Button>
+          </>):(<>
+        <Button basic color='red' inverted onClick={()=>{
+            setDeleting(false);
+            handleClose();
+        }}>
+          <Icon name='remove' /> No
+        </Button>
+        <Button color='green' inverted onClick={async () => {
+           await handleDelete();
+           handleClose();
+        }}>
+          <Icon name='checkmark' /> Yes
+        </Button>
+          </>)
+        }
+      </Modal.Actions>
+    </Modal>
+  )
+}
+
 const TimerTable = () => {
 
     const {
@@ -137,13 +218,23 @@ const TimerTable = () => {
     const closeEditMode = () => setEditMode(false);
     const [selectedRows, setSelectedRows] = React.useState([]);
     const [deleteMode, setDeleteMode] = React.useState(false);
-    
+    const [deleteOpen, setDeleteOpen] = React.useState(false);
+
     const handleDelete = async () => {
         const selectedTimerIds = [...selectedRows];
+        
         await  handleDeleteTimer(selectedTimerIds);
-        // console.log(selectedTimerId);
+        // console.log(selectedTimerId);   setSelectedRows([]);
+        setDeleteMode(false);
 
     }
+
+    const handleClose = () => {
+      setDeleteOpen(false);
+      setSelectedRows([]);
+    }
+    const handleOpen = () => setDeleteOpen(true);
+
     return (<Container>
       
         {editMode?<TimerForm
@@ -155,14 +246,21 @@ const TimerTable = () => {
           {
               !deleteMode?(
                   <Button color= 'grey' floated='right' onClick={()=>{
+                     setSelectedRows([]);
                       setDeleteMode(true);
-                      setSelectedRows([]);
+              
                   }}>Delete Mode</Button>
-              ):  <Button color= 'red' floated='right' onClick={async ()=>{
-                  await handleDelete();
-                  setDeleteMode(false);
-                  setSelectedRows([]);
-              }}>Delete Timers</Button>
+              ):  (<>
+                
+                  <Button color= 'grey' floated='right' onClick={()=>{
+                      setSelectedRows([]);
+                      setDeleteMode(false);
+                  }}>Cancel</Button>
+                  {
+                  !deleteOpen?( <Button color= 'red' floated='right' onClick={handleOpen}>Confirm</Button>):""
+                  }
+              </>
+              )
           }
         </div>
          <ReactSemanticTable
@@ -172,6 +270,14 @@ const TimerTable = () => {
              onSelectedRowsChange={setSelectedRows} 
             />
          </>}
+
+         <DeleteConfirmModal 
+          open={deleteOpen} 
+          handleClose={handleClose} 
+          handleOpen={handleOpen} 
+          handleDelete = {handleDelete}
+          num = {selectedRows.length}
+          />
     </Container>
 )
 }

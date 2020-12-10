@@ -46,7 +46,7 @@ const HomepageHeading = ({ mobile }) => (
     />
     <Header
       as='h2'
-      content='Efficiency, Collobartion, Sharing'
+      content='Efficiency, Collaboration, Sharing'
       inverted
       style={{
         fontSize: mobile ? '1.5em' : '1.7em',
