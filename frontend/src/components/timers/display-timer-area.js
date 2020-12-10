@@ -7,6 +7,7 @@ import TimerForm from '../timerpage/timer-form';
 import ZoomButton from '../zoom/zoom-button';
 import ShareButton from './share-button';
 import { upsertData } from '../../utilities/apiMethods';
+import { getEndTime } from '../../utilities/utilities';
 import DisplayTimer from './display-timer';
 
 
@@ -45,22 +46,27 @@ const DisplayTimerArea = props => {
 
     return editMode?
     (  <TimerForm editTimer = {timer} editMode = {true} closeEditMode = {closeEditMode}/> ):
-      (<Container>
-        <Header as='h2' textAlign='center' icon>
+      (<Container style={{paddingBottom: "100px"}}>
+        {!hideTitle?
+            ( <Header as='h2' textAlign='center' icon>
             <Icon name='clock outline'/>
                 {timer.title}
-            </Header>
+            </Header>):""
+        }
         <DisplayTimer timer = {timer} editMode = {editMode}/>
-        {timer.isCreator?
-            (<Button floated='right' primary size = 'big' onClick = {openEditMode}>Edit</Button>)
+      
+        {timer.isCreator && !hideEdit?
+            (<Button floated='right' primary size = 'big' onClick = {openEditMode}><Icon name="edit"/>Edit</Button>)
             :""}
-            <Link to='/timers'><Button floated='right' color='grey' size = 'big'>All Timers</Button></Link>
+      
 
-            <ZoomButton link = {timer.zoomLink} timerId={timer.id}/>
+            <ZoomButton link = {timer.zoomLink} timerId={timer.id} valid ={new Date().getTime() <= getEndTime(timer).getTime()}/>
+              <Link to='/timers'><Button floated='right' color='grey' size = 'big'><Icon name="backward"/>All Timers</Button></Link>
             {timer.isCreator? (
                <ShareButton userId = {timer.userId} timerId = {timer.id}/>
             ):(!timer.added?
-                ( <Button floated='right' primary size = 'big' onClick = {handleAddTimer}>Add Timer To My List</Button>):"")
+                ( <Button floated='right' primary size = 'big' onClick = {handleAddTimer}> <Icon name="add"/>Add Timer To My List</Button>):
+                <Button floated='right' size = 'big' disabled> <Icon name="check"/>Added</Button>)
         }
    </Container>)
 };

@@ -56,7 +56,7 @@ const TasklistCard  = props => {
         {addTaskMode? <EditTaskDiv
               taskListId = {tasklist.id}
               closeAddTaskMode = {closeAddTaskMode}
-            />: <Button color='grey' fluid onClick={()=>handleAddTaskMode(true)}><Icon name="plus"/></Button>}
+            />: <Button  fluid size="tiny" onClick={()=>handleAddTaskMode(true)}><Icon name="plus"/></Button>}
         </Card.Content>
       }
     </Card>)

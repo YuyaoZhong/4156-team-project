@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { useDataContext } from '../../context/data-context';
-import { Container, Icon, Header, Label} from 'semantic-ui-react';
+import { Container, Icon, Header, Label, Segment, Button} from 'semantic-ui-react';
 import TimerDetailInfo  from '../timers/timer-detail-info';
 import Timeline from './time-line';
 import './timer-board-style.css';
@@ -29,7 +30,7 @@ const TimelineBoard = () => {
     }, [incomingTimers])
 
 
-    return (<Container className='Timeline-container'>
+    return displayTimerList && displayTimerList.length > 0 ? (<Container className='Timeline-container'>
             <div className='Timeline-title'>
                     <Label size ='massive' color = 'grey' pointing= 'below'>Incoming Timers </Label>
             </div>
@@ -53,6 +54,14 @@ const TimelineBoard = () => {
                 )
             })
         }
+    </Container>):(  <Container>
+      <Segment placeholder size='huge'>
+              <Header icon>
+                <Icon name='Clock' />
+                No Incoming Timer
+              </Header>
+             <Link to='/new_timer'> <Button primary>Create One</Button></Link>
+            </Segment>
     </Container>)
 }
 

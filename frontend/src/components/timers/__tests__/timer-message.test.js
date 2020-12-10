@@ -5,13 +5,13 @@ import { configure } from "enzyme";
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import renderer from 'react-test-renderer';
 import { DataContext} from '../../../context/data-context';
-import AddedTimerMessage from '../../timers/timer-message';
+import ResponseMessage from '../../timers/timer-message';
 
 
 
 configure({ adapter: new Adapter() });
 
-describe("test <AddedTimerMessage/>", () => {
+describe("test <ResponseMessage/>", () => {
     // mockTimerMessage;
     let wrapper;
     let handleClose;
@@ -37,7 +37,7 @@ describe("test <AddedTimerMessage/>", () => {
     it("test true ", async () => {
 
         wrapper = mount(
-        <AddedTimerMessage handleClose = {handleClose} messageStatus = {messageStatus1} />
+        <ResponseMessage handleClose = {handleClose} messageStatus = {messageStatus1} />
             );
         expect(wrapper.find({className: "ui positive message scale animating in visible transition"}).length).toEqual(1);
     });
@@ -45,7 +45,7 @@ describe("test <AddedTimerMessage/>", () => {
     it("test false ", async () => {
 
         wrapper = mount(
-            <AddedTimerMessage handleClose = {handleClose} messageStatus = {messageStatus2} />
+            <ResponseMessage handleClose = {handleClose} messageStatus = {messageStatus2} />
             );
         expect(wrapper.find({className: "ui negative message scale animating in visible transition"}).length).toEqual(1);
     });
@@ -53,7 +53,7 @@ describe("test <AddedTimerMessage/>", () => {
     it("test null ", async () => {
 
         wrapper = mount(
-            <AddedTimerMessage handleClose = {handleClose} messageStatus = {messageStatus3} />
+            <ResponseMessage handleClose = {handleClose} messageStatus = {messageStatus3} />
         );
         expect(wrapper.find({className: "ui negative message scale animating in visible transition"}).length).toEqual(0);
         expect(wrapper.find({className: "ui positive message scale animating in visible transition"}).length).toEqual(0);

@@ -6,6 +6,7 @@ import { DataContextProvider } from '../src/context/data-context';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import HomepageHeading from './components/homepage/homepage';
+import TimerForm from './components/timerpage/timer-form';
 import TimerTable from '../src/components/timerpage/timers-table';
 import AllTaskLists from '../src/components/taskList/task-list';
 import SingleTimer from '../src/components/timers/timer-info';
@@ -48,6 +49,10 @@ function App() {
               <PrivateRoute
                 path = "/running_timer"
                 component = {RunningTimerContainer}
+              />
+              <PrivateRoute
+                path = "/new_timer"
+                component = {TimerForm}
               />
               <Route
                 path = "/zoom"

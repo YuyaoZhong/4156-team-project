@@ -86,6 +86,7 @@ const timerTableColumns = [
         accessor: 'id',
         width: '45',
         maxWidth: '50',
+        show: false,
         // Cell: idFormat,
     },
     {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Icon } from 'semantic-ui-react';
+import { Container, Header, Icon, Dimmer, Loader} from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 import { SERVER_URL } from '../../constants/constants';
 import { useParams } from 'react-router-dom'
@@ -20,7 +20,7 @@ const NotFoundTimer = () => {
 const SingleTimer = props => {
     const {
         // timers
-        // getTimerById,
+        getTimerById,
         userId,
     } = useDataContext();
 
@@ -28,6 +28,7 @@ const SingleTimer = props => {
     const [displayTimer, setDisplayTimer] = React.useState({});
     const [popupStatus, setPopupstatus] = React.useState({open: false})
 
+    const [loading, setLoading] = React.useState(false);
     const handleMessageClose = () => setPopupstatus({open: false});
     const [editMode, setEditMode] = React.useState(false);
     const closeEditMode = ()=> setEditMode(false);
@@ -45,27 +46,43 @@ const SingleTimer = props => {
     }
     React.useEffect(()=>{
 
+        let loadingTimeout;
 
         async function fetchData(){
+            setLoading(true);
            const parseTimerid = getTimerId(timerid);
            const isSharingUrl = isNaN(parseInt(timerid, 10));
            if(parseTimerid < 0 || userId === "" || !userId){
                setDisplayTimer({});
-               return;
-           }
-           const queryTimerUrl = `${SERVER_URL}/timerToUser/?timerId=${parseTimerid}&userId=${userId}`;
+            //    return;
+           }else{
+            const timer = getTimerById(parseTimerid);
+            if (timer && Object.keys(timer).length !== 0){
+                setDisplayTimer(timer);
+                loadingTimeout = setTimeout(()=>setLoading(false), 200);
+                return;
+            }
+            const queryTimerUrl = `${SERVER_URL}/timerToUser/?timerId=${parseTimerid}&userId=${userId}`;
         
-           await fetch(queryTimerUrl).then(r=>r.json()).then(res=>{
-            //    console.log('fetch Timer', res);
-               if(res.code === 200 && res.data && (res.data.added || isSharingUrl)){
-                    setDisplayTimer(res.data);
-               } else{
-                   setDisplayTimer({});
-               }
-           })
+            await fetch(queryTimerUrl).then(r=>r.json()).then(res=>{
+             //    console.log('fetch Timer', res);
+                if(res.code === 200 && res.data && (res.data.added || isSharingUrl)){
+                     setDisplayTimer(res.data);
+                } else{
+                    setDisplayTimer({});
+                }
+            })
+           }
+        
+           if (!displayTimer || Object.keys(displayTimer).length === 0) {
+                loadingTimeout = setTimeout(()=>setLoading(false), 200)
+           } else {
+               setLoading(false);
+           }
         }
 
         fetchData();
+        return ()=>clearTimeout(loadingTimeout)
 
     }, [timerid, userId, editMode])
 
@@ -75,7 +92,10 @@ const SingleTimer = props => {
 
 
 
-    return !displayTimer || Object.keys(displayTimer).length === 0 ? (
+    return loading? (    <Dimmer active>
+        <Loader size='massive'>Loading</Loader>
+      </Dimmer>):
+    !displayTimer || Object.keys(displayTimer).length === 0 ? (
         <NotFoundTimer/>
     ):(
        <>

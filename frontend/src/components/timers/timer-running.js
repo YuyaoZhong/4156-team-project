@@ -1,14 +1,23 @@
 import React  from 'react';
-import { Container, Label, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Container, Label, Header, Icon, Segment, Button } from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 import DisplayTimer from './display-timer';
+import DisplayTimerArea from './display-timer-area';
 import { formatTime, getcurRound, inBreak, getTimeLeft} from '../../utilities/timer-utilities';
 import './timer-running.css';
 
 
-// todo: write no timer
+
 const NoTimer = () => {
-    return (<div>There is no timer, to create one</div>)
+    return (  <Container>
+        <Segment placeholder size='huge'>
+                <Header icon>
+                  <Icon name='Clock' />
+                  No Running Timer or Incoming Timer 
+                </Header>
+              </Segment>
+      </Container>)
 }
 
 const getTimerState = (timer) => {
@@ -109,7 +118,7 @@ const RunningTimer = () => {
                 </div>
                 </div>
         </TimerLabel>
-        <DisplayTimer timer = {timerRun} editMode = {false} />
+        <DisplayTimerArea hideEdit = {true} hideTitle={true} timer = {timerRun} editMode = {false} />
       </Container>
       )
 }

@@ -8,6 +8,7 @@ import { upsertData, deleteData} from '../../utilities/apiMethods';
 import { formatTask, isNumericAttr, errorMessages, checkTimeValid, judgeInputError, judgeStartTimerError, getDefaultTimer} from '../../utilities/timer-form-utilities';
 import { useGoogleAuth } from '../../context/google-login-context';
 import { SERVER_URL } from '../../constants/constants';
+import ResponseMessage from '../timers/timer-message';
 import AttachList from './attach-list';
 import AttachedTasks from './display-attached-tasks';
 
@@ -29,7 +30,8 @@ const TimerForm = (props) => {
 
 
     const [addedTasks, setAddTasks] = React.useState(formatTask(tasks, [], tasklists));
-
+    const [popupStatus, setPopupstatus] = React.useState({open: false, message:""})
+    const handleMessageClose = () => setPopupstatus({open: false, message:""});
     // may change to a format that does not need to fetch the data again (though it works now)
     React.useEffect(()=>{
        async function fetchData(){
@@ -175,8 +177,20 @@ const TimerForm = (props) => {
 
 
 
+
+    React.useEffect(()=>{
+        let openTimeout;
+        if(popupStatus.open){
+            openTimeout =  setTimeout(()=>setPopupstatus({open:false, message: ""}), 5000);
+        }
+        return ()=>clearTimeout(openTimeout)
+
+
+    }, [popupStatus])
+
+
     const handleSubmit = async () =>{
-        // todo: pop up message
+        // pop up message
    
         if(Object.keys(errors).length !== 0){
             return;
@@ -188,16 +202,25 @@ const TimerForm = (props) => {
         newTimerData.startTime = startTimeUtc;
         delete newTimerData.date;
         delete newTimerData.time;
-        const timerId = await handleCreateTimer(newTimerData, editMode);
+        const [timerId, success, message] = await handleCreateTimer(newTimerData, editMode);
+        // console.log(timerId, success, message)
         if (timerId) {
             await handleAddTasks(timerId);
             if(!editMode){
-                 setRedirect(`/timer/${timerId}`);}
-            } 
-            closeEditMode();
+                 setRedirect(`/timer/${timerId}`);
+            }if(success && editMode && closeEditMode){
+                closeEditMode();
+            }
+           
+        }
+        if(!success){
+            setPopupstatus({open: true, success: false, message:message});
+        }
+            
     };
 
-    return redirect && redirect.length > 0 ? <Redirect push to = {redirect} />:(<Container>
+    return redirect && redirect.length > 0 ? <Redirect push to = {redirect} />:( <>
+    <Container style ={{paddingBottom: "100px"}}>
         <Header as='h2' textAlign='center' icon>
              <Icon name='clock outline'/>
              {editMode? "Edit The Pomodoro" : "Create A New Pomodoro"}
@@ -309,10 +332,24 @@ const TimerForm = (props) => {
                 buttonName = 'Attach Tasks To Timer'
                 selectHandler = {toggleSelectTask}
             />
-             <Button secondary floated = 'right' type="button" size = 'large' onClick={props.closeEditMode}> Cancel </Button>    
-             <Button primary floated = 'right' type="button" size = 'large' onClick={handleSubmit}>Save </Button>
+             <Button secondary floated = 'right' type="button" size = 'large' onClick={()=>{
+                 if(props.closeEditMode){
+                    props.closeEditMode();
+                 }
+                 setRedirect('/dashboard');
+             } }> Cancel </Button>    
+             <Button primary disabled = {Object.keys(errors).length !== 0} floated = 'right' type="button" size = 'large' onClick={handleSubmit}>Save </Button>
          </Form>
-     </Container>)
+     </Container>
+    <ResponseMessage 
+        handleClose = {handleMessageClose} 
+        messageStatus = {popupStatus}
+        message = {popupStatus.message}
+        style  = {{ left: '42%', position: 'fixed', top: '25%', minHeight: '100px', minWidth: '250px',zIndex: 1000 }}
+    
+    />
+    </>
+    )
 
 } 
 

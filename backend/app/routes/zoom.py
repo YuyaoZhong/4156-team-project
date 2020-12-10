@@ -60,7 +60,11 @@ def zoomIntegration():
         return jsonify(result)
 
     else:
-        timer = targetTimer.toDict()
+        timer = targetTimer.toDict({
+                    "added":  True,
+                    "isCreator": True,
+                    "timerToUserId": targetTimer.userId
+                })
         data["topic"] = timer["title"]
         data["start_time"] = timer["startTime"]
         data["timezone"] = "UTC"

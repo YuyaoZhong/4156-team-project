@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Popup} from 'semantic-ui-react';
+import { Button, Popup, Icon} from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { getSharingUrl } from '../../utilities/timer-utilities';
 
@@ -24,7 +24,7 @@ const ShareButton = props => {
 
    return( <div>
             <CopyToClipboard text={sharingUrl}>
-                <Button  onClick={toggleButton} floated='right' color='grey' size = 'big'> Sharing Timer </Button>
+                <Button  onClick={toggleButton} floated='right' color='grey' size = 'big'> <Icon name="share alternate"/> Share </Button>
             </CopyToClipboard>
             <div ref={buttonRef} style = {{minHeight: "50px"}}>
                 <Popup

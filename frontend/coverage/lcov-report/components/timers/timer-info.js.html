@@ -248,7 +248,7 @@ import { Container, Header, Icon } from 'semantic-ui-react';
 import { useDataContext } from '../../context/data-context';
 import { SERVER_URL } from '../../constants/constants';
 import { useParams } from 'react-router-dom'
-import AddedTimerMessage from './timer-message';
+import ResponseMessage from './timer-message';
 import {  getTimerId} from '../../utilities/timer-utilities';
 import DisplayTimerArea from './display-timer-area';
 &nbsp;
@@ -330,7 +330,7 @@ const SingleTimer = props =&gt; {
             openEditMode = {openEditMode}
             timer = {displayTimer}
             changeAddedStatus= {changeAddedStatus} /&gt;
-        &lt;AddedTimerMessage handleClose = {handleMessageClose} messageStatus = {popupStatus} /&gt;
+        &lt;ResponseMessage handleClose = {handleMessageClose} messageStatus = {popupStatus} /&gt;
        &lt;/&gt;
     )
 };

@@ -9,6 +9,5 @@ def index():
 
 if __name__ == '__main__':
 
-    app.run(debug=True, ssl_context=('server.crt', 'server.key'), port=8000)
-
-    # app.run(port = 8000, debug = False)
+    # app.run(debug=False, ssl_context=('server.crt', 'server.key'), port=8000)
+    app.run(port = 8000, debug = False)

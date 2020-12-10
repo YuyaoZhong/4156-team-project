@@ -125,11 +125,13 @@ def createTimers():
                 eTime = sTime + newDuration
                 if parser.parse(oldTimer.startTime) <= sTime < endTime or parser.parse(oldTimer.startTime) < eTime <= endTime:
                     code, msg = 403, apiStatus.getResponseMsg(403)
+                    result["data"] = data
                     result["code"] = code
                     result["message"] = msg
                     return jsonify(result)
                 if sTime < parser.parse(oldTimer.startTime) and eTime > endTime:
                     code, msg = 403, apiStatus.getResponseMsg(403)
+                    result["data"] = data
                     result["code"] = code
                     result["message"] = msg
                     return jsonify(result)

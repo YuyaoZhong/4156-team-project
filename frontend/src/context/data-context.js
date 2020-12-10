@@ -2,6 +2,7 @@ import React from 'react'
 import { SERVER_URL } from '../constants/constants';
 import { useGoogleAuth } from './google-login-context';
 import { upsertData, deleteData } from '../utilities/apiMethods';
+import { formatDateAndTime } from '../utilities/utilities';
 
 export const DataContext = React.createContext()
 
@@ -17,7 +18,6 @@ export const DataContextProvider = props => {
     const [tasks, setTasks] = React.useState([]);
     const [tasklists, setTasklists] = React.useState([]);
     const [timerRun, setTimerRun] = React.useState({});
-    // const [taskAndTimer, setTaskToTimer] = React.useState({});
     const [loading, setLoading] = React.useState(false);
     const [curTime, setCurTime] =  React.useState(new Date().getTime());
     const [incomingTimers, setIncomingTimers] = React.useState([]);
@@ -138,15 +138,27 @@ export const DataContextProvider = props => {
         let timerId = timerData.id;
         const route = edit? `${SERVER_URL}/timers/${timerData.id}` : `${SERVER_URL}/timers/`;
         const method = edit ? 'PUT' : 'POST';
+        let message;
+        let success = false;
         await upsertData(route, timerData, method).then(res=>{
-            console.log('timer update', res);
+            // console.log('timer update', res);
+            message = res.message;
+            success =  res.code === 201;
             if(res.code === 201 && res.data){
                 timerId = res.data.id;
                 updateTimerListState(timerData.id, res.data, edit);
             }
+            if(res.code === 403){
+                message = `Overlaps with existing timers.`
+                if(res.data){
+                    message += `\nPlease check timer "${res.data.title}"\n`;
+                    message += `\nStart Time: ${formatDateAndTime(new Date(res.data.startTime))}`;
+                    message += `\nEnd time: ${formatDateAndTime(getEndTime(res.data))}`;
+                }
+            }
         })
 
-        return timerId; // for redirect
+        return [timerId, success, message]; // for redirect
     }
 
 
@@ -192,10 +204,12 @@ export const DataContextProvider = props => {
         }
         const route = edit? `${SERVER_URL}/tasks/${taskData.id}`:`${SERVER_URL}/tasks`;
         const method = edit ? 'PUT' : 'POST';
+        
         await upsertData(route, taskData, method).then(res=>{
-            console.log('in upsert task', res)
+            // console.log('in upsert task', res)
+        
          if(res.code === 201 && res.data){
-             console.log(res)
+            //  console.log(res)
              setTasks(state=>{
                  const newState = [...state];
                  let idx = -1;
@@ -252,7 +266,7 @@ export const DataContextProvider = props => {
         const route = `${SERVER_URL}/tasklists/${taskListData.id}`;
         const method = 'DELETE';
         await upsertData(route, taskListData, method).then(res=>{
-            console.log('in upsert task', res)
+            // console.log('in upsert task', res)
          if(res.code === 201){
              setTasklists(state=>{
                  let idx = -1;

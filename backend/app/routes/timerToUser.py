@@ -55,6 +55,7 @@ def getTimerToUser():
                 timer = tuple(timer)
                 timerDict = timer[0].toDict({
                     "timerToUserId": timer[1],
+                    "added": True,
                     "isCreator": timer[2]
                 })
                 result["data"].append(timerDict)
