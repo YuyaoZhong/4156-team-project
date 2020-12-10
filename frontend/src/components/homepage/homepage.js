@@ -21,7 +21,9 @@ const GoogleButton = () => {
       Get Started!
     </Button>
    
-    :(<Button primary size='huge' onClick={signIn}>Sign In With Google Account</Button>)
+    :(<Button primary size='huge' onClick={signIn}>
+      <Icon name="google"/>
+      Sign In With Google Account</Button>)
    }
    
 
@@ -35,7 +37,7 @@ const HomepageHeading = ({ mobile }) => (
   <Container text>
     <Header
       as='h1'
-      content='Time Management'
+      content='Copomodoro '
       inverted
       style={{
         fontSize: mobile ? '2em' : '4em',
